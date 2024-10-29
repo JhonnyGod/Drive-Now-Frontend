@@ -1,5 +1,5 @@
 import React from 'react';
-import HolaMundo from './pages/Login/login';
+import HolaMundo from './pages/Login/login.jsx';
 
 function App() {
   return (

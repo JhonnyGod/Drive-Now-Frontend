@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './login.css';
+import profileImage from '../../Assets/Profile.jpg';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -6,90 +8,19 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica de inicio de sesión
     console.log('Iniciar sesión con:', email, password);
   };
 
-  const styles = {
-    container: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      backgroundColor: '#f0f2f5',
-      fontFamily: 'Arial, sans-serif',
-    },
-    form: {
-      backgroundColor: 'white',
-      padding: '2rem',
-      borderRadius: '8px',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      width: '100%',
-      maxWidth: '400px',
-    },
-    title: {
-      textAlign: 'center',
-      color: '#333',
-      marginBottom: '1.5rem',
-    },
-    inputGroup: {
-      marginBottom: '1rem',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '0.5rem',
-      color: '#555',
-    },
-    input: {
-      width: '100%',
-      padding: '0.75rem',
-      borderRadius: '4px',
-      border: '1px solid #ddd',
-      fontSize: '1rem',
-    },
-    button: {
-      width: '100%',
-      padding: '0.75rem',
-      backgroundColor: '#1877f2',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      fontSize: '1rem',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s',
-    },
-    buttonHover: {
-      backgroundColor: '#166fe5',
-    },
-    forgotPassword: {
-      textAlign: 'center',
-      marginTop: '1rem',
-    },
-    forgotPasswordLink: {
-      color: '#1877f2',
-      textDecoration: 'none',
-    },
-    register: {
-      textAlign: 'center',
-      marginTop: '1rem',
-      padding: '1rem',
-      backgroundColor: '#e7f3ff',
-      borderRadius: '4px',
-    },
-    registerLink: {
-      color: '#1877f2',
-      textDecoration: 'none',
-      fontWeight: 'bold',
-    },
-  };
-
   return (
-    <div style={styles.container}>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <h2 style={styles.title}>Iniciar Sesión</h2>
-        <div style={styles.inputGroup}>
-          <label htmlFor="email" style={styles.label}>
-            Correo electrónico
+    <div className="container">
+      <form onSubmit={handleSubmit} className="form">
+      <div className="profile-image-container">
+          <img src={profileImage} alt="Perfil" className="profile-image" />
+        </div>
+        <h2 className="title">Iniciar Sesión</h2>
+        <div className="input-group">
+          <label htmlFor="email" className="label">
+            Email
           </label>
           <input
             type="email"
@@ -97,12 +28,12 @@ export default function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={styles.input}
-            placeholder="tu@ejemplo.com"
+            className="input"
+            placeholder="Ingresa tu correo"
           />
         </div>
-        <div style={styles.inputGroup}>
-          <label htmlFor="password" style={styles.label}>
+        <div className="input-group">
+          <label htmlFor="password" className="label">
             Contraseña
           </label>
           <input
@@ -111,28 +42,24 @@ export default function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={styles.input}
-            placeholder="Tu contraseña"
+            className="input"
+            placeholder="Ingresa tu contraseña"
           />
         </div>
-        <button
-          type="submit"
-          style={styles.button}
-          onMouseOver={(e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor}
-          onMouseOut={(e) => e.target.style.backgroundColor = styles.button.backgroundColor}
-        >
-          Iniciar Sesión
+        <button type="submit" className="button">
+          Iniciar
         </button>
-        <div style={styles.forgotPassword}>
-          <a href="#" style={styles.forgotPasswordLink}>
-            ¿Olvidaste tu contraseña?
-          </a>
-        </div>
-        <div style={styles.register}>
-          ¿No tienes una cuenta?{' '}
-          <a href="#" style={styles.registerLink}>
-            Regístrate
-          </a>
+        <div className="link">
+          <div className="forgot-password">
+            <a href="#" className="forgot-password-link">
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+          <div className="register">
+            <a href="#" className="register-link">
+              ¿No tienes una cuenta?
+            </a>
+          </div>
         </div>
       </form>
     </div>
