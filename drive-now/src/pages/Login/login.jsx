@@ -1,20 +1,43 @@
 import React, { useState } from 'react';
 import './login.css';
 import profileImage from '../../Assets/Profile.jpg';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-export default function LoginForm() {
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Iniciar sesión con:', email, password);
+    try {
+      const loginRequest = await axios.post('http://localhost:3000/usuario/login', {
+        email: email,
+        password: password,
+      });
+
+      if (loginRequest.status === 200) {
+        console.log('Inicio de sesión exitoso');
+        console.log(loginRequest.data);
+        navigate('/home');
+      }
+      else {
+        console.log('Inicio de sesión fallido, verifica tus credenciales.');
+      }
+
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+
+    }
+
   };
 
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
-      <div className="profile-image-container">
+        <div className="profile-image-container">
           <img src={profileImage} alt="Perfil" className="profile-image" />
         </div>
         <h2 className="title">Iniciar Sesión</h2>
