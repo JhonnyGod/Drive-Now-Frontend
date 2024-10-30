@@ -3,10 +3,14 @@ import './login.css';
 import profileImage from '../../Assets/Profile.jpg';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../../components/alert.css';
+import { Alert } from '../../components/alert';
+import { CSSTransition } from 'react-transition-group';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
   const navigate = useNavigate();
 
 
@@ -25,10 +29,19 @@ export const Login = () => {
       }
       else {
         console.log('Inicio de sesión fallido, verifica tus credenciales.');
+        setAlertMessage('Inicio de sesión fallido, verifica tus credenciales.');
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 3000);
+
       }
 
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
+      setAlertMessage('Inicio de sesión fallido, verifica tus credenciales.'); // Mostrar alerta
+      setTimeout(() => {
+        setAlertMessage('');
+      }, 3000);
 
     }
 
@@ -37,14 +50,9 @@ export const Login = () => {
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
-        <div className="profile-image-container">
-          <img src={profileImage} alt="Perfil" className="profile-image" />
-        </div>
         <h2 className="title">Iniciar Sesión</h2>
         <div className="input-group">
-          <label htmlFor="email" className="label">
-            Email
-          </label>
+          <label htmlFor="email" className="label">Email</label>
           <input
             type="email"
             id="email"
@@ -56,9 +64,7 @@ export const Login = () => {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="password" className="label">
-            Contraseña
-          </label>
+          <label htmlFor="password" className="label">Contraseña</label>
           <input
             type="password"
             id="password"
@@ -69,22 +75,25 @@ export const Login = () => {
             placeholder="Ingresa tu contraseña"
           />
         </div>
-        <button type="submit" className="button">
-          Iniciar
-        </button>
-        <div className="link">
-          <div className="forgot-password">
-            <a href="#" className="forgot-password-link">
-              ¿Olvidaste tu contraseña?
-            </a>
+        <button type="submit" className="button">Iniciar</button>
+        
+
+        <CSSTransition
+          in={!!alertMessage}
+          timeout={5000}
+          classNames={{
+            enter: 'alert-enter',
+            enterActive: 'alert-enter-active',
+            exit: 'alert-exit',
+            exitActive: 'alert-exit-active',
+          }}
+          unmountOnExit
+        >
+          <div className="alert">
+            <p>{alertMessage}</p>
           </div>
-          <div className="register">
-            <a href="#" className="register-link">
-              ¿No tienes una cuenta?
-            </a>
-          </div>
-        </div>
+        </CSSTransition>
       </form>
     </div>
   );
-}
+};
