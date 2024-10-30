@@ -1,39 +1,54 @@
 /* Alert.css */
 .alert {
     padding: 10px;
-    background-color: #f44336; /* Color de fondo rojo */
-    color: white; /* Color del texto */
-    border-radius: 5px; /* Bordes redondeados */
-    display: flex; /* Para usar flexbox */
-    justify-content: center; /* Centramos el texto */
-    align-items: center; /* Alinear elementos al centro */
-    position: fixed; /* Fijar la alerta en la parte superior */
-    top: -60px; /* Comienza fuera de la pantalla */
-    left: 50%; /* Centrar horizontalmente */
-    transform: translateX(-50%); /* Ajustar el centrado */
-    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
-    opacity: 0; /* Comienza oculto */
-    transition: opacity 0.5s ease, top 0.5s ease; /* Transición para la opacidad y el desplazamiento */
-    width: auto; /* Asegúrate de que el ancho sea automático */
-    max-width: 90%; /* O establece un máximo para la anchura */
+    background-color: #f44336; 
+    color: white;
+    border-radius: 5px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    position: fixed; 
+    top: 20px;
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 1000; 
+    opacity: 0; 
+    transition: opacity 0.5s ease, top 0.5s ease;
+    width: auto; 
+    max-width: 90%;
 }
 
+
 .alert-enter {
-    top: -60px; /* Comienza fuera de la pantalla */
-    opacity: 0; /* Comienza oculto */
+    top: -60px; 
+    opacity: 0; 
 }
 
 .alert-enter-active {
-    top: 20px; /* Posición normal al final de la transición */
-    opacity: 1; /* Totalmente visible */
+    top: 20px; 
+    opacity: 1; 
 }
 
+
 .alert-exit {
-    top: 20px; /* Posición normal al inicio de la salida */
-    opacity: 1; /* Totalmente visible */
+    top: 20px; 
+    opacity: 1;
 }
 
 .alert-exit-active {
-    top: -60px; /* Desplazamiento hacia arriba al salir */
-    opacity: 0; /* Desaparece */
+    top: -60px;
+    opacity: 0; 
 }
+
+.alert-fall {
+    top: 20px; 
+    opacity: 1;
+    transition: opacity 0.5s ease, top 0.5s ease;
+}
+
+.alert-rise {
+    top: -60px; 
+    opacity: 0; 
+    transition: opacity 0.5s ease, top 0.5s ease;
+}
+

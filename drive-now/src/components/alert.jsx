@@ -7,4 +7,4 @@ export const Alert = ({ message }) => {
             <p>{message}</p>
         </div>
     );
-}
+};
