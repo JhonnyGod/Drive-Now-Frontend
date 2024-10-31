@@ -5,7 +5,10 @@
     min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #beeee6;
+    background-image: url("../../Assets/Fondoo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .Recover {
@@ -68,7 +71,7 @@
     /* Fixed height to match input */
     border: none;
     border-radius: 8px;
-    background: #5586ee;
+    background:  #194F67;
     color: #ffffff;
     font-size: 16px;
     font-weight: 600;
@@ -82,7 +85,7 @@
 }
 
 .sendbutton:hover {
-    background: #09e909;
+    background: #1C9FC7;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }

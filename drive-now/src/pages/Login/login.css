@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url("../../Assets/Background.png");
+    background-image: url("../../Assets/rasho.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -13,7 +13,7 @@
   
   .form {
     position: relative;
-    background-color: rgb(186, 207, 205, 0.8);
+    background-color: #9CD7E6;
     padding: 3rem;
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -77,7 +77,7 @@
     justify-content: center;
     width: 100%;
     padding: 0.75rem;
-    background-color: #2D4841;
+    background-color: #194F67;
     color: white;
     border: none;
     border-radius: 10px;
@@ -85,11 +85,11 @@
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s;  
   }
   
   .button:hover {
-    background-color: #2B2C28;
+    background-color: #1C9FC7;
   }
 
   .link{
@@ -106,13 +106,13 @@
   }
   
   .forgot-password-link {
-    color: #2F6359;
+    color: #022F40;
     text-decoration: none;
   }
 
   .forgot-password-link:hover {
     border-radius: 10px;
-    color: #1F211F;
+    color: #248BA8;
   }
   
   .register {
@@ -122,11 +122,11 @@
   }
   
   .register-link {
-    color: #2F6359;
+    color: #022F40;
     text-decoration: none;
   }
   .register-link:hover {
     border-radius: 10px;
-    color: #1F211F;
+    color: #9CD7E6;
   }
   
