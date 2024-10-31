@@ -45,10 +45,11 @@ export const Login = () => {
 
         setUser(userData); //*Guardo la información del usuario en el estado de React
 
-        localStorage.setItem('userData', JSON.stringify(userData)); //*Guardo la información del usuario en el LocalStorage
+        const { token, ...userDataWithoutToken } = userData;
+
+        localStorage.setItem('userData', JSON.stringify(userDataWithoutToken)); //* La guardo en el Almacenamiento del navegador
 
         navigate('/home'); //*Navegar a la página de inicio
-
       }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
