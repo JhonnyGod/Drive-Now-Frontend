@@ -1,88 +1,77 @@
-
-body, html {
-    height: 100%;            
-    margin: 0;                  
-    display: flex;           
-    align-items: center;        
-    justify-content: center;  
-    background-color: #f0f0f0;  
-}
-
-
 .Recover {
-    display: flex;                
-    flex-direction: column;     
-    align-items: center;         
-    justify-content: center;      
-    width: 90%;                 
-    max-width: 400px;            
-    padding: 20px;               
-    border-radius: 10px;        
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
-    background-color: #ffffff;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
 }
 
 
 .Recover h1 {
-    font-size: 24px;          
-    color: #333;                 
-    margin-bottom: 20px;        
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 
 .Recover form {
-    width: 100%;                 
+    width: 100%;
 }
 
 
 .Recover input[type="email"] {
-    width: 92.5%;                
-    padding: 10px;              
-    border: 1px solid #ccc;     
-    border-radius: 5px;         
-    font-size: 16px;            
-    margin-bottom: 10px;        
-    transition: border 0.3s;    
+    width: 92.5%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: border 0.3s;
 
 }
 
 
 .Recover input[type="email"]:focus {
-    border-color: #007bff;     
-    outline: none;              
+    border-color: #007bff;
+    outline: none;
 }
 
 
 .Recover button {
-    width: 100%;                 
-    padding: 10px;              
-    border: none;               
-    border-radius: 5px;         
-    background-color: #007bff;  
-    color: #ffffff;            
-    font-size: 16px;            
-    cursor: pointer;            
-    transition: background-color 0.3s; 
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 /* Hover effect for button */
 .Recover button:hover {
-    background-color: #0056b3;  
+    background-color: #0056b3;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .Recover {
-        width: 95%;              
-        padding: 15px;           
+        width: 95%;
+        padding: 15px;
     }
 
     .Recover h1 {
-        font-size: 20px;         
+        font-size: 20px;
     }
 
     .Recover input[type="email"],
     .Recover button {
-        font-size: 14px;         
+        font-size: 14px;
     }
 }
