@@ -57,6 +57,11 @@ export const Login = () => {
     }
   };
 
+  const handleForgotPasswordClick = (e) => {
+    e.preventDefault();
+    navigate('/recover');
+  }
+
   const showAlertWithAnimation = () => {
     setShowAlert(true);
     setAlertClass('alert-fall');
@@ -106,7 +111,7 @@ export const Login = () => {
         <button type="submit" className="button">Iniciar</button>
         <div className="link">
           <div className="forgot-password">
-            <a href="#" className="forgot-password-link">¿Olvidaste tu contraseña?</a>
+            <a href="#" className="forgot-password-link" onClick={handleForgotPasswordClick}>¿Olvidaste tu contraseña?</a>
           </div>
           <div className="register">
             <a href="#" className="register-link">¿No tienes una cuenta?</a>
