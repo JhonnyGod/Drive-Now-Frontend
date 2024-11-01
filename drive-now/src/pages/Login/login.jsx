@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
-import profileImage from '../../Assets/Profile.jpg';
+import profileImage from '../../Assets/profile.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../components/alert.css';
@@ -59,10 +59,15 @@ export const Login = () => {
   };
 
   const forgotPasswordRecover = async (e) => {
-
     e.preventDefault();
     navigate('/recover');
   }
+
+  const register = async (e) => {
+    e.preventDefault();
+    navigate('/register');
+  }
+  
   const showAlertWithAnimation = () => {
     setShowAlert(true);
     setAlertClass('alert-fall');
@@ -79,8 +84,12 @@ export const Login = () => {
   };
 
   return (
+    <>
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
+      <div className="forgot-password">
+            <a href="#" className="Return" > Regresar </a>
+          </div>
         <div className="profile-image-container">
           <img src={profileImage} alt="Perfil" className="profile-image" />
         </div>
@@ -96,6 +105,7 @@ export const Login = () => {
             className="input"
             placeholder="Ingresa tu correo"
           />
+          <i className="fas fa-envelope icon"></i>
         </div>
         <div className="input-group">
           <label htmlFor="password" className="label">Contraseña</label>
@@ -108,6 +118,7 @@ export const Login = () => {
             className="input"
             placeholder="Ingresa tu contraseña"
           />
+          <i className="fas fa-lock icon"></i>
         </div>
         <button type="submit" className="button">Iniciar</button>
         <div className="link">
@@ -115,7 +126,7 @@ export const Login = () => {
             <a href="#" className="forgot-password-link" onClick={forgotPasswordRecover}>¿Olvidaste tu contraseña?</a>
           </div>
           <div className="register">
-            <a href="#" className="register-link">¿No tienes una cuenta?</a>
+            <a href="#" className="register-link" onClick={register}>¿No tienes una cuenta?</a>
           </div>
         </div>
         {showAlert && (
@@ -125,5 +136,6 @@ export const Login = () => {
         )}
       </form>
     </div>
+    </>
   );
 };
