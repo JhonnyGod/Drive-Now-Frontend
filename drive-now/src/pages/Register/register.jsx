@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
 import './register.css';
-import image from '../../Assets/chofer.jpg';
+import image from '../../Assets/fondo.png';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptEmails, setAcceptEmails] = useState(false);
+  const navigate = useNavigate();
+  
+  const login_return = async (e) => {
+    e.preventDefault();
+    navigate('/');
+  }
+
  
 //TODO: Crear la lógica para el registro de usuario y ajustar el diseño de esta vista
   return (
+    <>
     <div className="registro-container">
       <div className="imagen-lateral">
         <img src= {image} alt="Persona en coche" />
@@ -13,28 +24,40 @@ const Register = () => {
       <div className="formulario-registro">
         <h2>Registro de usuario</h2>
         <form>
-          <div className="campo-doble">
-            <input type="text" placeholder="Ingrese su nombre" />
-            <input type="text" placeholder="Ingrese su apellido" />
+          <input className= "username" type="text" placeholder="Ingrese su nombre de usuario" />
+          <div className="name">
+            <input className= "Nombre" type="text" placeholder="Ingrese su nombre" />
+            <input className= "Apellido" type="text" placeholder="Ingrese su apellido" />
           </div>
           <input className= "email_register"type="email" placeholder="Ingrese su correo" />
-          <div className="campo-doble">
-            <input type="password" placeholder="Ingrese una contraseña" />
-            <input type="password" placeholder="Confirma tu contraseña" />
+          <div className="contraseñas">
+            <input className= "contra" type="password" placeholder="Ingrese una contraseña" />
+            <input className= "Recontra" type="password" placeholder="Confirma tu contraseña" />
           </div>
+          <input className= "documento" type="text" placeholder="Ingrese numero de identificación" />
+          <input className= "telefono" type="text" placeholder="Ingrese su número de teléfono" />
           <div className="checkbox-container">
-            <label>
-              <input type="checkbox" /> Acepto términos y condiciones
+          <label>
+              <div className={`toggle-button ${acceptTerms ? 'active' : ''}`} onClick={() => setAcceptTerms(prev => !prev)}>
+                <div className="toggle-switch" />
+              </div>
+              Acepto términos y condiciones
             </label>
             <label>
-              <input type="checkbox" /> Acepto el envío de información a través de correos
+              <div className={`toggle-button ${acceptEmails ? 'active' : ''}`} onClick={() => setAcceptEmails(prev => !prev)}>
+                <div className="toggle-switch" />
+              </div>
+              Acepto el envío de información a través de correos
             </label>
           </div>
-          <button className= "Registrar "type="submit">Registrar</button>
+          <button className= "Registrar" type="submit">Registrar</button>
+          <div className="return_login">
+            <a href="#" className="Regreso" onClick={login_return} > Ya tengo cuenta </a>
+          </div>
         </form>
-        <p>Ya tengo una cuenta</p>
       </div>
     </div>
+    </>
   )
 };
 

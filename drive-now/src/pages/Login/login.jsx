@@ -87,7 +87,7 @@ export const Login = () => {
     <>
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
-      <div className="forgot-password">
+          <div className="forgot-password">
             <a href="#" className="Return" > Regresar </a>
           </div>
         <div className="profile-image-container">
@@ -118,7 +118,7 @@ export const Login = () => {
             className="input"
             placeholder="Ingresa tu contraseña"
           />
-          <i className="fas fa-lock icon"></i>
+          <i className="fas fa-lock icon" ></i>
         </div>
         <button type="submit" className="button">Iniciar</button>
         <div className="link">

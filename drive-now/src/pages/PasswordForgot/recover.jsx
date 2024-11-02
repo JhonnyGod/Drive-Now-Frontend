@@ -47,6 +47,7 @@ const Recover = () => {
             <div className="Recover">
                 <h1>Recuperar contraseña</h1>
                 <form onSubmit={recoverPasswordFunction}>
+                <div className="line">
                     <input
                         type="email"
                         id="email"
@@ -55,6 +56,8 @@ const Recover = () => {
                         placeholder="Ingresa tu correo electrónico."
                         required
                     />
+                    <i className="fas fa-envelope recover_icon"></i>
+                  </div>  
                     <button type="submit" className='sendbutton'>Enviar</button>
                 </form>
                 {showModal && (

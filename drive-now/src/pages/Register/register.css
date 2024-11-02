@@ -1,12 +1,12 @@
 /* RegistroUsuario.css */
 
 .registro-container {
-    display: flex;
-    margin: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh ;
+  font-family: 'Lucida Bright', sans-serif;
+  background-color: #f5f5f5; 
   }
   
   .imagen-lateral {
@@ -22,19 +22,33 @@
   .formulario-registro {
     flex: 1;
     padding: 20px;
-    background-color: #e0f2f1;
+    background-color: #dbe9ed;
   }
   
   .formulario-registro h2 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 35px;
+    font-size: 30px;
     font-weight: bold;
+    font-family: 'Lucida Bright', sans-serif;
+
   }
   
   .formulario-registro form {
     display: flex;
     flex-direction: column;
+  }
+
+  .username{
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
   }
   
   .campo-doble {
@@ -46,51 +60,186 @@
     flex: 1;
   }
   
-  .campo-doble[type="text"],
-  .campo-doble[type="email"],
-  .campo-doble[type="password"] {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .checkbox-container {
+  .name{
     display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .checkbox-container label {
-    font-size: 14px;
-    display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
   }
-  
-  .checkbox-container input[type="checkbox"] {
-    margin-right: 8px;
+
+  .Nombre{
+    display: flex;
+    justify-content: center;
+    width: 45%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
   }
-  
-  .registrar {
+  .Apellido{
+    display: flex;
+    justify-content: center;
+    width: 45%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
+  }
+
+  .email_register{
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
+  }
+
+
+
+  .contraseñas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .contra{
+    display: flex;
+    justify-content: center;
+    width: 45%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
+  }
+  .Recontra{
+    display: flex;
+    justify-content: center;
+    width: 45%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
+  }
+
+  .documento{
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
+  }
+  .telefono{
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    padding: 1rem;
+    border-radius: 7px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px;
+    font-size: 1rem;
+    font-family: 'Lucida Bright', sans-serif;
+  }
+
+.checkbox-container label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.toggle-button {
+  width: 50px;
+  height: 25px;
+  background-color: #248BA8;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.toggle-button.active {
+  background-color: #022F40;
+}
+
+.toggle-switch {
+  width: 23px;
+  height: 23px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  transition: left 0.3s;
+}
+
+.toggle-button.active .toggle-switch {
+  left: 26px;
+}
+
+  .Registrar {
     padding: 10px;
-    background-color: #2e7d32;
     color: white;
+    background-color: #022F40;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
+    margin-top: 1.5rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   
-  .registrar:hover {
-    background-color: #1b5e20;
+  .Registrar:hover {
+    background-color: #248BA8;
   }
-  
-  p {
+  .return_login{
     text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #555;
+    margin-top: 1rem;
+    font-weight: bold;
+    padding-left: 10px;
+    margin-top: 1rem;
   }
-  
+
+  .Regreso {
+    color: #022F40;
+    text-decoration: none;
+    
+  }
+
+  .Regreso:hover {
+    border-radius: 10px;
+    color: #248BA8;
+  }
+
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formulario-registro {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.imagen-lateral {
+    animation: fadeIn 0.5s ease-out;
+}  
