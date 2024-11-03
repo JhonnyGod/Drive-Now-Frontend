@@ -235,7 +235,8 @@
 .toggle-button.active {
   background-color: #022F40;
 }
-
+/* Comentario para que detecte cambios ajajaj
+ */
 .toggle-switch {
   width: 23px;
   height: 23px;
