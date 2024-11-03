@@ -1,0 +1,105 @@
+.header {
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    padding: 55px 50px;
+    background-color: #022F40;
+    color: #fff;
+  }
+  
+  .logo {
+    position: absolute;
+    align-items: center;
+    display: flex;
+    top: 10px;
+    left: 40px;
+  }
+  
+  .logo img {
+    width: 50px;
+    margin-right: 20px;
+  }
+  
+  .nav ul {
+    position: absolute;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    left: 360px;
+    top: 45px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav li {
+    margin: 0 25px;
+    margin-left: 30px;
+  }
+  
+  .nav a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .nav a:hover {
+    text-decoration: underline;
+  }
+
+  .buttonsUser {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    left: 1300px;
+    top: 40px;
+    margin-right: 30px;
+
+  }
+
+  .buttonsUser button {
+    padding: 8px 16px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    margin: 0 10px;
+    
+  }
+  .buttonLogin {
+    background: #f80000;
+    color: #fff;
+  }
+
+  .buttonLogin:hover {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .buttonSing{
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .buttonSing:hover {
+    background: red;
+    color: #ffffff;
+  }
+
+  .header-input {
+    position: absolute;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    left: 950px;
+    top: 40px;
+  }
+  
+
+  .header-input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+  }
+
+  
