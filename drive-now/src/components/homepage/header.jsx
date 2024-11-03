@@ -18,7 +18,7 @@ function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <img src="logo.png" alt="Logo" /> {/* aqui va la ruta del logo*/}
+        <img src="https://i.ibb.co/3pwrFKN/descarga.png"/> {/*lUEGO SE CAMBIA DEJALO ASI POR MIENTRAS*/}
         <h1>Drive Now</h1>
       </div>
 

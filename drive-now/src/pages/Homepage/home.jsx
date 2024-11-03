@@ -1,9 +1,9 @@
 // src/pages/Home.jsx
 import React, { useState } from "react";
 import './home.css';
-import Header from "../../components/header";
-import BoxInfoCars from "../../components/boxinfocars";
-import AddCarForm from "../../components/addcarform";
+import Header from "../../components/homepage/header";
+import BoxInfoCars from "../../components/homepage/boxinfocars";
+import AddCarForm from "../../components/homepage/addcarform";
 
 const Home = () => {
   const [cars, setCars] = useState([]);

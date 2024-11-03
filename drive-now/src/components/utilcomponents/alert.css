@@ -14,7 +14,7 @@
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.5s ease, top 0.5s ease;
-    width: auto;
+    width: 80%;
     max-width: 90%;
 }
 

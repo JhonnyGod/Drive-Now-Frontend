@@ -3,7 +3,7 @@ import './login.css';
 import profileImage from '../../Assets/profile.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../../components/alert.css';
+import '../../components/util/alert.css';
 
 
 export const Login = () => {
