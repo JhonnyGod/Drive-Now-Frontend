@@ -1,18 +1,50 @@
-import React from "react";
+// src/pages/Home.jsx
+import React, { useState } from "react";
 import './home.css';
 import Header from "../../components/header";
+import BoxInfoCars from "../../components/boxinfocars";
+import AddCarForm from "../../components/addcarform";
 
 const Home = () => {
+  const [cars, setCars] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
-    return (
+  const handleAddCar = (car) => {
+    setCars([...cars, car]);
+  };
+
+  const handleRentClick = (carName) => {
+    alert(`Alquiler iniciado para el vehículo: ${carName}`);
+  };
+
+  const toggleForm = () => setShowForm(!showForm);
+
+  return (
     <div>
-        <Header /> 
+      <Header /> 
       <main>
-        <h2>Jhonny lo mastica con la muela de acero</h2>
-        
+        <h2>Jhonny is gay</h2>
+        <button className="add-car-button" onClick={toggleForm}>Agregar Vehículo</button>
+        {showForm && (
+          <AddCarForm
+            onAddCar={handleAddCar}
+            onCancel={toggleForm} 
+          />
+        )}
+        <div className="car-list">
+          {cars.map((car, index) => (
+            <BoxInfoCars
+              key={index}
+              image={car.image}
+              name={car.name}
+              description={car.description}
+              onRentClick={() => handleRentClick(car.name)}
+            />
+          ))}
+        </div>
       </main>
     </div>
-    );
-}
+  );
+};
 
 export default Home;
