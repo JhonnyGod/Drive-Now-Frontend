@@ -5,9 +5,78 @@ import './recover.css';
 const Recover = () => {
     const [email, setEmail] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [showContent, setShowContent] = useState(false);
+    const [code, setCode] = useState(['', '', '', '']);
+    const [isMoved, setIsMoved] = useState(false);
+    const [replacer, showReplacer] = useState(false);
+    const [isExiting, setIsExiting] = useState(false);
+    const [newpas, setNewpas] = useState('');
+    const [confirmpas, setConfirmpas] = useState('');
 
-    //TODO: Le falta, pero en teoría ya debe estar enviando los correos de recuperación, queda pendiente la construcción de 
-    //* la página donde se escribe el codigo y cambiar la contraseña, pero me duele resto la cabeza, pitos
+
+    const matchPasswords = () => {
+        const new_password = setNewpas;
+        const confirm_password = setConfirmpas;
+        if (new_password != confirm_password) {
+            //TODO: Enviar alerta de no coincidencia
+        } else {
+            //TODO: Enviar contraseña a backend para su guardado
+        }
+    }
+    const togglePasswordVisibility = (inputId) => {
+        const inputField = document.getElementById(inputId);
+        if (inputField.type === 'password') {
+            inputField.type = 'text';
+        } else {
+            inputField.type = 'password';
+        }
+    };
+
+
+    const takeDigit = (e, index) => {
+        const value = e.target.value;
+        if (/^\d$/.test(value) || value === '') {
+            const newCode = [...code];
+            newCode[index] = value;
+            setCode(newCode);
+            if (value && index < 3) {
+                const nextInput = document.querySelectorAll('.code-input-group input')[index + 1];
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+        }
+    }
+
+    const sendCodeToBackend = async () => {
+        const codeString = code.join('');
+        const userEmail = email;
+        console.log('Código:', codeString);
+        console.log('Correo:', userEmail);
+        try {
+            const passwordChangeResponse = await axios.post('http://localhost:3000/usuario/validarCodigo', {
+                email: userEmail,
+                code: codeString
+            });
+
+            if (passwordChangeResponse.status === 200) {
+                console.log('Código validado');
+                showReplacer(true);
+                setIsExiting(true);
+
+            }
+
+            console.log(passwordChangeResponse);
+        } catch (error) {
+            console.error('Error al validar código:', error);
+        }
+    }
+
+    const openRecoveryCodeForm = () => {
+        setShowContent(true);
+        setShowModal(false);
+        setIsMoved(true);
+    }
 
     const recoverPasswordFunction = async (e) => {
         e.preventDefault();
@@ -29,7 +98,6 @@ const Recover = () => {
             }
 
             console.log(info);
-            setEmail('');
 
             if (response.status !== 200) {
                 console.error('Error al recuperar contraseña:', response);
@@ -44,31 +112,109 @@ const Recover = () => {
 
     return (
         <div className='Container'>
-            <div className="Recover">
+            <div className={`Recover ${isMoved ? 'move-left' : ''} ${isExiting ? 'exit-left' : ''}`}>
                 <h1>Recuperar contraseña</h1>
                 <form onSubmit={recoverPasswordFunction}>
-                <div className="line">
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Ingresa tu correo electrónico."
-                        required
-                    />
-                    <i className="fas fa-envelope recover_icon"></i>
-                  </div>  
+                    <div className="line">
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Ingresa tu correo electrónico."
+                            required
+                        />
+                        <i className="fas fa-envelope recover_icon"></i>
+                    </div>
                     <button type="submit" className='sendbutton'>Enviar</button>
                 </form>
                 {showModal && (
                     <div className='modal-overlay'>
                         <div className="modal-content">
                             <p>Si el correo se encuentra registrado, se envió un correo de verificación.</p>
-                            <button className="closebutton" onClick={() => setShowModal(false)}>Cerrar</button>
+                            <button className="closebutton" onClick={openRecoveryCodeForm}>Cerrar</button>
                         </div>
                     </div>
                 )}
             </div>
+            {showContent && (
+                <div className={`recovery-code-input ${isMoved ? 'move-right' : ''} ${isExiting ? 'exit-right' : ''}`}>
+                    <p>Ingresa el código que se envió a tu correo:</p>
+                    <div className="code-input-group">
+                        <input
+                            type="text"
+                            maxLength="1"
+                            pattern="\d"
+                            onChange={(e) => takeDigit(e, 0)}
+                            required
+                        />
+                        <input
+                            type="text"
+                            maxLength="1"
+                            pattern="\d"
+                            onChange={(e) => takeDigit(e, 1)}
+                            required
+                        />
+                        <input
+                            type="text"
+                            maxLength="1"
+                            pattern="\d"
+                            onChange={(e) => takeDigit(e, 2)}
+                            required
+                        />
+                        <input
+                            type="text"
+                            maxLength="1"
+                            pattern="\d"
+                            onChange={(e) => takeDigit(e, 3)}
+                            required
+                        />
+                    </div>
+                    <button type="button" className='verify-button' onClick={sendCodeToBackend}>
+                        Verificar
+                    </button>
+                </div>
+            )}
+            {replacer && (
+                <div className='password-setter'>
+                    <h1>Recuperar contraseña</h1>
+                    <form onSubmit={matchPasswords}>
+                        <div className="password-line">
+                            <input
+                                type="password"
+                                id="new-password"
+                                placeholder="Ingresa tu nueva contraseña."
+                                onChange={(e) => setNewpas(e.target.value)}
+                                required
+                            />
+                            <i className="fas fa-lock finalrecover_icon"></i>
+                            <span className="toggle-password" onClick={() => togglePasswordVisibility('new-password')}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                        </div>
+                        <div className="confirm password-line">
+                            <input
+                                type="password"
+                                id="confirm-password"
+                                placeholder="Confirma tu nueva contraseña."
+                                onChange={(e) => setConfirmpas(e.target.value)}
+                                required
+                            />
+                            <i className="fas fa-lock recover_icon"></i>
+                            <span className="toggle-password" onClick={() => togglePasswordVisibility('confirm-password')}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                        </div>
+                        <button type="submit" className='sendbutton'>Enviar</button>
+                    </form>
+                </div>
+            )}
         </div>
     );
 };
