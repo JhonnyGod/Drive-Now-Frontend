@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './recover.css';
+import { useNavigate } from 'react-router-dom';
 
 const Recover = () => {
     const [email, setEmail] = useState('');
@@ -12,17 +13,43 @@ const Recover = () => {
     const [isExiting, setIsExiting] = useState(false);
     const [newpas, setNewpas] = useState('');
     const [confirmpas, setConfirmpas] = useState('');
+    const navigate = useNavigate();
 
+    const apiUrl = process.env.REACT_APP_API_URL;
 
-    const matchPasswords = () => {
-        const new_password = setNewpas;
-        const confirm_password = setConfirmpas;
+    const matchPasswords = (e) => {
+        e.preventDefault();
+        const new_password = newpas;
+        const confirm_password = confirmpas;
         if (new_password != confirm_password) {
-            //TODO: Enviar alerta de no coincidencia
-        } else {
-            //TODO: Enviar contraseña a backend para su guardado
+            console.log('Las contraseñas no coinciden');
+        }
+        else {
+            finishReplace();
         }
     }
+
+    const finishReplace = async () => {
+        try {
+            const sendNewPassword = await axios.put(`${apiUrl}/usuario/actualizaruser`, {
+                email: email,
+                password: newpas,
+                code: code.join('')
+            });
+
+            if (sendNewPassword.status === 200) {
+                console.log("Contraseña actualizada exitosamente.");
+                navigate('/');
+            }
+            else {
+                console.error('Error al actualizar contraseña')
+            }
+        } catch (error) {
+            console.error('Error al actualizar contraseña:', error);
+        }
+    }
+
+
     const togglePasswordVisibility = (inputId) => {
         const inputField = document.getElementById(inputId);
         if (inputField.type === 'password') {
@@ -54,7 +81,7 @@ const Recover = () => {
         console.log('Código:', codeString);
         console.log('Correo:', userEmail);
         try {
-            const passwordChangeResponse = await axios.post('http://localhost:3000/usuario/validarCodigo', {
+            const passwordChangeResponse = await axios.post(`${apiUrl}/usuario/validarCodigo`, {
                 email: userEmail,
                 code: codeString
             });
