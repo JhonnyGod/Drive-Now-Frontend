@@ -1,13 +1,17 @@
 import React from "react";
 import './home.css';
+import Header from "../../components/header";
 
 const Home = () => {
 
     return (
-        <div>
-            <h1>Puto el que lo lea ajajaj</h1>
-                <button className="Botón">Tócame</button>
-        </div>
+    <div>
+        <Header /> 
+      <main>
+        <h2>Jhonny lo mastica con la muela de acero</h2>
+        
+      </main>
+    </div>
     );
 }
 

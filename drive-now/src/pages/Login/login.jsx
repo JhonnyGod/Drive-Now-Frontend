@@ -83,12 +83,19 @@ export const Login = () => {
     }, 3000);
   };
 
+  const handleHome = () => {
+    navigate('/'); 
+  }; 
+
+  
+
   return (
+    
     <>
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
           <div className="forgot-password">
-            <a href="#" className="Return" > Regresar </a>
+            <a href="#" className="Return" onClick={handleHome} > Regresar </a>
           </div>
         <div className="profile-image-container">
           <img src={profileImage} alt="Perfil" className="profile-image" />
