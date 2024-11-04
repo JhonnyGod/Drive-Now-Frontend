@@ -20,10 +20,10 @@
 }
 
 .logo img {
-    width: 100px;
+    width: 180px;
     margin-right: 10px;
     height: 100px;
-    margin-left: -50px;
+    margin-left: -40px;
 
 }
 
@@ -90,6 +90,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
+    width: 300px;
 }
 
 .header-input:focus {

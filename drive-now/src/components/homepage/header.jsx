@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
 
+  const goHome = () => {
+    navigate('/'); 
+  }
+
   const handleRegisterClick = () => {
     navigate('/register'); // Navega a la ruta /register
   };
@@ -17,8 +21,7 @@ function Header() {
     <div className="main-screen">
       <header className="header">
         <div className="logo">
-          <img src="https://i.ibb.co/3pwrFKN/descarga.png" /> {/*lUEGO SE CAMBIA DEJALO ASI POR MIENTRAS*/}
-          <h1>Drive Now</h1>
+          <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" onClick={goHome} /> {/*lUEGO SE CAMBIA DEJALO ASI POR MIENTRAS*/}
         </div>
 
         <input type="text" className="header-input" placeholder="Buscar..."></input>
