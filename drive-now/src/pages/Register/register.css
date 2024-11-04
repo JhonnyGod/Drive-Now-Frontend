@@ -29,11 +29,13 @@
     padding: 10px 20px; 
     border-radius: 12px;
     border: 2px solid #fff; 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    margin-left: 0.6rem; 
     font-family: '', sans-serif; 
     letter-spacing: 1.5px; 
     width: 65%;
     animation: slideInFromLeft 1s ease-out;
+    font-family: 'Lucida Bright', sans-serif;
 }
 
 @keyframes slideInFromLeft {
@@ -59,13 +61,14 @@
     background-color: transparent;
     padding: 10px 20px; 
     border-radius: 12px;
-    font-family: '', sans-serif; 
     letter-spacing: 1.5px; 
+    margin-left: 0.7rem;
     width: 60%;
     white-space: nowrap;
     text-overflow: ellipsis; 
     transform: translateX(-50%);
     animation: slideInFromLeft 1s ease-out;
+    font-family: 'Lucida Bright', sans-serif;
 }
 
 
@@ -80,20 +83,15 @@
     flex: 1;
     padding: 20px;
     background-color: #dbe9ed;
-    margin-top: -40px;
+    height: 100%;
   }
   
-  .formulario-registro h2 {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 35px;
-    font-size: 30px;
-    font-weight: bold;
+  .tittle{
+    display: flex;
+    justify-content: center;
+    margin: 2.5rem;
+    font-size: 2rem;
     font-family: 'Lucida Bright', sans-serif;
-    margin-top: 10%;
-    padding-right: 50%;
-    margin-bottom: 25px;
-
   }
   
   .formulario-registro form {
@@ -104,7 +102,7 @@
   .username{
     display: flex;
     justify-content: center;
-    width: 95%;
+    width: 96%;
     padding: 1rem;
     border-radius: 7px;
     border: 1px;
@@ -134,8 +132,10 @@
     justify-content: center;
     width: 45%;
     padding: 1rem;
+    margin-right: 0.1rem;
     border-radius: 7px;
     border: 1px;
+
     font-size: 1rem;
     font-family: 'Lucida Bright', sans-serif;
   }
@@ -153,7 +153,7 @@
   .email_register{
     display: flex;
     justify-content: center;
-    width: 95%;
+    width: 96%;
     padding: 1rem;
     border-radius: 7px;
     border: 1px;
@@ -165,7 +165,9 @@
 
   .contraseñas{
     display: flex;
+    width: 96%;
     justify-content: space-between;
+    width: 100%;
     align-items: center;
     margin-top: 1rem;
     padding-bottom: 1rem;
@@ -173,9 +175,10 @@
   .contra{
     display: flex;
     justify-content: center;
-    width: 45%;
+    width: 50%;
     padding: 1rem;
     border-radius: 7px;
+    margin-right: 0.7rem;
     border: 1px;
     font-size: 1rem;
     font-family: 'Lucida Bright', sans-serif;
@@ -183,7 +186,7 @@
   .Recontra{
     display: flex;
     justify-content: center;
-    width: 45%;
+    width: 50%;
     padding: 1rem;
     border-radius: 7px;
     border: 1px;
@@ -194,7 +197,7 @@
   .documento{
     display: flex;
     justify-content: center;
-    width: 95%;
+    width: 96%;
     padding: 1rem;
     border-radius: 7px;
     border: 1px;
@@ -204,7 +207,7 @@
   .telefono{
     display: flex;
     justify-content: center;
-    width: 95%;
+    width: 96%;
     padding: 1rem;
     border-radius: 7px;
     margin-top: 1rem;
@@ -219,6 +222,7 @@
   align-items: center;
   margin-bottom: 10px;
   font-size: 16px;
+  margin: 1rem;
 }
 
 .toggle-button {
@@ -262,7 +266,7 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: -2px; /* Ajusta el valor según sea necesario */
+    margin-top: 1rem;
   }
   
   .Registrar:hover {

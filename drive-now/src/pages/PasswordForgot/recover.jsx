@@ -137,8 +137,13 @@ const Recover = () => {
         }
     };
 
+    const register = async (e) => {
+        e.preventDefault();
+        navigate('/');
+      }
+
     return (
-        <div className='Container'>
+        <div className='Container'>     
             <div className={`Recover ${isMoved ? 'move-left' : ''} ${isExiting ? 'exit-left' : ''}`}>
                 <h1>Recuperar contraseña</h1>
                 <form onSubmit={recoverPasswordFunction}>
@@ -154,6 +159,9 @@ const Recover = () => {
                         <i className="fas fa-envelope recover_icon"></i>
                     </div>
                     <button type="submit" className='sendbutton'>Enviar</button>
+                    <div className="forgot-password">
+                        <a href="#" className="Return_login" onClick={register} > Regresar </a>
+                    </div>
                 </form>
                 {showModal && (
                     <div className='modal-overlay'>
@@ -239,6 +247,7 @@ const Recover = () => {
                             </span>
                         </div>
                         <button type="submit" className='sendbutton'>Enviar</button>
+                        
                     </form>
                 </div>
             )}

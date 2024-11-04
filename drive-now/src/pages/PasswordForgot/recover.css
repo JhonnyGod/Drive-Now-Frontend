@@ -12,6 +12,21 @@
     font-family: 'Lucida Bright', sans-serif;
     position: relative;
 }
+.Return_login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    align-items: left;
+    font-weight: bold;
+    font-size: 15px;
+    color: #022F40;
+    text-decoration: none;
+  }
+  .Return_login:hover {
+    border-radius: 10px;
+    color: #248BA8;
+  }
 
 .Recover {
     display: flex;
