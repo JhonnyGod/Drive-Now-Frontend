@@ -108,6 +108,7 @@ const Recover = () => {
     const recoverPasswordFunction = async (e) => {
         e.preventDefault();
         try {
+            setShowModal(true);
             const response = await axios.post('http://localhost:3000/usuario/recuperar', { email });
             console.log("Solicitud enviada");
 
@@ -117,11 +118,10 @@ const Recover = () => {
                 status: data.ok,
                 message: data.message
             };
-            setShowModal(true);
+            
 
             if (info.status === 200) {
                 console.log(info);
-
             }
 
             console.log(info);
