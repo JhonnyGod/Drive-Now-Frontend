@@ -139,7 +139,7 @@ const Recover = () => {
 
     const register = async (e) => {
         e.preventDefault();
-        navigate('/');
+        navigate('/Login');
       }
 
     return (

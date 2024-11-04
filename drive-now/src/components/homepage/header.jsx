@@ -36,8 +36,8 @@ function Header() {
         </nav>
 
         <div className="buttonsUser">
-          <button className="buttonLogin" onClick={handleLogin}>Login</button>
-          <button className="buttonSing" onClick={handleRegisterClick}>Sing up</button>
+          <button className="buttonLogin" onClick={handleLogin}>Iniciar sesión</button>
+          <button className="buttonSing" onClick={handleRegisterClick}>Regístrate</button>
         </div>
       </header>
     </div>
