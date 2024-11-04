@@ -78,7 +78,7 @@ const Register = () => {
 
   const login_return = async (e) => {
     e.preventDefault();
-    navigate('/');
+    navigate('/Login');
   }
 
 

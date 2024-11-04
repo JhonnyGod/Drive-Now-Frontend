@@ -84,7 +84,7 @@ export const Login = () => {
   };
 
   const handleHome = () => {
-    navigate('/'); 
+    navigate('/Home'); 
   }; 
 
   
