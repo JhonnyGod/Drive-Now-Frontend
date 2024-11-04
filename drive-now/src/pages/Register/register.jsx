@@ -48,6 +48,7 @@ const Register = () => {
       });
     }
     //TODO: Esto toca corregirlo resto pero ya esta casi listo, se pueden registrar usuarios mientras
+    
     else {
       try {
         const dataSend = {
