@@ -2,8 +2,6 @@ import React from "react";
 import './header.css'
 import { useNavigate } from "react-router-dom";
 
-
-
 function Header() {
   const navigate = useNavigate();
 
@@ -16,29 +14,30 @@ function Header() {
   };
 
   return (
-    <header className="header">
-      <div className="logo">
-        <img src="https://i.ibb.co/3pwrFKN/descarga.png"/> {/*lUEGO SE CAMBIA DEJALO ASI POR MIENTRAS*/}
-        <h1>Drive Now</h1>
-      </div>
+    <div className="main-screen">
+      <header className="header">
+        <div className="logo">
+          <img src="https://i.ibb.co/3pwrFKN/descarga.png" /> {/*lUEGO SE CAMBIA DEJALO ASI POR MIENTRAS*/}
+          <h1>Drive Now</h1>
+        </div>
 
-      <input type="text" className="header-input" placeholder="Buscar..."></input>
+        <input type="text" className="header-input" placeholder="Buscar..."></input>
 
-      <nav className="nav">
-        <ul>
-          <li><a href="#home">Inicio</a></li>
-          <li><a href="#about">Sobre Nosotros</a></li>
-          <li><a href="#services">Servicios</a></li>
-          <li><a href="#contact">Contacto</a></li>
-        </ul>
-      </nav>
+        <nav className="nav">
+          <ul>
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#about">Sobre Nosotros</a></li>
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#contact">Contacto</a></li>
+          </ul>
+        </nav>
 
-      <div className="buttonsUser">
-        <button className="buttonLogin" onClick={handleLogin}>Login</button>
-        <button className="buttonSing" onClick={handleRegisterClick}>Sing up</button>
-      </div>
-      
-    </header>
+        <div className="buttonsUser">
+          <button className="buttonLogin" onClick={handleLogin}>Login</button>
+          <button className="buttonSing" onClick={handleRegisterClick}>Sing up</button>
+        </div>
+      </header>
+    </div>
   );
 
 }

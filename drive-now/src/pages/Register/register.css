@@ -267,6 +267,8 @@
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 1rem;
+    margin-top: -2px; 
+    box-shadow: black 0px 0px 10px;
   }
   
   .Registrar:hover {

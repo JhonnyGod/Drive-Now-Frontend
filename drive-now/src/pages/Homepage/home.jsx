@@ -22,8 +22,8 @@ const Home = () => {
   return (
     <div>
       <Header /> 
-      <main>
-        <h2>Jhonny is gay</h2>
+      <main className="main-container">
+        <h2 className="etiqueta">Jhonny is gay</h2>
         <button className="add-car-button" onClick={toggleForm}>Agregar Vehículo</button>
         {showForm && (
           <AddCarForm
