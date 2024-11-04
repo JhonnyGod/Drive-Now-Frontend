@@ -262,7 +262,8 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: -2px; /* Ajusta el valor según sea necesario */
+    margin-top: -2px; 
+    box-shadow: black 0px 0px 10px;
   }
   
   .Registrar:hover {
