@@ -1,48 +1,47 @@
 // src/pages/Home.jsx
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import './home.css';
 import Header from "../../components/homepage/header";
-import BoxInfoCars from "../../components/homepage/boxinfocars";
-import AddCarForm from "../../components/homepage/addcarform";
+import { UserContext } from "../../contexts/UserContext";
+import axios from "axios";
+import VehicleCarousel from '../../components/homepage/vehicles-page/VehicleCarousel';
 
 const Home = () => {
-  const [cars, setCars] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const { user } = useContext(UserContext);
+  const [vehicleData, setVehicleData] = useState([]);
 
-  const handleAddCar = (car) => {
-    setCars([...cars, car]);
+  const getVehicles = async () => {
+    try {
+      const vehiclereq = await axios.post('http://localhost:3000/home/recuperarvehiculos');
+
+      if (vehiclereq.status !== 200) { // Use strict equality
+        console.log('Error al obtener los vehículos');
+      }
+
+      const vehicledata = vehiclereq.data.vehiculos.vehicles;
+      setVehicleData(vehicledata);
+      console.log(vehicledata);
+
+    } catch (error) {
+      console.error('Error al obtener los vehículos:', error);
+    }
   };
 
-  const handleRentClick = (carName) => {
-    alert(`Alquiler iniciado para el vehículo: ${carName}`);
-  };
-
-  const toggleForm = () => setShowForm(!showForm);
+  useEffect(() => {
+    if (user) {
+      getVehicles();
+    }
+  }, [user]);
 
   return (
     <div>
-      <Header /> 
-      <main className="main-container">
-        <button className="add-car-button" onClick={toggleForm}>Agregar Vehículo</button>
-        {showForm && (
-          <AddCarForm
-            onAddCar={handleAddCar}
-            onCancel={toggleForm} 
-          />
-        )}
-        <div className="car-list">
-          {cars.map((car, index) => (
-            <BoxInfoCars
-              key={index}
-              image={car.image}
-              name={car.name}
-              description={car.description}
-              onRentClick={() => handleRentClick(car.name)}
-            />
-          ))}
-        </div>
-      </main>
+      <Header />
+      <section className="main-content-screen" id="1">
+        <h1>Hola mundo
+        </h1>
+      </section>
     </div>
+
   );
 };
 
