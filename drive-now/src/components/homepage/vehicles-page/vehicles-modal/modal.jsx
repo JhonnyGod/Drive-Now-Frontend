@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './VehiculoModal.css';
+import './styles.css';
+
 
 export default function VehiculoModal({ vehiculo, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
