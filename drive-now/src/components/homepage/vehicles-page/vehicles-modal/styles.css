@@ -80,6 +80,7 @@
   order: -1; /* Ensure image is above info */
   width: 100%; /* Ensure full width */
   border-radius: 20px;
+  
 }
 
 .modal-image {

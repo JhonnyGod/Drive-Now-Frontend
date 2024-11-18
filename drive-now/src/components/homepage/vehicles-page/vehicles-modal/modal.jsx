@@ -6,30 +6,30 @@ import axios from 'axios';
 
 export default function VehiculoModal({ vehiculo, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
-    const {user} = useUserStore();
+    const { user } = useUserStore();
 
     useEffect(() => {
         setIsOpen(true);
     }, []);
 
     const handleRent = () => {
-        console.log(user)
-        const id_user = user.id_user;
-        const idvehiculo = vehiculo.idvehiculo;
 
+        const idvehiculo = vehiculo.idvehiculo;
         const petition = axios.post('http://localhost:3000/home/rent', {
-            id_user: id_user,
+            id_user: user.user_id,
             idvehiculo: idvehiculo,
         })
-        if(!petition){
-            console.log('Error al alquilar el vehículo');
+        if (!petition) {
+            alert('Error al alquilar el vehículo');
         }
-    console.log('Vehículo alquilado exitosamente');
-
+        else {
+            alert('El vehículo fue alquilado exitosamente, te enviamos un correo con toda la información')
+            setIsOpen(false);
+        }
     }
     const handleClose = () => {
         setIsOpen(false);
-        setTimeout(onClose, 300); // Espera a que termine la animación antes de cerrar
+        setTimeout(onClose, 300);
     };
 
     return (
