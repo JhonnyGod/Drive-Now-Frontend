@@ -59,7 +59,6 @@ const Recover = () => {
         }
     };
 
-
     const takeDigit = (e, index) => {
         const value = e.target.value;
         if (/^\d$/.test(value) || value === '') {
