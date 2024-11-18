@@ -1,20 +1,28 @@
 import React from "react";
 import './header.css'
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/useUserStore";
 
 function Header() {
   const navigate = useNavigate();
 
+  const {hasSession, clearUser } = useUserStore();
+
   const goHome = () => {
-    navigate('/'); 
+    navigate('/');
+  }
+
+  const handlelogout = () => {
+    clearUser();
+    navigate('/login');
   }
 
   const handleRegisterClick = () => {
-    navigate('/register'); // Navega a la ruta /register
+    navigate('/register');
   };
 
   const handleLogin = () => {
-    navigate('/Login'); // Navega a la ruta /login
+    navigate('/login');
   };
 
   return (
@@ -36,8 +44,9 @@ function Header() {
         </nav>
 
         <div className="buttonsUser">
-          <button className="buttonLogin" onClick={handleLogin}>Iniciar sesión</button>
-          <button className="buttonSing" onClick={handleRegisterClick}>Regístrate</button>
+        <button className="buttonLogin" onClick={() => hasSession() ? handlelogout() : handleLogin()}> { hasSession() ? 'Cerrar sesión' : 'Iniciar sesión'  } </button>
+        { hasSession() ?  null : <button className="buttonSing" onClick={handleRegisterClick}>Regístrate</button>}
+          
         </div>
       </header>
     </div>

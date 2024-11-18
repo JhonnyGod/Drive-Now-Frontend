@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../components/utilcomponents/alert.css';
 import { UserContext } from '../../contexts/UserContext';
+import useUserStore from '../../store/useUserStore';
 
 export const Login = () => {
-
+  const {user, setUser} = useUserStore();
   const [email, setEmail] = useState('');
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
   const [password, setPassword] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
@@ -83,7 +84,7 @@ export const Login = () => {
   useEffect(() => {
     if (user && user.token) {
       console.log("user actualizado:", user);
-      navigate('/home'); 
+      navigate('/home');  
     }
   }, [user, navigate]);
 
