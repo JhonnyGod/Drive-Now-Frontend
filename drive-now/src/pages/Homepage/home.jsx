@@ -19,19 +19,18 @@ const Home = () => {
       }
 
       const vehicledata = vehiclereq.data.vehiculos.vehicles;
-
       setVehicleData(vehicledata);  
-      console.log(vehicledata);
+      
     } catch (error) {
       console.error('Error al obtener los vehículos:', error);
     }
   };
-
   useEffect(() => {
     if (user) {
       getVehicles();
-
-      //* Tendría que establecer el status del login en false
+    }
+    else{
+      getVehicles();
     }
   }, [user]);
 

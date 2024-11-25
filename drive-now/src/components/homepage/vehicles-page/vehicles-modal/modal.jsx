@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import './styles.css';
 import useUserStore from '../../../../store/useUserStore';
 import axios from 'axios';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function VehiculoModal({ vehiculo, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
-    const { user } = useUserStore();
+    const { user, hasSession } = useUserStore();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsOpen(true);
     }, []);
 
+    const handleLogin = () => {
+        navigate('/login');
+    }
     const handleRent = () => {
 
         const idvehiculo = vehiculo.idvehiculo;
@@ -40,7 +44,7 @@ export default function VehiculoModal({ vehiculo, onClose }) {
                     <div className="modal-info">
                         <h3 className="modal-title">{vehiculo.nombre}</h3>
                         <div className="modal-image-container">
-                            <img src='https://www.elperiodicousa.com/wp-content/uploads/2020/01/01-2020-Honda-CR-V-Hybrid.jpg' alt={vehiculo.nombre} className="modal-image" />
+                            <img src={vehiculo.image_src} alt={vehiculo.nombre} className="modal-image" />
                         </div>
                         <div className="attribute">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M21 3l-7 7M21 21v-5m0 5l-7-7M3 16h5m-5 5h5v-5M3 3l7 7M3 3h5v5" /></svg>
@@ -58,8 +62,7 @@ export default function VehiculoModal({ vehiculo, onClose }) {
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" /></svg>
                             <p>Modelo: {vehiculo.modelo}</p>
                         </div>
-
-                        <button className="rent-button" onClick={handleRent}>Alquilar</button>
+                        <button className="rent-button"  onClick={() => hasSession() ? handleRent() : handleLogin()} >{hasSession() ? 'Alquilar' : 'Logearse' }</button>
                     </div>
                 </div>
             </div>

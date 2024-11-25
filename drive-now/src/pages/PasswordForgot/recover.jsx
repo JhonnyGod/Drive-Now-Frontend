@@ -77,8 +77,6 @@ const Recover = () => {
     const sendCodeToBackend = async () => {
         const codeString = code.join('');
         const userEmail = email;
-        console.log('Código:', codeString);
-        console.log('Correo:', userEmail);
         try {
             const passwordChangeResponse = await axios.post(`${apiUrl}/usuario/validarCodigo`, {
                 email: userEmail,
@@ -92,7 +90,6 @@ const Recover = () => {
 
             }
 
-            console.log(passwordChangeResponse);
         } catch (error) {
             console.error('Error al validar código:', error);
         }
@@ -123,7 +120,6 @@ const Recover = () => {
                 console.log(info);
             }
 
-            console.log(info);
 
             if (response.status !== 200) {
                 console.error('Error al recuperar contraseña:', response);

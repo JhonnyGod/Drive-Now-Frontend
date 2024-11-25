@@ -6,7 +6,11 @@ import useUserStore from "../../store/useUserStore";
 function Header() {
   const navigate = useNavigate();
 
-  const {hasSession, clearUser } = useUserStore();
+  const { hasSession, clearUser } = useUserStore();
+
+  const openProfile = () => {
+    console.log("Abriendo perfil")
+  }
 
   const goHome = () => {
     navigate('/');
@@ -14,7 +18,7 @@ function Header() {
 
   const handlelogout = () => {
     clearUser();
-    navigate('/login');
+    navigate('/home');
   }
 
   const handleRegisterClick = () => {
@@ -44,9 +48,9 @@ function Header() {
         </nav>
 
         <div className="buttonsUser">
-        <button className="buttonLogin" onClick={() => hasSession() ? handlelogout() : handleLogin()}> { hasSession() ? 'Cerrar sesión' : 'Iniciar sesión'  } </button>
-        { hasSession() ?  null : <button className="buttonSing" onClick={handleRegisterClick}>Regístrate</button>}
-          
+          {hasSession() ? <div className="profile-container"> <button className="profile" onClick={openProfile}></button><p className="profile-text">Mi perfil</p></div> : null}
+          {hasSession() ? null : <button className="buttonSing" onClick={handleLogin}>Iniciar Sesión</button>}
+          {hasSession() ? null : <button className="buttonSing" onClick={handleRegisterClick}>Regístrate</button>}
         </div>
       </header>
     </div>

@@ -54,6 +54,7 @@
     display: flex;
     align-items: center;
     gap: 10px; 
+    
 }
 
 .buttonsUser button {
@@ -61,26 +62,31 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
 }
 
 .buttonLogin {
-    background: #f80000;
+    background: #0e7094;
     color: #fff;
+    font-family: 'Lucida Bright', sans-serif;
+    border: 5px solid #feffff;
 }
 
 .buttonLogin:hover {
-    background: #ffffff;
-    color: #000000;
+    background: #118bb8;
+    color: fff;
 }
 
 .buttonSing {
     background: #ffffff;
     color: #000000;
+    
 }
 
 .buttonSing:hover {
-    background: red;
+    background: #ffffffb6;
     color: #ffffff;
+
 }
 
 
@@ -96,4 +102,39 @@
 .header-input:focus {
     border-color: #000000;
     box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+
+.profile-container {
+  width: 50px; /* Set the width */
+  height: 50px; /* Set the height to be equal to the width */
+  border-radius: 50%; /* Make it a circle */
+  display: flex; /* Center the button inside */
+  align-items: center; /* Center the button vertically */
+  justify-content: center; /* Center the button horizontally */
+  background-color: #f0f0f0; /* Optional: Add a background color */
+  margin-right: 30px;
+  margin-left: -35px;
+  cursor: pointer;
+
+}
+
+.profile {
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%; 
+  border: none; 
+  background-color: #ffffff00; 
+  cursor: pointer; 
+}
+
+.profile-text{
+    position: relative;
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    top: 40px;
+    left: -15px;
+    white-space: nowrap;
+    margin-top: 5px;
+    font-family: 'Lucida Bright', sans-serif;
 }

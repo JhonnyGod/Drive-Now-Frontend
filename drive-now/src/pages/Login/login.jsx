@@ -83,7 +83,6 @@ export const Login = () => {
 
   useEffect(() => {
     if (user && user.token) {
-      console.log("user actualizado:", user);
       navigate('/home');  
     }
   }, [user, navigate]);

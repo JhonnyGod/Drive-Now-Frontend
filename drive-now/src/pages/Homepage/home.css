@@ -11,6 +11,7 @@
     margin: 20px 0;
     top: 680px;
     left: 1300px;
+    font-family: 'Lucida Bright', sans-serif;
   }
   
   .add-car-button:hover {
@@ -23,4 +24,5 @@
 
   .etiqueta{
     color: #007bff;
+    font-family: 'Lucida Bright', sans-serif;
   }
