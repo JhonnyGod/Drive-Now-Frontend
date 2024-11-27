@@ -4,7 +4,6 @@ import profileImage from '../../Assets/profile.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../components/utilcomponents/alert.css';
-import { UserContext } from '../../contexts/UserContext';
 import useUserStore from '../../store/useUserStore';
 //* Comentario para verificar que se suban cambios del de git al de Azure
 export const Login = () => {
@@ -25,6 +24,9 @@ export const Login = () => {
       const loginRequest = await axios.post('http://localhost:3000/usuario/login', { //* Solicitud HTTP a la URL local del backend
         email: email,
         password: password,
+        
+      },{
+        withCredentials: true,
       });
 
       if (loginRequest.status != 200) { //*Si el Estado es diferente de OK, devolver un mensaje de error
@@ -34,16 +36,17 @@ export const Login = () => {
       }
 
       const data = loginRequest.data//* Tomo la información del usuario que me devuelve el backend
+      console.log(data);
 
-      if (data.user && data.user.email && data.user.id_user && data.user.token) {
+      if (data.user && data.user.email && data.user.id_user) {
 
         setUser({
           user_id: data.user.id_user,
           username: data.user.username,
           email: data.user.email,
-          token: data.user.token,
         });
       }
+
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setAlertMessage('Inicio de sesión fallido, verifica tus credenciales.');
