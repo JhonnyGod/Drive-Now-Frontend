@@ -29,8 +29,6 @@ const Profile = () => {
                         <h2 className="username">¡Hola {username}!</h2>
                     </div>
                 </div>
-
-                {/* Opciones del perfil */}
                 <ul className="profile-options">
                     <li className="profile-option">
                         <button className="about-you-btn">

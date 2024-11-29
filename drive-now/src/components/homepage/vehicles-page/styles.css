@@ -23,21 +23,40 @@ body {
   text-align: center;
   color: #022F40;
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: -20px;
   margin-top: -20px;
   font-family: 'Lucida Bright', sans-serif;
 }
 
-/* Estilos de la cuadrícula de vehículos */
-.vehicle-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+/* Estilo de cada sección de vehículos */
+.vehicle-section {
+  margin-bottom: 3rem;
+}
+
+.vehicle-section-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 0 20px; /* Espacio debajo del título */
+  padding-left: 10px; /* Margen izquierdo */
+}
+
+/* Estilo para las secciones de vehículos que contienen los vehículos */
+.cars-space, .camionetas-space, .motos-space {
+  display: flex; /* Usamos flex para alinear los items horizontalmente */
+  gap: 20px; /* Espacio entre los vehículos */
+  padding: 10px 0; /* Espaciado interno */
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
+  -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos táctiles */
+  flex-wrap: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+  scroll-snap-type: x mandatory; /* Asegura que el scroll se ajuste a cada elemento */
 }
 
 .vehicle-item {
-  display: flex;
-  flex-direction: column;
+  flex: 0 0 48%; /* Ajusta el tamaño de las cartas para que quepan dos por fila */
+  scroll-snap-align: start; /* Ajuste para que cada carta se alinee correctamente al hacer scroll */
+  min-width: 320px; /* Asegura un tamaño mínimo para cada carta */
+  box-sizing: border-box; /* Asegura que el padding y margin no afecten el tamaño de los elementos */
 }
 
 .vehicle-card {
@@ -47,6 +66,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s;
+  height: 100%; /* Asegura que la tarjeta ocupe todo el espacio disponible */
 }
 
 .vehicle-card:hover {
@@ -54,20 +74,20 @@ body {
 }
 
 .vehicle-image {
-  width: 50%;
-  height: 200px;
+  width: 45%; /* Aumenta el tamaño de la imagen dentro de la tarjeta */
+  height: 250px; /* Aumenta la altura de la imagen para que sea más visible */
   object-fit: cover;
 }
 
 .vehicle-info {
-  width: 50%;
+  width: 55%; /* Ajusta el tamaño del contenedor de la información del vehículo */
   padding: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .vehicle-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Aumenta el tamaño del título */
   margin: 0 0 0.5rem;
   color: #022F40;
 }
@@ -94,65 +114,6 @@ body {
   background-color: #3a7bc8;
 }
 
-/* Estilos del panel expandido */
-.expanded-details {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
-  overflow: hidden;
-  animation: fadeIn 0.3s ease-out;
-}
-
-.expanded-content {
-  display: flex;
-  padding: 1rem;
-}
-
-.expanded-image {
-  width: 150px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-right: 1rem;
-}
-
-.expanded-info {
-  flex-grow: 1;
-}
-
-.expanded-title {
-  font-size: 1.1rem;
-  margin: 0 0 0.5rem;
-  color: #4a90e2;
-}
-
-.expanded-description {
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-} 
-
-/* Estilos de calificación */
-.rating {
-  display: flex;
-  align-items: center;
-}
-
-.star {
-  color: #d4d4d4;
-  font-size: 1.2rem;
-}
-
-.star.filled {
-  color: #ffc107;
-}
-
-.score {
-  margin-left: 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
-}
-
 /* Animaciones */
 @keyframes fadeIn {
   from {
@@ -166,34 +127,56 @@ body {
 
 /* Media queries para responsividad */
 @media (max-width: 768px) {
-  .vehicle-grid {
-    grid-template-columns: 1fr;
+  .cars-space, .camionetas-space, .motos-space {
+    flex-direction: column; /* En pantallas pequeñas, los vehículos se apilan verticalmente */
+  }
+
+  .vehicle-item {
+    flex: 0 0 100%; /* En pantallas pequeñas, cada vehículo ocupa el 100% del ancho */
   }
 
   .vehicle-card {
     flex-direction: column;
   }
 
-  .vehicle-image,
-  .vehicle-info {
+  .vehicle-image, .vehicle-info {
     width: 100%;
   }
+}
 
-  .navbar-menu {
-    display: none;
-  }
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #022F40;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 4px;
+}
 
-  .navbar-menu.is-active {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #4a90e2;
-  }
+.scroll-button.left {
+  left: 0;
+}
 
-  .navbar-burger {
-    display: flex;
-  }
+.scroll-button.right {
+  right: 0;
+}
+
+.vehicles-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cars-space, .camionetas-space, .motos-space {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
 }
