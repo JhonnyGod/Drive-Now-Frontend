@@ -24,7 +24,7 @@ const Profile = () => {
             <div className="profile-modal">
                 {/* Tarjeta de usuario */}
                 <div className="user-card">
-                    <img className="user-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png" alt="Perfil" />
+                    <img className="user-photo" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Perfil" />
                     <div className="user-info">
                         <h2 className="username">¡Hola {username}!</h2>
                     </div>
@@ -34,7 +34,6 @@ const Profile = () => {
                 <ul className="profile-options">
                     <li className="profile-option">
                         <button className="about-you-btn">
-                            {/* SVG del ícono correcto */}
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
