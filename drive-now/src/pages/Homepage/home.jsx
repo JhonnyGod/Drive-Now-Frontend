@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React, {useState, useEffect } from "react";
 import './home.css';
-import Header from "../../components/homepage/header";
+import Header from "../../components/header/header";
 import axios from "axios";
 import PaginaPrincipal from '../../components/homepage/vehicles-page/PaginaPrincipal';
 import useUserStore from "../../store/useUserStore";

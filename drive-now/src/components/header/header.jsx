@@ -1,25 +1,22 @@
 import React from "react";
-import './header.css'
+import './header.css';
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/useUserStore";
+import useModalStore from "../../store/useModalStore";
 
-function Header() {
+function Header() {  
   const navigate = useNavigate();
-
   const { hasSession, clearUser } = useUserStore();
-
-  const openProfile = () => {
-    console.log("Abriendo perfil")
-  }
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
 
   const goHome = () => {
     navigate('/');
-  }
+  };
 
-  const handlelogout = () => {
+  const handleLogout = () => {
     clearUser();
     navigate('/home');
-  }
+  };
 
   const handleRegisterClick = () => {
     navigate('/register');
@@ -29,14 +26,19 @@ function Header() {
     navigate('/login');
   };
 
+  const openProfile = () => {
+    setOpenProfile(true);
+    console.log('Abriendo perfil');
+  }
+
   return (
     <div className="main-screen">
       <header className="header">
         <div className="logo">
-          <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" onClick={goHome} /> {/*lUEGO SE CAMBIA DEJALO ASI POR MIENTRAS*/}
+          <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" onClick={goHome} />
         </div>
 
-        <input type="text" className="header-input" placeholder="Buscar..."></input>
+        <input type="text" className="header-input" placeholder="Buscar..." />
 
         <nav className="nav">
           <ul>
@@ -48,18 +50,18 @@ function Header() {
         </nav>
 
         <div className="buttonsUser">
-          {hasSession() ? <div className="profile-container"> <button className="profile" onClick={openProfile}></button><p className="profile-text">Mi perfil</p></div> : null}
+          {hasSession() ? (
+            <div className="profile-container" onClick={openProfile}>
+              <button className="profile" onClick={openProfile}></button>
+              <p className="profile-text">Mi perfil</p>
+            </div>
+          ) : null}
           {hasSession() ? null : <button className="buttonSing" onClick={handleLogin}>Iniciar Sesión</button>}
           {hasSession() ? null : <button className="buttonSing" onClick={handleRegisterClick}>Regístrate</button>}
         </div>
       </header>
     </div>
   );
-
 }
+
 export default Header;
-
-
-
-
-

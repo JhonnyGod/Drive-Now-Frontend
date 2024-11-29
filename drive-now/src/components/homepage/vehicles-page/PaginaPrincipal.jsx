@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './styles.css';
 import VehiculoModal from './vehicles-modal/modal';
+import useModalStore from '../../../store/useModalStore';
+import Profile from '../../Profile/profile'; // IMPORTAR EL COMPONENTE Profile
 
 
 const Modal = ({ vehiculo, onClose }) => {
@@ -9,7 +11,8 @@ const Modal = ({ vehiculo, onClose }) => {
 
 const PaginaPrincipal = ({ vehiculos }) => {
   const [selectedVehiculo, setSelectedVehiculo] = useState(null);
-
+  const openProfile = useModalStore((state) => state.openProfile);
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile); // Accedemos a la función de Zustand para cambiar el estado
 
   const openModal = (vehiculo) => {
     setSelectedVehiculo(vehiculo);
@@ -18,6 +21,14 @@ const PaginaPrincipal = ({ vehiculos }) => {
     setSelectedVehiculo(null);
   };
 
+  const closeProfileModal = () => {
+    setOpenProfile(false); // Cierra el modal de perfil cambiando el estado a false
+  };
+
+  const openProfileModal = () => {
+    setOpenProfile(true);
+  };
+ 
   return (
     <div className="page-container">
       <main className="main-content">
@@ -47,6 +58,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
         </div>
       </main>
       <Modal vehiculo={selectedVehiculo} onClose={closeModal} />
+      {openProfile && <Profile isOpen={openProfile} onClose={closeProfileModal} />}
     </div>
   );
 };

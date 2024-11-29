@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css';
 import profileImage from '../../Assets/profile.png';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ import useUserStore from '../../store/useUserStore';
 export const Login = () => {
   const {user, setUser} = useUserStore();
   const [email, setEmail] = useState('');
-  // const { user, setUser } = useContext(UserContext);
   const [password, setPassword] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
@@ -24,7 +23,7 @@ export const Login = () => {
       const loginRequest = await axios.post('http://localhost:3000/usuario/login', { //* Solicitud HTTP a la URL local del backend
         email: email,
         password: password,
-        
+      
       },{
         withCredentials: true,
       });
@@ -44,8 +43,10 @@ export const Login = () => {
           user_id: data.user.id_user,
           username: data.user.username,
           email: data.user.email,
+          isAdmin: data.user.isAdmin,
         });
       }
+      navigate('/home');
 
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -53,7 +54,6 @@ export const Login = () => {
       showAlertWithAnimation();
     }
   };
-
 
   const forgotPasswordRecover = async (e) => {
     e.preventDefault();
