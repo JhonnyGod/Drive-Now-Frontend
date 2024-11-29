@@ -7,7 +7,10 @@ const Profile = () => {
 
     const openProfile = useModalStore((state) => state.openProfile);
     const setOpenProfile = useModalStore((state) => state.setOpenProfile);
-    const { hasSession, clearUser } = useUserStore();
+    const { hasSession, clearUser} = useUserStore();
+
+    const user = useUserStore((state) => state.user);
+    const username = user.username
 
     const handleLogout = () => {
         clearUser();
@@ -23,7 +26,7 @@ const Profile = () => {
                 <div className="user-card">
                     <img className="user-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png" alt="Perfil" />
                     <div className="user-info">
-                        <h2 className="username">Usuario: Taltaltaltal</h2>
+                        <h2 className="username">¡Hola {username}!</h2>
                     </div>
                 </div>
 
@@ -51,7 +54,6 @@ const Profile = () => {
                         </button>
                     </li>
                 </ul>
-
                 {/* Botón de cerrar */}
                 <button className="close-button" onClick={() => setOpenProfile(false)}>Cerrar ventana</button>
                 <button className="close-button" onClick={handleLogout}>Cerrar Sesión</button>

@@ -89,7 +89,6 @@
 
 }
 
-
 .header-input {
     padding: 8px;
     font-size: 14px;
@@ -111,10 +110,11 @@
   display: flex; /* Center the button inside */
   align-items: center; /* Center the button vertically */
   justify-content: center; /* Center the button horizontally */
-  background-color: #f0f0f0; /* Optional: Add a background color */
+  background-color: #3f060600; /* Optional: Add a background color */
   margin-right: 30px;
   margin-left: -35px;
   cursor: pointer;
+  margin-top: 10px;
 
 }
 
@@ -125,7 +125,15 @@
   border: none; 
   background-color: #ffffff00; 
   cursor: pointer; 
+  margin-bottom: 30px;
 }
+
+.profileimg {
+    width: 50px;        /* Tamaño de la imagen (ajústalo según lo necesites) */
+    height: 50px;       /* Tamaño de la imagen */
+    border-radius: 50%; /* Esto hace que la imagen sea circular */
+    object-fit: cover;  /* Esto asegura que la imagen no se distorsione */
+  }
 
 .profile-text{
     position: relative;
@@ -133,7 +141,7 @@
     color: #ffffff;
     text-align: center;
     top: 40px;
-    left: -15px;
+    left: -23px;
     white-space: nowrap;
     margin-top: 5px;
     font-family: 'Lucida Bright', sans-serif;

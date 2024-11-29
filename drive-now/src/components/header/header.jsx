@@ -5,6 +5,8 @@ import useUserStore from "../../store/useUserStore";
 import useModalStore from "../../store/useModalStore";
 
 function Header() {  
+
+  //TODO: Cambiar para que se vea la imagen del usuario en lugar de una imagen estática
   const navigate = useNavigate();
   const { hasSession, clearUser } = useUserStore();
   const setOpenProfile = useModalStore((state) => state.setOpenProfile);
@@ -52,7 +54,9 @@ function Header() {
         <div className="buttonsUser">
           {hasSession() ? (
             <div className="profile-container" onClick={openProfile}>
-              <button className="profile" onClick={openProfile}></button>
+              <button className="profile" onClick={openProfile}>
+                <img className = 'profileimg' src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="" />
+              </button>
               <p className="profile-text">Mi perfil</p>
             </div>
           ) : null}
