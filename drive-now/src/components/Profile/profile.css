@@ -169,3 +169,34 @@
     margin-right: 10px;         /* Espacio entre el ícono y el texto */
     width: 30px;                /* Tamaño del ícono */
   }
+
+  .vehicle-options {
+    display: flex;              /* Usamos flexbox para alinear el ícono y el texto */
+    align-items: center;        /* Alineamos el contenido de forma vertical */
+    padding: 10px;
+    background-color: #f4f4f4;  /* Color de fondo */
+    color: #333;                /* Color del texto */
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;       /* Tamaño del ícono */
+
+  }
+
+  .settings-access{
+    display: flex;              /* Usamos flexbox para alinear el ícono y el texto */
+    align-items: center;        /* Alineamos el contenido de forma vertical */
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .settings-access svg{
+    margin-right: 10px;         /* Espacio entre el ícono y el texto */       
+    width: 30px;      /* Color del ícono, puedes personalizarlo */
+  }

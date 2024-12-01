@@ -33,6 +33,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
   };
 
   const openModal = (vehiculo) => {
+    console.log(vehiculo)
     setSelectedVehiculo(vehiculo);
   };
 

@@ -12,11 +12,9 @@ import {persist} from "zustand/middleware"
 const useUserStore = create(
     persist((set, get)=>({
         user: null,
-        isAdmin: false,
         setUser: (newUser) => set({user: newUser}),
-        clearUser: () => set({user: null, isAdmin: false}),
+        clearUser: () => set({user: null}),
         hasSession: () => get().user !== null,
-        isAdmin: () => get().isAdmin
     }),
     {name: "user-storage"}
 ));

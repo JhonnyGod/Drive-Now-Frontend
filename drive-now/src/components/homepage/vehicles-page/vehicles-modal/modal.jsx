@@ -37,32 +37,46 @@ export default function VehiculoModal({ vehiculo, onClose }) {
     };
 
     return (
-        <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
-            <div className={`modal-content ${isOpen ? 'open' : ''}`}>
-                <button className="modal-close" onClick={handleClose}>×</button>
-                <div className="modal-body">
-                    <div className="modal-info">
-                        <h3 className="modal-title">{vehiculo.nombre}</h3>
-                        <div className="modal-image-container">
-                            <img src={vehiculo.image_src} alt={vehiculo.nombre} className="modal-image" />
+        <div className={`vm-modal-overlay ${isOpen ? 'vm-open' : ''}`}>
+            <div className={`vm-modal-content ${isOpen ? 'vm-open' : ''}`}>
+                <button className="vm-modal-close" onClick={handleClose}>&times;</button>
+                <div className="vm-modal-body">
+                    <div className="vm-vehicle-details">
+                        <div className="vm-vehicle-image-container">
+                            <img src={vehiculo.image_src} alt={vehiculo.nombre} className="vm-vehicle-image" />
                         </div>
-                        <div className="attribute">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M21 3l-7 7M21 21v-5m0 5l-7-7M3 16h5m-5 5h5v-5M3 3l7 7M3 3h5v5" /></svg>
-                            <p>Tipo: {vehiculo.tipovehiculo}</p>
+                        <div className="vm-vehicle-info">
+                            <h2 className="vm-vehicle-title">{vehiculo.nombre}</h2>
+                            <p className="vm-vehicle-description">{vehiculo.marca} - {vehiculo.color}</p>
+                            <div className="vm-vehicle-features">
+                                <div className="vm-feature">
+                                    <span className="vm-feature-icon">🚗</span>
+                                    <span>Tipo: {vehiculo.tipovehiculo}</span>
+                                </div>
+                                <div className="vm-feature">
+                                    <span className="vm-feature-icon">🏷️</span>
+                                    <span>Marca: {vehiculo.marca}</span>
+                                </div>
+                                <div className="vm-feature">
+                                    <span className="vm-feature-icon">🎨</span>
+                                    <span>Color: {vehiculo.color}</span>
+                                </div>
+                                <div className="vm-feature">
+                                    <span className="vm-feature-icon">📅</span>
+                                    <span>Modelo: {vehiculo.modelo}</span>
+                                </div>
+                            </div>
+                            <div className="vm-vehicle-full-description">
+                                <h3>Descripción</h3>
+                                <p>{vehiculo.descripcion}</p>
+                            </div>
+                            <button 
+                                className="vm-rent-button" 
+                                onClick={() => hasSession() ? handleRent() : handleLogin()}
+                            >
+                                {hasSession() ? 'Alquilar' : 'Logearse'}
+                            </button>
                         </div>
-                        <div className="attribute">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>
-                            <p>Marca: {vehiculo.marca}</p>
-                        </div>
-                        <div className="attribute">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" /></svg>
-                            <p>Color: {vehiculo.color}</p>
-                        </div>
-                        <div className="attribute">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" /></svg>
-                            <p>Modelo: {vehiculo.modelo}</p>
-                        </div>
-                        <button className="rent-button"  onClick={() => hasSession() ? handleRent() : handleLogin()} >{hasSession() ? 'Alquilar' : 'Logearse' }</button>
                     </div>
                 </div>
             </div>

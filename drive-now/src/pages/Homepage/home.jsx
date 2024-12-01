@@ -5,6 +5,7 @@ import Header from "../../components/header/header";
 import axios from "axios";
 import PaginaPrincipal from '../../components/homepage/vehicles-page/PaginaPrincipal';
 import useUserStore from "../../store/useUserStore";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   const { user } = useUserStore();
@@ -40,6 +41,8 @@ const Home = () => {
       <section className="main-content-screen" id="1">
         <PaginaPrincipal vehiculos={vehicleData}/>
       </section>
+      <Footer />
+      
     </div>
 
   );
