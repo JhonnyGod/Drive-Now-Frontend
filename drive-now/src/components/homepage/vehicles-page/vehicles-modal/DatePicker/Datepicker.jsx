@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./StyledDatePicker.css";
 
-export default function StyledDatePicker() {
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
+export default function StyledDatePicker({ dateRange, setDateRange }) {
+  const [startDate, endDate] = dateRange;  // Usamos las fechas pasadas como props
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -24,48 +23,37 @@ export default function StyledDatePicker() {
         startDate={startDate}
         endDate={endDate}
         onChange={(update) => {
-          setDateRange(update);
+          setDateRange(update);  // Actualiza el estado en el componente padre
         }}
-        minDate={new Date()}
+        minDate={new Date()}  // Asegúrate de que la fecha mínima sea hoy
         inline
         className="start-date-picker"
         calendarClassName="custom-calendar"
         dayClassName={() => "custom-day"}
         monthClassName={() => "custom-month"}
-        weekDayClassName={() => "custom-weekday"
-        }
-        renderCustomHeader={({
-          date,
-          changeYear,
-          changeMonth,
-          decreaseMonth,
-          increaseMonth,
-          prevMonthButtonDisabled,
-          nextMonthButtonDisabled,
-        }) => (
+        weekDayClassName={() => "custom-weekday"}
+        renderCustomHeader={(props) => (
           <div className="custom-header">
-            <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled} className="navigation-button">
-              {"<"}
-            </button>
+            <button onClick={props.decreaseMonth} disabled={props.prevMonthButtonDisabled} className="navigation-button">{"<"}</button>
             <div className="month-year-selectors">
               <select
-                value={date.getMonth()}
-                onChange={({ target: { value } }) => changeMonth(Number(value))}
+                value={props.date.getMonth()}
+                onChange={({ target: { value } }) => props.changeMonth(Number(value))}
                 className="month-selector"
               >
                 {months.map((month, index) => (
                   <option 
                     key={month} 
                     value={index}
-                    disabled={date.getFullYear() === currentYear && index < currentMonth}
+                    disabled={props.date.getFullYear() === currentYear && index < currentMonth}
                   >
                     {month}
                   </option>
                 ))}
               </select>
               <select
-                value={date.getFullYear()}
-                onChange={({ target: { value } }) => changeYear(Number(value))}
+                value={props.date.getFullYear()}
+                onChange={({ target: { value } }) => props.changeYear(Number(value))}
                 className="year-selector"
               >
                 {years.map((year) => (
@@ -75,16 +63,14 @@ export default function StyledDatePicker() {
                 ))}
               </select>
             </div>
-            <button onClick={increaseMonth} disabled={nextMonthButtonDisabled} className="navigation-button">
-              {">"}
-            </button>
+            <button onClick={props.increaseMonth} disabled={props.nextMonthButtonDisabled} className="navigation-button">{">"}</button>
           </div>
         )}
       />
       {startDate && endDate && (
         <div className="date-range-display">
-          <p>Desde: {startDate.toLocaleDateString()}</p>
-          <p>Hasta: {endDate.toLocaleDateString()}</p>
+          <p className='desde-date'>Desde: {startDate.toLocaleDateString()}</p>
+          <p className='hasta-date'>Hasta: {endDate.toLocaleDateString()}</p>
         </div>
       )}
     </div>

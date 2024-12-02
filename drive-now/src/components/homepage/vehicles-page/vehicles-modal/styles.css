@@ -200,12 +200,12 @@
 }
 
 .start-date-space {
-  background-color: #022F40;
+  background-color: #056385;
 }
 
 .react-datepicker {
   font-family: Arial, sans-serif;
-  border: 1px solid #022F40;
+  border: 1px solid #0879a1;
   border-radius: 8px;
   overflow: hidden;
   margin-top: 1rem;
