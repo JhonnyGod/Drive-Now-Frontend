@@ -3,6 +3,8 @@ import './styles.css';
 import useUserStore from '../../../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import StyledDatePicker from './DatePicker/Datepicker';
+import axios from 'axios';
+import GooglePayButton from '@google-pay/button-react';
 
 export default function VehiculoModal({ vehiculo, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,17 +27,37 @@ export default function VehiculoModal({ vehiculo, onClose }) {
     };
 
     const handleRentPetition = async () => {
+
         const [startDate, endDate] = dateRange;
 
-        if (startDate && endDate) {
-            const diffTime = Math.abs(endDate - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Calcular la diferencia en días
-            console.log(`Desde: ${startDate.toLocaleDateString()}`);
-            console.log(`Hasta: ${endDate.toLocaleDateString()}`);
-            console.log(`Cantidad de días: ${diffDays}`);
-        } else {
-            console.log("No se seleccionaron fechas válidas.");
+        const diffTime = Math.abs(endDate - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Calcular la diferencia en días
+        const totalPrice = diffDays * vehiculo.valor_dia;
+        try {
+            if (startDate && endDate) {
+                console.log(`Desde: ${startDate.toLocaleDateString()}`);
+                console.log(`Hasta: ${endDate.toLocaleDateString()}`);
+                console.log(`Cantidad de días: ${diffDays}`);
+                console.log(`Total a pagar: ${totalPrice}`);
+            } else {
+                console.log("No se seleccionaron fechas válidas.");
+            }
+
+            const rentPetition = await axios.post('http://localhost:3000/home/alquilarvehiculo', {
+                id_usuario: user.user_id,
+                id_vehiculo: vehiculo.id_vehiculo,
+                fecha_inicio: startDate,
+                fecha_fin: endDate,
+                total_pago: totalPrice
+            })
+            if (!rentPetition) {
+                console.log('Error al alquilar el vehículo');
+            }
+        } catch (error) {
+            console.error('Error al alquilar el vehículo:', error);
+
         }
+
     };
 
     const handleClose = () => {
@@ -96,7 +118,7 @@ export default function VehiculoModal({ vehiculo, onClose }) {
                                 dateRange={dateRange}    // Pasamos el estado
                                 setDateRange={setDateRange}  // Pasamos la función para actualizar el estado
                             />
-                            <button className='aceptar-button' onClick={handleRentPetition}>Aceptar</button>
+                            <GooglePayButton />
                         </div>
                     </div>
                 ) : null}

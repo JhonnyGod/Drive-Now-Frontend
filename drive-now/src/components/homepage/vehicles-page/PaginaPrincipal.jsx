@@ -3,7 +3,6 @@ import './styles.css';
 import VehiculoModal from './vehicles-modal/modal';
 import useModalStore from '../../../store/useModalStore';
 import Profile from '../../Profile/profile'; // IMPORTAR EL COMPONENTE Profile
-//TODO: Agregar Footer
 
 const Modal = ({ vehiculo, onClose }) => {
   return vehiculo ? <VehiculoModal vehiculo={vehiculo} onClose={onClose} /> : null;
