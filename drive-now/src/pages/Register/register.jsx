@@ -94,7 +94,7 @@ const Register = () => {
         <div className="formulario-registro">
           <h2 className='tittle'>Registro de usuario</h2>
           <form onSubmit={createNewUser}>
-            <input className="username" type="text" name="user_name" placeholder="Ingrese su nombre de usuario" value={formData.username} onChange={handleInputChange} />
+            <input className="username-label" type="text" name="user_name" placeholder="Ingrese su nombre de usuario" value={formData.username} onChange={handleInputChange} />
             <div className="name">
               <input className="Nombre" type="text" name='first_name' placeholder="Ingrese su nombre" value={formData.nombre} onChange={handleInputChange} />
               <input className="Apellido" type="text" name='last_name' placeholder="Ingrese su apellido" value={formData.value} onChange={handleInputChange} />

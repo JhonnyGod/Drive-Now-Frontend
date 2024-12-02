@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import './home.css';
 import Header from "../../components/header/header";
 import axios from "axios";
@@ -15,13 +15,13 @@ const Home = () => {
     try {
       const vehiclereq = await axios.post('http://localhost:3000/home/recuperarvehiculos');
 
-      if (vehiclereq.status !== 200) { 
+      if (vehiclereq.status !== 200) {
         console.log('Error al obtener los vehículos');
       }
 
       const vehicledata = vehiclereq.data.vehiculos.vehicles;
-      setVehicleData(vehicledata);  
-      
+      setVehicleData(vehicledata);
+
     } catch (error) {
       console.error('Error al obtener los vehículos:', error);
     }
@@ -30,7 +30,7 @@ const Home = () => {
     if (user) {
       getVehicles();
     }
-    else{
+    else {
       getVehicles();
     }
   }, [user]);
@@ -39,10 +39,19 @@ const Home = () => {
     <div>
       <Header />
       <section className="main-content-screen" id="1">
-        <PaginaPrincipal vehiculos={vehicleData}/>
+        <PaginaPrincipal vehiculos={vehicleData} />
+      </section>
+      <section className="maps">
+        <iframe
+          src="https://storage.googleapis.com/maps-solutions-o91kk67wdb/locator-plus/dezy/locator-plus.html"
+          width="100%"
+          height="100%"
+          style={{ border: "0" }}
+          loading="lazy">
+        </iframe>
       </section>
       <Footer />
-      
+
     </div>
 
   );

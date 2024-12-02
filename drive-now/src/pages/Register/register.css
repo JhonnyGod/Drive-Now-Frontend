@@ -84,6 +84,7 @@
     padding: 20px;
     background-color: #dbe9ed;
     height: 100%;
+    padding-top: -30px;
   }
   
   .tittle{
@@ -99,10 +100,10 @@
     flex-direction: column;
   }
 
-  .username{
+  .username-label{
     display: flex;
     justify-content: center;
-    width: 96%;
+    width:96%;
     padding: 1rem;
     border-radius: 7px;
     border: 1px;

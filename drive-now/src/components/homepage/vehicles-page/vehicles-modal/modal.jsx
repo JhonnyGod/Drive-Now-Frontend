@@ -3,10 +3,13 @@ import './styles.css';
 import useUserStore from '../../../../store/useUserStore';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import StyledDatePicker from './DatePicker/Datepicker'
+
 
 export default function VehiculoModal({ vehiculo, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
     const { user, hasSession } = useUserStore();
+    const [payment, setOpenPayment] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,20 +20,10 @@ export default function VehiculoModal({ vehiculo, onClose }) {
         navigate('/login');
     }
     const handleRent = () => {
-
-        const idvehiculo = vehiculo.idvehiculo;
-        const petition = axios.post('http://localhost:3000/home/rent', {
-            id_user: user.user_id,
-            idvehiculo: idvehiculo,
-        })
-        if (!petition) {
-            alert('Error al alquilar el vehículo');
-        }
-        else {
-            alert('El vehículo fue alquilado exitosamente, te enviamos un correo con toda la información')
-            setIsOpen(false);
-        }
+        setOpenPayment(true);
     }
+
+
     const handleClose = () => {
         setIsOpen(false);
         setTimeout(onClose, 300);
@@ -40,7 +33,7 @@ export default function VehiculoModal({ vehiculo, onClose }) {
         <div className={`vm-modal-overlay ${isOpen ? 'vm-open' : ''}`}>
             <div className={`vm-modal-content ${isOpen ? 'vm-open' : ''}`}>
                 <button className="vm-modal-close" onClick={handleClose}>&times;</button>
-                <div className="vm-modal-body">
+                {payment ? null : <div className="vm-modal-body">
                     <div className="vm-vehicle-details">
                         <div className="vm-vehicle-image-container">
                             <img src={vehiculo.image_src} alt={vehiculo.nombre} className="vm-vehicle-image" />
@@ -70,15 +63,23 @@ export default function VehiculoModal({ vehiculo, onClose }) {
                                 <h3>Descripción</h3>
                                 <p>{vehiculo.descripcion}</p>
                             </div>
-                            <button 
-                                className="vm-rent-button" 
+                            <button
+                                className="vm-rent-button"
                                 onClick={() => hasSession() ? handleRent() : handleLogin()}
                             >
                                 {hasSession() ? 'Alquilar' : 'Logearse'}
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>}
+                {payment ?
+                    <div className='payment-body'>
+                        <div className='start-date-space'>
+                            <h1 className='start-date-title'>Selecciona tu fecha de inicio y finalización de alquiler</h1>
+                            <StyledDatePicker />
+                            <button className='aceptar-button'>Aceptar</button>
+                        </div>
+                    </div> : null}
             </div>
         </div>
     );

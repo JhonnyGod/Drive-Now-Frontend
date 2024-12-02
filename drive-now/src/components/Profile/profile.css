@@ -56,7 +56,6 @@
     white-space: nowrap; /* Evita que el texto se rompa en múltiples líneas */
     overflow: hidden;
     text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es largo */
-    margin-left: -50px;
   }
   .edit-profile-btn {
     display: flex;              /* Usamos flexbox para alinear el ícono y el texto */

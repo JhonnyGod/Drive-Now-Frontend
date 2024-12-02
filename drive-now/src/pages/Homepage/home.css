@@ -26,3 +26,9 @@
     color: #007bff;
     font-family: 'Lucida Bright', sans-serif;
   }
+
+  .maps{
+    width: 100%;
+    height: 400px;
+    padding-bottom: 50px;
+  }
