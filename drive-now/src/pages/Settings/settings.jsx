@@ -5,7 +5,6 @@ import useModalStore from "../../store/useModalStore";
 import Profile from "../../components/Profile/profile";
 import Footer from "../../components/Footer/Footer";
 
-
 const Settings = () => {
 
     const {openProfile, setOpenProfile} = useModalStore();
