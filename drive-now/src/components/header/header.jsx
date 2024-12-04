@@ -12,7 +12,7 @@ function Header() {
   const setOpenProfile = useModalStore((state) => state.setOpenProfile);
 
   const goHome = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleLogout = () => {
@@ -40,7 +40,7 @@ function Header() {
           <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" alt="Logotipo" onClick={goHome} />
         </div>
 
-        <input type="text" className="header-input" placeholder="Buscar..." />
+        <input type="text" className="input-header" id="input-header" placeholder="Buscar..." />
 
         <nav className="nav">
           <ul>

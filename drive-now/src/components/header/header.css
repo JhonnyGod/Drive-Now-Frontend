@@ -90,16 +90,16 @@
 
 }
 
-.header-input {
+.main-screen .header .input-header {
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
-    width: 300px;
+    width: 450px;
 }
 
-.header-input:focus {
+.main-screen .header .input-header:focus {
     border-color: #000000;
     box-shadow: 0 0 5px rgb(255, 255, 255);
 }
