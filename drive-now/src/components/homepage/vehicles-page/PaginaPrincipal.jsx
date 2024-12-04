@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 import VehiculoModal from './vehicles-modal/modal';
 import useModalStore from '../../../store/useModalStore';
 import Profile from '../../Profile/profile'; // IMPORTAR EL COMPONENTE Profile
+import { useLocation } from 'react-router-dom';
 
 const Modal = ({ vehiculo, onClose }) => {
   return vehiculo ? <VehiculoModal vehiculo={vehiculo} onClose={onClose} /> : null;
@@ -12,10 +13,20 @@ const PaginaPrincipal = ({ vehiculos }) => {
   const [selectedVehiculo, setSelectedVehiculo] = useState(null);
   const openProfile = useModalStore((state) => state.openProfile);
   const setOpenProfile = useModalStore((state) => state.setOpenProfile); // Accedemos a la función de Zustand para cambiar el estado
+  const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
 
   const carsRef = useRef(null);
   const camionetasRef = useRef(null);
   const motosRef = useRef(null);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.get('paymentSuccess') === 'true') {
+        setShowModal(true); // Mostrar el modal si el pago fue exitoso
+    }
+}, [location]);
+
 
   // Mover la función handleScroll fuera del componente Catalogo
   const handleScroll = (direction, type) => {

@@ -4,6 +4,8 @@ import useUserStore from '../../../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import StyledDatePicker from './DatePicker/Datepicker';
 import GooglePayComponent from '../../../../payments/GooglePayButton';
+import usePaymentStatus from '../../../../store/PaymentStatus';
+
 
 export default function VehiculoModal({ vehiculo, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,12 +13,27 @@ export default function VehiculoModal({ vehiculo, onClose }) {
     const [payment, setOpenPayment] = useState(false);
     const [dateRange, setDateRange] = useState([null, null]);
     const [totalPrice, setTotalPrice] = useState(0); // Establecemos un estado para totalPrice
+    const { paymentStatus, setPaymentStatus, } = usePaymentStatus();
 
     const navigate = useNavigate();
+    
 
     useEffect(() => {
-        setIsOpen(true);
+        setIsOpen(true);    
     }, []);
+
+    useEffect(() => {
+        if (paymentStatus === 'SUCCESS') {
+            setOpenPayment(false); // Cerrar el modal de pago
+            setIsOpen(false); // Cerrar el modal principal
+            navigate('/home?paymentSuccess=true'); // Redirigir a la página principal con un query parameter
+            alert('Pago exitoso!'); // Mostrar un mensaje de alerta
+            setTimeout(() => {
+                setPaymentStatus(null); // Resetear el estado de pago
+                onClose(); // Hacer cualquier otra acción necesaria
+            }, 300);
+        }
+    }, [paymentStatus, navigate, onClose, setPaymentStatus]);
 
     const handleLogin = () => {
         navigate('/login');
@@ -48,10 +65,11 @@ export default function VehiculoModal({ vehiculo, onClose }) {
 
     const handleClose = () => {
         setIsOpen(false);
-        setTimeout(onClose, 300);
+        setTimeout(onClose, 300);  // Llamamos a onClose después de la animación de cierre
     };
 
     return (
+        paymentStatus === 'SUCCESS' ? null :  // Si el pago es exitoso, no renderizamos el modal
         <div className={`vm-modal-overlay ${isOpen ? 'vm-open' : ''}`}>
             <div className={`vm-modal-content ${isOpen ? 'vm-open' : ''}`}>
                 <button className="vm-modal-close" onClick={handleClose}>&times;</button>
@@ -109,7 +127,7 @@ export default function VehiculoModal({ vehiculo, onClose }) {
                                 <div>
                                     <p>Total a pagar: ${totalPrice}</p>
                                     {/* Renderizamos el componente GooglePayButton solo si tenemos totalPrice */}
-                                    <GooglePayComponent valor={totalPrice} />  
+                                    <GooglePayComponent valor={totalPrice} />
                                 </div>
                             )}
                         </div>

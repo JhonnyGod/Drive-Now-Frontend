@@ -1,0 +1,45 @@
+.main-title{
+position: auto;
+margin-top: 20px;
+}
+
+.options-container{
+display: flex;
+justify-content: space-between;
+text-align: center;
+padding: 50px;
+
+}
+
+.add-container{
+    cursor: pointer;
+    border-radius: 20px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.edit-container{
+    cursor: pointer;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.delete-container{
+    cursor: pointer;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.add-icon{
+    width: 150px;
+}
+
+.editt-icon{
+    width: 1px;
+}
+
+.delete-container{
+    width: 150px;
+}
+
+

@@ -37,7 +37,7 @@ function Header() {
     <div className="main-screen">
       <header className="header">
         <div className="logo">
-          <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" onClick={goHome} />
+          <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" alt="Logotipo" onClick={goHome} />
         </div>
 
         <input type="text" className="header-input" placeholder="Buscar..." />

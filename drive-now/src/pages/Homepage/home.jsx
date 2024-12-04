@@ -42,7 +42,7 @@ const Home = () => {
         <PaginaPrincipal vehiculos={vehicleData} />
       </section>
       <section className="maps">
-        <iframe
+        <iframe title="Ubicación de nuestras agencias"
           src="https://storage.googleapis.com/maps-solutions-o91kk67wdb/locator-plus/dezy/locator-plus.html"
           width="100%"
           height="100%"
