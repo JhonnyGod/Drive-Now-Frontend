@@ -119,14 +119,13 @@ export default function VehiculoModal({ vehiculo, onClose }) {
                         <div className='start-date-space'>
                             <h1 className='start-date-title'>Selecciona tu fecha de inicio y finalización de alquiler</h1>
                             <StyledDatePicker
-                                dateRange={dateRange}    // Pasamos el estado
-                                setDateRange={setDateRange}  // Pasamos la función para actualizar el estado
+                                dateRange={dateRange}
+                                setDateRange={setDateRange}  
                             />
                             <button className='aceptar-button' onClick={handleRentPetition}>Aceptar</button>
                             {totalPrice > 0 && (
                                 <div>
                                     <p>Total a pagar: ${totalPrice}</p>
-                                    {/* Renderizamos el componente GooglePayButton solo si tenemos totalPrice */}
                                     <GooglePayComponent valor={totalPrice} />
                                 </div>
                             )}

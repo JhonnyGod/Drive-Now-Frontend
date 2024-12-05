@@ -95,7 +95,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
             <button className="scroll-button right" onClick={() => handleScroll('right', 'cars')}>❯</button>
           </div>
         </section>
-  
+        
         {/* Sección de camionetas */}
         <section className='camioneta-grid'>
           <h1 className='camioneta-section-title'>Camionetas</h1>

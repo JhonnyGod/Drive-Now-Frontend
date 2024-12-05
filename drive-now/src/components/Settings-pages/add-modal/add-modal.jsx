@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './add-modal.css';
 import axios from "axios";
+import convertImageToWebp from "../../../utils/convertwebp";
 
 
 //todo: Hacer el formulario anti imbéciles, es decir, cambiar los inputs por comboboxes
@@ -8,13 +9,13 @@ const AddModal = ({ closeModal }) => {
     const [formData, setFormData] = useState({
         nombre: '',
         matricula: '',
-        tipo: '',
+        tipovehiculo: '',
         modelo: '',
         color: '',
         cilindraje: '',
         marca: '',
         capacidad: '',
-        combustible: '',
+        combustible: 'gasolina',
         image_src: null,
     });
 
@@ -22,12 +23,61 @@ const AddModal = ({ closeModal }) => {
         closeModal();
     }
 
-    const handleAddSubmit = (event) => {
+    const handleAddSubmit = async (event) => {
         event.preventDefault();
-        console.log("Datos del formulario:", formData);
-        //TODO: Convertir el archivo y enviarlo al backend
 
-    };
+        const vehicleData = {
+            nombre: formData.nombre,
+            matricula: formData.matricula,
+            tipovehiculo: formData.tipo,
+            modelo: formData.modelo,
+            color: formData.color,
+            cilindraje: formData.cilindraje,
+            marca: formData.marca,
+            capacidad: formData.capacidad,
+            combustible: formData.combustible,
+            image_src: null,
+        };
+
+        try {
+            const file = formData.image_src;
+            const convertion = await convertImageToWebp(file);
+            const data = new FormData();
+            data.append("image", convertion);
+
+            const apiUrl = "https://api.imgbb.com/1/upload?key=da0fe51518faa206690e2d2d98bc6445" //! Me quedó grande ponerlo en .env jajaj
+
+            const img_petition = await axios.post(apiUrl, data, {
+                headers: {
+                    "Content-Type": "multipart/form-data", 
+                },
+            });
+
+            if (img_petition.data.success) {
+                console.log(img_petition.data);
+            } else {
+                throw new Error("Failed to upload image");
+            }
+
+            const img_url = img_petition.data.data.url
+            vehicleData.image_src = img_url;
+
+            console.log(vehicleData);
+            
+            const backend_request = await axios.post('http://localhost:3000/admin/crearvehiculo', vehicleData); 
+            if (backend_request.status === 200) {
+                alert('Vehículo creado exitosamente');
+                closeModal();
+            }
+            else {
+                console.error('Error al crear vehículo');
+            }
+        } catch (error) {
+            console.error('Error al convertir vehículo:', error);
+
+        }
+
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -206,6 +256,8 @@ const AddModal = ({ closeModal }) => {
                                 >
                                     <option value="gasolina">Gasolina</option>
                                     <option value="diesel">Diesel</option>
+                                    <option value="hibrido">Híbrido</option>
+                                    <option value="electrico">Eléctrico</option>
                                 </select>
                             </label>
                         </div>
@@ -213,6 +265,7 @@ const AddModal = ({ closeModal }) => {
                     <button type="submit" className="submit-button">Añadir Vehículo</button>
                 </form>
             </div>
+            
         </div>
     );
 };
