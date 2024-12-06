@@ -5,6 +5,8 @@ import Home from './pages/Homepage/home';
 import Recover from '../src/pages/PasswordForgot/recover';
 import Register from '../src/pages/Register/register';
 import Settings from '../src/pages/Settings/settings';
+import HomeEdition from './pages/Homepage/homeedition';
+import About from './pages/Homepage/about';
 
 const App = () => {
   return (
@@ -15,6 +17,9 @@ const App = () => {
           <Route path="/recover" element={<Recover />} />
           <Route path="/register" element={<Register />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/homeedition" element={<HomeEdition/>}/>
+          <Route path="/about" element={<About/>}/>
+
         </Routes>
     </Router>
   );

@@ -14,7 +14,7 @@ body {
 
 .main-content {
   flex-grow: 1;
-  padding: 2rem;
+  padding: 4rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -30,7 +30,7 @@ body {
 
 /* Estilo de cada sección de vehículos */
 .vehicle-section {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .vehicle-section-title {
@@ -53,6 +53,7 @@ body {
 }
 
 .vehicle-item {
+  margin-bottom: 3rem; /* Aumenta el espacio debajo de cada tarjeta */
   flex: 0 0 48%; /* Ajusta el tamaño de las cartas para que quepan dos por fila */
   scroll-snap-align: start; /* Ajuste para que cada carta se alinee correctamente al hacer scroll */
   min-width: 320px; /* Asegura un tamaño mínimo para cada carta */
@@ -180,3 +181,27 @@ body {
   overflow: hidden;
   scroll-behavior: smooth;
 }
+
+
+.pagination {
+  display: flex;
+  justify-content: center; /* Centra el paginado horizontalmente */
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 20px; /* Añade separación entre la lista de vehículos y el paginado */
+  margin-bottom: 40px; /* Añade un margen inferior para separar el footer */
+}
+
+.pagination button {
+  padding: 10px 20px;
+  background-color: #022F40;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+

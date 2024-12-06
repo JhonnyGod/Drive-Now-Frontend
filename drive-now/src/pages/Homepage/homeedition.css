@@ -1,0 +1,75 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    margin: 0 10px;
+    font-weight: bold;
+  }
+
+
+  .about-main-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .about-container {
+    margin-top: 2rem;
+  }
+  
+  .about-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .about-header h2 {
+    font-size: 2rem;
+    color: #022f40;
+  }
+  
+  .about-header p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .about-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-section h3 {
+    font-size: 1.5rem;
+    color: #022f40;
+    margin-bottom: 0.5rem;
+  }
+  
+  .about-section p,
+  .about-section ul {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.5rem 0;
+  }
+  
+  .about-section ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+  }
+  
