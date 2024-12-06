@@ -73,7 +73,7 @@ function Header() {
   const setOpenProfile = useModalStore((state) => state.setOpenProfile);
 
   const goHome = () => {
-    navigate('/home');
+    navigate('/');
   };
 
   const handleRegisterClick = () => {
