@@ -3,6 +3,7 @@ import './header.css';
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/useUserStore";
 import useModalStore from "../../store/useModalStore";
+import axios from "axios";
 
 function Header() {
 
@@ -10,10 +11,20 @@ function Header() {
   const [keyDown, setKeyDown] = React.useState(false)
   const [openSearchFilters, setOpenSearchFilters] = React.useState(false)
   const [term, setTerm] = React.useState('')
+  const inputRef = React.useRef(null)
 
+
+  const [searchedData, setSearchedData] = React.useState([])
+
+  useEffect(() => {
+    if (searchedData.length > 0) {
+      console.log("Data a renderizar: ", searchedData)
+    }
+  }, [searchedData])
 
   const handleSelectChange = (event) => {
     const termValue = event.target.value;
+    inputRef.current.focus();
     setTerm(termValue)
   }
   const handleClick = () => {
@@ -36,9 +47,25 @@ function Header() {
       console.log("SearchTerm: ", searchterm)
       console.log("Term: ", term)
       setKeyDown(false)
-      setSearchTerm('')
+      sendSearchPetition(searchterm, term)
     }
   }, [searchterm, keyDown, term])
+
+  const sendSearchPetition = async (searchterm, term) => {
+    const petition = await axios.post('http://localhost:3000/usuario/buscar', {
+      searchterm: searchterm,
+      filterattribute: term
+    })
+
+    if (petition.status !== 200) {
+      alert('Error al buscar')
+    }
+    alert("Petición exitosa")
+
+    setSearchedData(petition.data.vehicles)
+    navigate('/searchresults', {state: {vehicles: petition.data.vehicles}})
+  }
+
 
 
   const navigate = useNavigate();
@@ -73,21 +100,21 @@ function Header() {
           <img src="https://i.ibb.co/zVPsLGf/imagen-2024-11-03-193947179-removebg-preview.png" alt="Logotipo" onClick={goHome} />
         </div>
 
-        <input type="text" className="input-header" id="input-header" placeholder="Buscar..." onClick={handleClick} onChange={searchfunction} onKeyDown={pressEnter} />
+        <input type="text" className="input-header" id="input-header" placeholder="Buscar..." onClick={handleClick} onChange={searchfunction} onKeyDown={pressEnter} ref={inputRef} />
         {openSearchFilters ?
-         <div className="ventana-opciones">
-          <h5 className="opciones-titulo">¿Tu búsqueda es sobre?</h5>
-          <select name="filter-options" className="combobox-opciones" onChange={handleSelectChange}>
-            <option value="combustible">Combustible</option>
-            <option value="capacidad">Capacidad</option>
-            <option value="nombre">Nombre</option>
-            <option value="tipovehiculo">Tipo de vehículo</option>
-            <option value="modelo">Modelo</option>
-            <option value="color">Color</option>
-            <option value="cilindraje">Cilindraje</option>
-            <option value="marca">Marca</option>
-          </select>
-        </div> : null}
+          <div className="ventana-opciones">
+            <h5 className="opciones-titulo">¿Tu búsqueda es sobre?</h5>
+            <select name="filter-options" className="combobox-opciones" onChange={handleSelectChange}>
+              <option value="combustible">Combustible</option>
+              <option value="capacidad">Capacidad</option>
+              <option value="nombre">Nombre</option>
+              <option value="tipovehiculo">Tipo de vehículo</option>
+              <option value="modelo">Modelo</option>
+              <option value="color">Color</option>
+              <option value="cilindraje">Cilindraje</option>
+              <option value="marca">Marca</option>
+            </select>
+          </div> : null}
 
         <nav className="nav">
           <ul>

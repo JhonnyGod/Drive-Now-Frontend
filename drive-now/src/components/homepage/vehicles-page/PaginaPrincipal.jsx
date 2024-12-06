@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 import VehiculoModal from './vehicles-modal/modal';
 import useModalStore from '../../../store/useModalStore';
-import Profile from '../../Profile/profile'; // IMPORTAR EL COMPONENTE Profile
+import Profile from '../../Profile/profile'; 
 import { useLocation } from 'react-router-dom';
 
 const Modal = ({ vehiculo, onClose }) => {
@@ -12,7 +12,7 @@ const Modal = ({ vehiculo, onClose }) => {
 const PaginaPrincipal = ({ vehiculos }) => {
   const [selectedVehiculo, setSelectedVehiculo] = useState(null);
   const openProfile = useModalStore((state) => state.openProfile);
-  const setOpenProfile = useModalStore((state) => state.setOpenProfile); // Accedemos a la función de Zustand para cambiar el estado
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile); 
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
@@ -23,15 +23,14 @@ const PaginaPrincipal = ({ vehiculos }) => {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     if (queryParams.get('paymentSuccess') === 'true') {
-        setShowModal(true); // Mostrar el modal si el pago fue exitoso
+        setShowModal(true); 
     }
 }, [location]);
 
 
-  // Mover la función handleScroll fuera del componente Catalogo
   const handleScroll = (direction, type) => {
     const container = type === 'cars' ? carsRef.current : type === 'camionetas' ? camionetasRef.current : motosRef.current;
-    const scrollAmount = 300; // El valor de desplazamiento
+    const scrollAmount = 300; 
 
     if (container) {
       if (direction === 'left') {

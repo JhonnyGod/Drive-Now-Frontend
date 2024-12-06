@@ -5,6 +5,7 @@ import Home from './pages/Homepage/home';
 import Recover from '../src/pages/PasswordForgot/recover';
 import Register from '../src/pages/Register/register';
 import Settings from '../src/pages/Settings/settings';
+import ResultsPage from './pages/Search/search';
 import HomeEdition from './pages/Homepage/homeedition';
 import About from './pages/Homepage/about';
 
@@ -17,6 +18,8 @@ const App = () => {
           <Route path="/recover" element={<Recover />} />
           <Route path="/register" element={<Register />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/searchresults" element={<ResultsPage />} />
+          
           <Route path="/homeedition" element={<HomeEdition/>}/>
           <Route path="/about" element={<About/>}/>
 

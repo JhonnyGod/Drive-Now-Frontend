@@ -25,6 +25,17 @@ export default function VehiculoModal({
 
     })
 
+    const colorMap = {
+        rojo: 'red',
+        azul: 'blue',
+        verde: 'green',
+        amarillo: 'yellow',
+        blanco: 'white',
+        negro: 'black',
+        gris: 'gray',
+        // Añadir más colores según sea necesario
+    };
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -179,7 +190,14 @@ export default function VehiculoModal({
                                                     placeholder="Color"
                                                 />
                                             ) : (
-                                                <span>Color: {vehiculo.color}</span>
+                                                <li>
+                                                    Color:
+                                                    <span
+                                                        className="color-bubble"
+                                                        style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
+                                                    </span>
+                                                    {vehiculo.color}
+                                                </li>
                                             )}
                                         </div>
 

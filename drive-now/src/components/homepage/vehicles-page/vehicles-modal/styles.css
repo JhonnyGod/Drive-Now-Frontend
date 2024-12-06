@@ -285,3 +285,12 @@
   font-size: 14px;
   transition: color 0.3s ease;
 }
+
+.color-bubble {
+  display: inline-block;
+  width: 20px; /* Tamaño de la burbuja */
+  height: 20px; /* Tamaño de la burbuja */
+  border-radius: 50%; /* Para que sea una burbuja circular */
+  margin-right: 8px; /* Espacio entre la burbuja y el texto */
+  border: 1px solid #333;
+}
