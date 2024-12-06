@@ -5,6 +5,8 @@ import convertImageToWebp from "../../../utils/convertwebp";
 
 
 //todo: Hacer el formulario anti imbéciles, es decir, cambiar los inputs por comboboxes
+//TODO: Cuando se agregan vehículos, el tipo debe ser el exacto de la bd, (Coche, Moto, Camioneta), voy a cambiarlo por Comboboxes 
+//* Si no no se muestran.
 const AddModal = ({ closeModal }) => {
     const [formData, setFormData] = useState({
         nombre: '',
@@ -63,7 +65,7 @@ const AddModal = ({ closeModal }) => {
             vehicleData.image_src = img_url;
 
             console.log(vehicleData);
-            
+
             const backend_request = await axios.post('http://localhost:3000/admin/crearvehiculo', vehicleData); 
             if (backend_request.status === 200) {
                 alert('Vehículo creado exitosamente');

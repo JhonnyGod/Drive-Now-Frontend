@@ -96,7 +96,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
-    width: 450px;
+    width: 300px;
 }
 
 .main-screen .header .input-header:focus {
@@ -146,4 +146,22 @@
     white-space: nowrap;
     margin-top: 5px;
     font-family: 'Lucida Bright', sans-serif;
+}
+
+.ventana-opciones{
+    width: 100%;
+    max-width: 145px; 
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 1;
+    box-sizing: border-box; 
+    margin-top: -5px; 
+}
+
+.ventana-opciones h5{
+    margin-bottom: 5px;
+    margin-top: -20px;
+    text-align: center;
 }

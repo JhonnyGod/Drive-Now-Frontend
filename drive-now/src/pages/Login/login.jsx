@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './login.css';
 import profileImage from '../../Assets/profile.png';
+import './login.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../components/utilcomponents/alert.css';
