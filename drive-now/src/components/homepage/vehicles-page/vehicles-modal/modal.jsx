@@ -190,13 +190,13 @@ export default function VehiculoModal({
                                                     placeholder="Color"
                                                 />
                                             ) : (
-                                                <li>
-                                                    Color:
+                                                <li style={{listStyleType:'none'}}>
+                                                    <div className='text-color'>Color {vehiculo.color}</div>
                                                     <span
                                                         className="color-bubble"
                                                         style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
                                                     </span>
-                                                    {vehiculo.color}
+
                                                 </li>
                                             )}
                                         </div>

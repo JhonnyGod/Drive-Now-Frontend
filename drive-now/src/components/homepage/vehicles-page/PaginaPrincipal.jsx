@@ -2,17 +2,28 @@ import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 import VehiculoModal from './vehicles-modal/modal';
 import useModalStore from '../../../store/useModalStore';
-import Profile from '../../Profile/profile'; 
+import Profile from '../../Profile/profile';
 import { useLocation } from 'react-router-dom';
 
 const Modal = ({ vehiculo, onClose }) => {
   return vehiculo ? <VehiculoModal vehiculo={vehiculo} onClose={onClose} /> : null;
 };
 
+const colorMap = {
+  rojo: 'red',
+  azul: 'blue',
+  verde: 'green',
+  amarillo: 'yellow',
+  blanco: 'white',
+  negro: 'black',
+  gris: 'gray',
+  //? Se pueden añadir mas colores, incluso con rgb
+};
+
 const PaginaPrincipal = ({ vehiculos }) => {
   const [selectedVehiculo, setSelectedVehiculo] = useState(null);
   const openProfile = useModalStore((state) => state.openProfile);
-  const setOpenProfile = useModalStore((state) => state.setOpenProfile); 
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
@@ -23,14 +34,14 @@ const PaginaPrincipal = ({ vehiculos }) => {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     if (queryParams.get('paymentSuccess') === 'true') {
-        setShowModal(true); 
+      setShowModal(true);
     }
-}, [location]);
+  }, [location]);
 
 
   const handleScroll = (direction, type) => {
     const container = type === 'cars' ? carsRef.current : type === 'camionetas' ? camionetasRef.current : motosRef.current;
-    const scrollAmount = 300; 
+    const scrollAmount = 300;
 
     if (container) {
       if (direction === 'left') {
@@ -62,7 +73,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
     <div className="page-container">
       <main className="main-content">
         <h2 className="main-title">Nuestros vehículos</h2>
-        
+
         {/* Sección de carros */}
         <section className='cars-grid'>
           <h1 className='cars-section-title'>Carros</h1>
@@ -78,7 +89,14 @@ const PaginaPrincipal = ({ vehiculos }) => {
                       <ul className="vehicle-features">
                         <li>Tipo: {vehiculo.tipovehiculo}</li>
                         <li>Marca: {vehiculo.marca}</li>
-                        <li>Color: {vehiculo.color}</li>
+                        <li style={{ listStyleType: 'none' }}>
+                          <div className='text-color-card'>Color {vehiculo.color}</div>
+                          <span
+                            className="color-bubble-card"
+                            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
+                          </span>
+
+                        </li>
                       </ul>
                       <button
                         className="details-button"
@@ -94,7 +112,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
             <button className="scroll-button right" onClick={() => handleScroll('right', 'cars')}>❯</button>
           </div>
         </section>
-        
+
         {/* Sección de camionetas */}
         <section className='camioneta-grid'>
           <h1 className='camioneta-section-title'>Camionetas</h1>
@@ -110,7 +128,14 @@ const PaginaPrincipal = ({ vehiculos }) => {
                       <ul className="vehicle-features">
                         <li>Tipo: {vehiculo.tipovehiculo}</li>
                         <li>Marca: {vehiculo.marca}</li>
-                        <li>Color: {vehiculo.color}</li>
+                        <li style={{ listStyleType: 'none' }}>
+                          <div className='text-color-card'>Color {vehiculo.color}</div>
+                          <span
+                            className="color-bubble-card"
+                            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
+                          </span>
+
+                        </li>
                       </ul>
                       <button
                         className="details-button"
@@ -126,7 +151,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
             <button className="scroll-button right" onClick={() => handleScroll('right', 'camionetas')}>❯</button>
           </div>
         </section>
-  
+
         {/* Sección de motos */}
         <section className='moto-grid'>
           <h1 className='moto-section-title'>Motos</h1>
@@ -142,7 +167,13 @@ const PaginaPrincipal = ({ vehiculos }) => {
                       <ul className="vehicle-features">
                         <li>Tipo: {vehiculo.tipovehiculo}</li>
                         <li>Marca: {vehiculo.marca}</li>
-                        <li>Color: {vehiculo.color}</li>
+                        <li style={{ listStyleType: 'none' }}>
+                          <div className='text-color-card'>Color {vehiculo.color}</div>
+                          <span
+                            className="color-bubble-card"
+                            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
+                          </span>
+                        </li>
                       </ul>
                       <button
                         className="details-button"
@@ -158,7 +189,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
             <button className="scroll-button right" onClick={() => handleScroll('right', 'motos')}>❯</button>
           </div>
         </section>
-        
+
       </main>
       <Modal vehiculo={selectedVehiculo} onClose={closeModal} />
       {openProfile && <Profile isOpen={openProfile} onClose={closeProfileModal} />}

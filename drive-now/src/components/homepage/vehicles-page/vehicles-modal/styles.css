@@ -286,6 +286,12 @@
   transition: color 0.3s ease;
 }
 
+.text-color {
+  display: block; /* Asegura que el texto ocupe toda la línea */
+  margin-bottom: 5px; /* Puedes ajustar el espacio entre el texto y la burbuja */
+  margin-top: 35px;
+}
+
 .color-bubble {
   display: inline-block;
   width: 20px; /* Tamaño de la burbuja */

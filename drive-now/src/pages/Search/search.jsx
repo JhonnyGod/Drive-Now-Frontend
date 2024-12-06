@@ -15,7 +15,7 @@ const colorMap = {
     blanco: 'white',
     negro: 'black',
     gris: 'gray',
-    // Añadir más colores según sea necesario
+    //? Se pueden añadir mas colores, incluso con rgb
 };
 
 const ResultsPage = () => {

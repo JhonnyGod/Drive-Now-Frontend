@@ -205,3 +205,17 @@ body {
   cursor: not-allowed;
 }
 
+.text-color-card {
+  display: block; /* Asegura que el texto ocupe toda la línea */
+  margin-bottom: 5px; /* Puedes ajustar el espacio entre el texto y la burbuja */
+  margin-top: 15px;
+}
+
+.color-bubble-card{
+  display: inline-block;
+  width: 20px; /* Tamaño de la burbuja */
+  height: 20px; /* Tamaño de la burbuja */
+  border-radius: 50%; /* Para que sea una burbuja circular */
+  margin-right: 8px; /* Espacio entre la burbuja y el texto */
+  border: 1px solid #333;
+}
