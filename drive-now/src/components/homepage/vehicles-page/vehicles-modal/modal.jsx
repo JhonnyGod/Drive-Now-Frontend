@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import useUserStore from '../../../../store/useUserStore';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import StyledDatePicker from './DatePicker/Datepicker';
 import GooglePayComponent from '../../../../payments/GooglePayButton';
 import usePaymentStatus from '../../../../store/PaymentStatus';
@@ -10,7 +10,7 @@ export default function VehiculoModal({
     vehiculo,
     onClose,
     isEditMode = false, // Define si el modal está en modo edición
-    onEditSave = () => {}, // Callback para guardar cambios
+    onEditSave = () => { }, // Callback para guardar cambios
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const { user, hasSession } = useUserStore();
@@ -19,6 +19,11 @@ export default function VehiculoModal({
     const [totalPrice, setTotalPrice] = useState(0);
     const [editableVehiculo, setEditableVehiculo] = useState(vehiculo); // Estado para los campos editables
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
+
+    const [formData, setFormData] = useState({
+        image_src: null,
+
+    })
 
     const navigate = useNavigate();
 
@@ -73,9 +78,15 @@ export default function VehiculoModal({
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEditableVehiculo({ ...editableVehiculo, [name]: value });
-    };
+        const file = e.target.files[0];
+        setFormData({
+            image_src: file,
+
+        });
+    }
+
+
+
 
     const handleSave = () => {
         onEditSave(editableVehiculo);
@@ -92,13 +103,12 @@ export default function VehiculoModal({
                             <div className="vm-vehicle-details">
                                 <div className="vm-vehicle-image-container">
                                     {isEditMode ? (
+
                                         <input
-                                            type="text"
+                                            type="file"
                                             name="image_src"
-                                            value={editableVehiculo.image_src}
                                             onChange={handleChange}
-                                            placeholder="URL de la imagen"
-                                            className="vm-vehicle-image-input"
+                                            className="vm-image-edit"
                                         />
                                     ) : (
                                         <img
@@ -107,11 +117,13 @@ export default function VehiculoModal({
                                             className="vm-vehicle-image"
                                         />
                                     )}
+
+
                                 </div>
                                 <div className="vm-vehicle-info">
                                     <h2 className="vm-vehicle-title">
                                         {isEditMode ? (
-                                            
+
                                             <input
                                                 type="text"
                                                 name="nombre"
@@ -124,7 +136,7 @@ export default function VehiculoModal({
                                             vehiculo.nombre
                                         )}
                                     </h2>
-                                    
+
                                     <div className="vm-vehicle-features">
                                         <div className="vm-feature">
                                             <span className="vm-feature-icon">🚗</span>
@@ -170,7 +182,7 @@ export default function VehiculoModal({
                                                 <span>Color: {vehiculo.color}</span>
                                             )}
                                         </div>
-                                        
+
                                         <div className="vm-feature">
                                             <span className="vm-feature-icon">📅</span>
                                             {isEditMode ? (
