@@ -35,7 +35,7 @@ const ResultsPage = () => {
     return (
         <div className="search-page-main-container">
             <Header />
-            <h2 className="search-title">Resultados de la búsqueda para:</h2>
+            <h2 className="search-title">Resultados de tu búsqueda:</h2>
             <div className="coincidences-container">
                 {vehicles.length === 0 ? (
                     <p>No se encontraron resultados.</p>

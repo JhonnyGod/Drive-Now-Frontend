@@ -134,7 +134,6 @@ const PaginaPrincipal = ({ vehiculos }) => {
                             className="color-bubble-card"
                             style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
                           </span>
-
                         </li>
                       </ul>
                       <button

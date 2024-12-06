@@ -190,7 +190,7 @@ export default function VehiculoModal({
                                                     placeholder="Color"
                                                 />
                                             ) : (
-                                                <li style={{listStyleType:'none'}}>
+                                                <li style={{ listStyleType: 'none' }}>
                                                     <div className='text-color'>Color {vehiculo.color}</div>
                                                     <span
                                                         className="color-bubble"
@@ -229,6 +229,10 @@ export default function VehiculoModal({
                                         ) : (
                                             <p>{vehiculo.descripcion}</p>
                                         )}
+                                    </div>
+                                    <div className='price-container'>
+                                        <h1 className='price-label'>Precio</h1>
+                                        <p className='price-amount'>${vehiculo.valor_dia} USD</p>
                                     </div>
                                     {isEditMode ? (
                                         <button className="save-button" onClick={handleSave}>
