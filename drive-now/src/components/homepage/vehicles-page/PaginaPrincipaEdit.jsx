@@ -8,7 +8,7 @@ const PaginaPrincipalEdit = ({ vehiculos, onUpdateVehiculo }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const openProfile = useModalStore((state) => state.openProfile); //comprobar si funciona, 
   const setOpenProfile = useModalStore((state) => state.setOpenProfile); //comprobar si funciona, 
-  const vehiclesPerPage = 10; // Número máximo de vehículos por página.
+  const vehiclesPerPage = 2; // Número máximo de vehículos por página.
 
   // Calcular los índices para la paginación.
   const indexOfLastVehicle = currentPage * vehiclesPerPage;

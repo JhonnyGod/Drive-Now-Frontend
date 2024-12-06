@@ -25,6 +25,7 @@ const Profile = () => {
     const handleLogout = () => {
         clearUser();
         setOpenProfile(false);
+        
     }
 
     if (!openProfile) return null;
