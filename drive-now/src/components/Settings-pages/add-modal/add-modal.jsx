@@ -7,6 +7,7 @@ import convertImageToWebp from "../../../utils/convertwebp";
 //todo: Hacer el formulario anti imbéciles, es decir, cambiar los inputs por comboboxes
 //TODO: Cuando se agregan vehículos, el tipo debe ser el exacto de la bd, (Coche, Moto, Camioneta), voy a cambiarlo por Comboboxes 
 //* Si no no se muestran.
+// completado jhonny traga bolas perra
 const AddModal = ({ closeModal }) => {
     const [formData, setFormData] = useState({
         nombre: '',
@@ -51,7 +52,7 @@ const AddModal = ({ closeModal }) => {
 
             const img_petition = await axios.post(apiUrl, data, {
                 headers: {
-                    "Content-Type": "multipart/form-data", 
+                    "Content-Type": "multipart/form-data",
                 },
             });
 
@@ -66,7 +67,7 @@ const AddModal = ({ closeModal }) => {
 
             console.log(vehicleData);
 
-            const backend_request = await axios.post('http://localhost:3000/admin/crearvehiculo', vehicleData); 
+            const backend_request = await axios.post('http://localhost:3000/admin/crearvehiculo', vehicleData);
             if (backend_request.status === 200) {
                 alert('Vehículo creado exitosamente');
                 closeModal();
@@ -183,15 +184,21 @@ const AddModal = ({ closeModal }) => {
                             </label>
                             <label htmlFor="tipo">
                                 Tipo
-                                <input
+                                <select
                                     id="tipo"
                                     className="form-input"
                                     type="text"
                                     name="tipo"
                                     value={formData.tipo}
                                     onChange={handleChange}
-                                />
+                                >
+                                    <option value="" disabled>Selecciona el tipo</option>
+                                    <option value="Coche">Coche</option>
+                                    <option value="Camioneta">Camioneta</option>
+                                    <option value="Moto">Moto</option>
+                                </select>
                             </label>
+
                             <label htmlFor="modelo">
                                 Modelo
                                 <input
@@ -267,7 +274,7 @@ const AddModal = ({ closeModal }) => {
                     <button type="submit" className="submit-button">Añadir Vehículo</button>
                 </form>
             </div>
-            
+
         </div>
     );
 };

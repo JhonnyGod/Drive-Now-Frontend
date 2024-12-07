@@ -93,6 +93,11 @@ function Header() {
     navigate('/about')
   }
 
+  const service = () => {
+    navigate('/service')
+  }
+
+
   return (
     <div className="main-screen">
       <header className="header">
@@ -118,9 +123,9 @@ function Header() {
 
         <nav className="nav">
           <ul>
-            <li><a href="#home">Inicio</a></li>
-            <li><a onClick={about}>Sobre Nosotros</a></li>
-            <li><a href="#services">Servicios</a></li>
+            <li><a href="#home" onClick={goHome}>Inicio</a></li>
+            <li><a href="#about" onClick={about}>Sobre Nosotros</a></li>
+            <li><a href="#services" onClick={service}>Servicios</a></li>
             <li><a href="#contact">Contacto</a></li>
 
           </ul>

@@ -56,13 +56,14 @@
     align-items: center;
     gap: 10px; 
     
+    
 }
 
 .buttonsUser button {
     padding: 8px 16px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
+    
 
 }
 
@@ -71,6 +72,7 @@
     color: #fff;
     font-family: 'Lucida Bright', sans-serif;
     border: 5px solid #feffff;
+    
 }
 
 .buttonLogin:hover {
@@ -165,3 +167,25 @@
     margin-top: -20px;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*estilo para la ventana contacto*/
+
