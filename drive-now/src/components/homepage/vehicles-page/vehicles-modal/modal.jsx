@@ -9,11 +9,11 @@ import usePaymentStatus from '../../../../store/PaymentStatus';
 export default function VehiculoModal({
     vehiculo,
     onClose,
-    isEditMode = false, // Define si el modal está en modo edición
-    onEditSave = () => { }, // Callback para guardar cambios
+    isEditMode = false,
+    onEditSave = () => { },
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const { user, hasSession, getId} = useUserStore();
+    const { user, hasSession, getId } = useUserStore();
     const [payment, setOpenPayment] = useState(false);
     const [dateRange, setDateRange] = useState([null, null]);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -22,10 +22,33 @@ export default function VehiculoModal({
     const [priceString, setPriceString] = useState(null);
     const [userSaved, setSavedUser] = useState(null);
 
-    const [transactionData,setTransactionData] = useState(null);
+    const [transactionData, setTransactionData] = useState(null);
 
     const [formData, setFormData] = useState({
+        nombre: '',
+        matricula: '',
+        tipovehiculo: 'Coche',
+        modelo: '',
+        color: '',
+        cilindraje: '',
+        marca: '',
+        capacidad: '',
+        combustible: 'gasolina',
         image_src: null,
+    });
+
+    const [editableFormData, setEditableFormData] = useState({
+        nombre: vehiculo.nombre,
+        matricula: vehiculo.matricula,
+        tipovehiculo: vehiculo.tipovehiculo,
+        modelo: vehiculo.modelo,
+        color: vehiculo.color,
+        cilindraje: vehiculo.cilindraje,
+        marca: vehiculo.marca,
+        capacidad: vehiculo.capacidad,
+        combustible: vehiculo.combustible,
+        image_src: vehiculo.image_src,
+        descripcion: vehiculo.descripcion,
     })
 
     const colorMap = {
@@ -36,12 +59,7 @@ export default function VehiculoModal({
         blanco: 'white',
         negro: 'black',
         gris: 'gray',
-        // Añadir más colores según sea necesario
     };
-
-    useEffect(() => {
-        console.log('TransactionDataDesde El Modal:', transactionData);
-    }, [transactionData]);
 
     const navigate = useNavigate();
 
@@ -93,8 +111,6 @@ export default function VehiculoModal({
                 fecha_inicio: startDate,
                 fecha_fin: endDate,
             })
-
-           
         } else {
             console.log("Por favor selecciona ambas fechas.");
         }
@@ -106,13 +122,22 @@ export default function VehiculoModal({
     };
 
     const handleChange = (e) => {
-        const file = e.target.files[0];
-        setFormData({
-            image_src: file,
+        const { name, value, files } = e.target;
 
-        });
-    }
+        if (e.target.type === 'file') {
 
+            setEditableFormData({
+                ...editableFormData,
+                [name]: files[0],
+            });
+        } else {
+
+            setEditableFormData({
+                ...editableFormData,
+                [name]: value,
+            });
+        }
+    };
     const handleSave = () => {
         onEditSave(editableVehiculo);
         handleClose();
@@ -128,13 +153,23 @@ export default function VehiculoModal({
                             <div className="vm-vehicle-details">
                                 <div className="vm-vehicle-image-container">
                                     {isEditMode ? (
-
-                                        <input
-                                            type="file"
-                                            name="image_src"
-                                            onChange={handleChange}
-                                            className="vm-image-edit"
-                                        />
+                                        <>
+                                            <input
+                                                type="file"
+                                                name="image_src"
+                                                onChange={handleChange}
+                                                className="vm-image-edit"
+                                            />
+                                            <img
+                                                src={
+                                                    editableFormData.image_src instanceof File
+                                                        ? URL.createObjectURL(editableFormData.image_src) // Vista previa del archivo seleccionado
+                                                        : editableFormData.image_src || vehiculo.image_src // Enlace existente
+                                                }
+                                                alt="Vista previa"
+                                                className="vm-vehicle-image"
+                                            />
+                                        </>
                                     ) : (
                                         <img
                                             src={vehiculo.image_src}
@@ -145,14 +180,14 @@ export default function VehiculoModal({
 
 
                                 </div>
+
                                 <div className="vm-vehicle-info">
                                     <h2 className="vm-vehicle-title">
                                         {isEditMode ? (
-
                                             <input
                                                 type="text"
                                                 name="nombre"
-                                                value={editableVehiculo.nombre}
+                                                value={editableFormData.nombre}
                                                 onChange={handleChange}
                                                 placeholder="Nombre del vehículo"
                                                 className="vm-vehicle-title-input"
@@ -169,7 +204,7 @@ export default function VehiculoModal({
                                                 <input
                                                     type="text"
                                                     name="tipovehiculo"
-                                                    value={editableVehiculo.tipovehiculo}
+                                                    value={editableFormData.tipovehiculo}
                                                     onChange={handleChange}
                                                     placeholder="Tipo de vehículo"
                                                 />
@@ -184,7 +219,7 @@ export default function VehiculoModal({
                                                 <input
                                                     type="text"
                                                     name="marca"
-                                                    value={editableVehiculo.marca}
+                                                    value={editableFormData.marca}
                                                     onChange={handleChange}
                                                     placeholder="Marca"
                                                 />
@@ -199,7 +234,7 @@ export default function VehiculoModal({
                                                 <input
                                                     type="text"
                                                     name="color"
-                                                    value={editableVehiculo.color}
+                                                    value={editableFormData.color}
                                                     onChange={handleChange}
                                                     placeholder="Color"
                                                 />
@@ -221,7 +256,7 @@ export default function VehiculoModal({
                                                 <input
                                                     type="text"
                                                     name="modelo"
-                                                    value={editableVehiculo.modelo}
+                                                    value={editableFormData.modelo}
                                                     onChange={handleChange}
                                                     placeholder="Modelo"
                                                 />
@@ -235,7 +270,7 @@ export default function VehiculoModal({
                                         {isEditMode ? (
                                             <textarea
                                                 name="descripcion"
-                                                value={editableVehiculo.descripcion}
+                                                value={editableFormData.descripcion}
                                                 onChange={handleChange}
                                                 placeholder="Descripción del vehículo"
                                                 className="vm-vehicle-description-input"
@@ -280,7 +315,7 @@ export default function VehiculoModal({
                                 {totalPrice > 0 && (
                                     <div>
                                         <p>Total a pagar: ${totalPrice}</p>
-                                        <GooglePayComponent transactionData={transactionData} priceString = {priceString}/>
+                                        <GooglePayComponent transactionData={transactionData} priceString={priceString} />
                                     </div>
                                 )}
                             </div>

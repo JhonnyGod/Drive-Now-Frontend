@@ -38,7 +38,6 @@ export default function GooglePayComponent({ transactionData, priceString }) {
     }
     
 
-
 const handlePaymentFailure = () => {
     setPaymentStatus('FAILED');
     alert('Pago fallido. Intenta nuevamente.');

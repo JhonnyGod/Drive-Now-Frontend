@@ -12,7 +12,7 @@ const AddModal = ({ closeModal }) => {
     const [formData, setFormData] = useState({
         nombre: '',
         matricula: '',
-        tipovehiculo: '',
+        tipovehiculo: 'Coche',
         modelo: '',
         color: '',
         cilindraje: '',
@@ -32,7 +32,7 @@ const AddModal = ({ closeModal }) => {
         const vehicleData = {
             nombre: formData.nombre,
             matricula: formData.matricula,
-            tipovehiculo: formData.tipo,
+            tipovehiculo: formData.tipovehiculo,
             modelo: formData.modelo,
             color: formData.color,
             cilindraje: formData.cilindraje,
@@ -191,6 +191,7 @@ const AddModal = ({ closeModal }) => {
                                     name="tipo"
                                     value={formData.tipo}
                                     onChange={handleChange}
+                                    defaultValue={formData.tipovehiculo}
                                 >
                                     <option value="" disabled>Selecciona el tipo</option>
                                     <option value="Coche">Coche</option>
