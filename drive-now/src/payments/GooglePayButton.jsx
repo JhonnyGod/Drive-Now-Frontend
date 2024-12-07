@@ -1,84 +1,103 @@
 import React, { useEffect } from 'react';
 import GooglePayButton from '@google-pay/button-react';
 import usePaymentStatus from '../store/PaymentStatus';
+import axios from 'axios';
 
-export default function GooglePayComponent({ valor }) {
+export default function GooglePayComponent({ transactionData }) {
+    const { setPaymentStatus, paymentData, paymentStatus, isPaymentSuccess} = usePaymentStatus();
+    const { id_usuario, id_vehiculo } = transactionData;
 
-    const { setPaymentStatus, paymentData, paymentStatus } = usePaymentStatus(); 
+    console.log("Lo que recibe", transactionData)
+
 
     const handlePaymentSuccess = () => {
-        setPaymentStatus('SUCCESS');
-        console.log('Datos de pago exitoso:', paymentData); 
-        alert('Pago exitoso!');
-    };
-
-    useEffect(() => {
-        if (paymentStatus === 'SUCCESS') {
-            console.log('El pago fue exitoso');
-            console.log('El estado interno de la transacción fue:', paymentStatus)
-         
-        } else if (paymentStatus === 'FAILED') {
-            console.log('El pago falló');
+        isPaymentSuccess();
+        if (isPaymentSuccess) {
+            finishRent();
         }
-    }, [paymentStatus]);
-
-    const handlePaymentFailure = () => {
-        setPaymentStatus('FAILED');
-        alert('Pago fallido. Intenta nuevamente.');
     };
 
-    console.log('Merchant ID:', process.env.REACT_APP_GOOGLE_PAY_MERCHANT_ID);
-    console.log('Merchant Name:', process.env.REACT_APP_GOOGLE_PAY_MERCHANT_NAME);
+    const finishRent = async () => {
+       try {
+        const saveRent = await axios.post('http://localhost:3000/renta/alquilarvehiculo', {
+             id_usuario: transactionData.idusuario,
+             id_vehiculo: transactionData.idvehiculo,
+             fecha_inicio: transactionData.fecha_inicio,
+             fecha_fin: transactionData.fecha_fin,
+             valor_total: transactionData.valor_total.toString(),
+         },)
+ 
+         if(saveRent.status != 200){
+             alert('Algo salió mal mientras se realizaba la renta. Intenta nuevamente.');
+         }
+         alert('Renta realizada con éxito');
+       } catch (error) {
+           console.error('Error al realizar la renta:', error);
+           alert('Algo salió mal mientras se realizaba la renta. Intenta nuevamente.');
+       }
+    }
+    
 
-    return (
-        <div>
-            <GooglePayButton
-                environment="TEST"
-                paymentRequest={{
-                    apiVersion: 2,
-                    apiVersionMinor: 0,
-                    allowedPaymentMethods: [
-                        {
-                            type: 'CARD',
+
+const handlePaymentFailure = () => {
+    setPaymentStatus('FAILED');
+    alert('Pago fallido. Intenta nuevamente.');
+};
+
+console.log('Merchant ID:', process.env.REACT_APP_GOOGLE_PAY_MERCHANT_ID);
+console.log('Merchant Name:', process.env.REACT_APP_GOOGLE_PAY_MERCHANT_NAME);
+
+return (
+    <div>
+        <GooglePayButton
+            environment="TEST"
+            paymentRequest={{
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                allowedPaymentMethods: [
+                    {
+                        type: 'CARD',
+                        parameters: {
+                            allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                            allowedCardNetworks: ['VISA', 'MASTERCARD'],
+                        },
+                        tokenizationSpecification: {
+                            type: 'PAYMENT_GATEWAY',
                             parameters: {
-                                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-                                allowedCardNetworks: ['VISA', 'MASTERCARD'],
-                            },
-                            tokenizationSpecification: {
-                                type: 'PAYMENT_GATEWAY',
-                                parameters: {
-                                    gateway: "example",
-                                    gatewayMerchantId: "exampleGatewayMerchantId",
-                                },
+                                gateway: "example",
+                                gatewayMerchantId: "exampleGatewayMerchantId",
                             },
                         },
-                    ],
-                    merchantInfo: {
-                        merchantId: process.env.REACT_APP_GOOGLE_PAY_MERCHANT_ID,
-                        merchantName: process.env.REACT_APP_GOOGLE_PAY_MERCHANT_NAME,
                     },
-                    transactionInfo: {
-                        totalPriceStatus: 'FINAL',
-                        totalPriceLabel: 'Total',
-                        totalPrice: valor,
-                        currencyCode: 'COP',
-                        countryCode: 'CO',
-                    },
-                    shippingAddressRequired: true,
-                    callbackIntents: ['PAYMENT_AUTHORIZATION'],
-                }}
-                onLoadPaymentData={(paymentRequest) => {
-                    console.log('Load Payment Data:', paymentRequest);
-                }}
-                onPaymentAuthorized={(paymentData) => {
-                    handlePaymentSuccess(); 
-                    return { transactionState: 'SUCCESS' }; 
-                }}
-                onPaymentFailed={(error) => {
-                    console.error('Payment Failed:', error);
-                    handlePaymentFailure(); 
-                }}
-            />
-        </div>
-    );
+                ],
+                merchantInfo: {
+                    merchantId: process.env.REACT_APP_GOOGLE_PAY_MERCHANT_ID,
+                    merchantName: process.env.REACT_APP_GOOGLE_PAY_MERCHANT_NAME,
+                },
+                transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPriceLabel: 'Total',
+                    totalPrice: transactionData.valor_total.toString(),
+                    currencyCode: 'COP',
+                    countryCode: 'CO',
+                },
+                shippingAddressRequired: true,
+                callbackIntents: ['PAYMENT_AUTHORIZATION'],
+            }}
+            onLoadPaymentData={(paymentRequest) => {
+                console.log('Load Payment Data:', paymentRequest);
+            }}
+            onPaymentAuthorized={(paymentData) => {
+                console.log("Cebolla")
+                handlePaymentSuccess();
+                setPaymentStatus('SUCCESS');
+                return { transactionState: 'SUCCESS' };
+            }}
+            onPaymentFailed={(error) => {
+                console.error('Payment Failed:', error);
+                handlePaymentFailure();
+            }}
+        />
+    </div>
+);
 }

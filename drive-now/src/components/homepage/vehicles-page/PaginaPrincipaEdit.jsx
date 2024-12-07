@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import VehiculoModal from "./vehicles-modal/modal";
 import useModalStore from "../../../store/useModalStore";
@@ -6,9 +6,10 @@ import useModalStore from "../../../store/useModalStore";
 const PaginaPrincipalEdit = ({ vehiculos, onUpdateVehiculo }) => {
   const [selectedVehiculo, setSelectedVehiculo] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const openProfile = useModalStore((state) => state.openProfile); //comprobar si funciona, 
-  const setOpenProfile = useModalStore((state) => state.setOpenProfile); //comprobar si funciona, 
+  const openProfile = useModalStore((state) => state.openProfile); 
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
   const vehiclesPerPage = 2; // Número máximo de vehículos por página.
+
 
   // Calcular los índices para la paginación.
   const indexOfLastVehicle = currentPage * vehiclesPerPage;

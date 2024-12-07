@@ -13,16 +13,18 @@ export default function VehiculoModal({
     onEditSave = () => { }, // Callback para guardar cambios
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const { user, hasSession } = useUserStore();
+    const { user, hasSession, getId} = useUserStore();
     const [payment, setOpenPayment] = useState(false);
     const [dateRange, setDateRange] = useState([null, null]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [editableVehiculo, setEditableVehiculo] = useState(vehiculo); // Estado para los campos editables
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
+    const [userSaved, setSavedUser] = useState(null);
+
+    const [transactionData,setTransactionData] = useState(null);
 
     const [formData, setFormData] = useState({
         image_src: null,
-
     })
 
     const colorMap = {
@@ -35,6 +37,10 @@ export default function VehiculoModal({
         gris: 'gray',
         // Añadir más colores según sea necesario
     };
+
+    useEffect(() => {
+        console.log('TransactionDataDesde El Modal:', transactionData);
+    }, [transactionData]);
 
     const navigate = useNavigate();
 
@@ -76,8 +82,18 @@ export default function VehiculoModal({
             const diffTime = Math.abs(endDate - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const calculatedTotalPrice = diffDays * vehiculo.valor_dia;
-
             confirmRental(calculatedTotalPrice);
+
+            const transaction_user_id = useUserStore.getState().user.user_id
+
+            setTransactionData({
+                idvehiculo: vehiculo.idvehiculo,
+                idusuario: transaction_user_id,
+                fecha_inicio: startDate,
+                fecha_fin: endDate,
+                valor_total: totalPrice,
+            })
+           
         } else {
             console.log("Por favor selecciona ambas fechas.");
         }
@@ -95,9 +111,6 @@ export default function VehiculoModal({
 
         });
     }
-
-
-
 
     const handleSave = () => {
         onEditSave(editableVehiculo);
@@ -266,7 +279,7 @@ export default function VehiculoModal({
                                 {totalPrice > 0 && (
                                     <div>
                                         <p>Total a pagar: ${totalPrice}</p>
-                                        <GooglePayComponent valor={totalPrice} />
+                                        <GooglePayComponent transactionData={transactionData}/>
                                     </div>
                                 )}
                             </div>

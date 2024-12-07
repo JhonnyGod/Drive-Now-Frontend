@@ -46,7 +46,7 @@ export const Login = () => {
           isAdmin: data.user.isAdmin,
         });
       }
-      navigate('/home');
+      navigate('/');
 
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -81,7 +81,7 @@ export const Login = () => {
   };
 
   const handleHome = () => {
-    navigate('/Home');
+    navigate('/');
   };
 
   useEffect(() => {

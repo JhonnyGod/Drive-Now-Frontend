@@ -5,7 +5,6 @@ import useUserStore from '../../store/useUserStore';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-
     const navigator = useNavigate();
 
     const openProfile = useModalStore((state) => state.openProfile);
@@ -19,12 +18,13 @@ const Profile = () => {
 
     const settingsPage = () => {
         navigator('/settings');
+        setOpenProfile(false);
     }
-
 
     const handleLogout = () => {
         clearUser();
         setOpenProfile(false);
+        navigator('/login');
         
     }
 
