@@ -19,6 +19,7 @@ export default function VehiculoModal({
     const [totalPrice, setTotalPrice] = useState(0);
     const [editableVehiculo, setEditableVehiculo] = useState(vehiculo); // Estado para los campos editables
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
+    const [priceString, setPriceString] = useState(null);
     const [userSaved, setSavedUser] = useState(null);
 
     const [transactionData,setTransactionData] = useState(null);
@@ -71,8 +72,7 @@ export default function VehiculoModal({
 
     const confirmRental = (calculatedTotalPrice) => {
         const priceString = calculatedTotalPrice.toString();
-        setTotalPrice(priceString);
-        console.log('Total a pagar:', priceString);
+        setPriceString(priceString);
     };
 
     const handleRentPetition = async () => {
@@ -83,6 +83,7 @@ export default function VehiculoModal({
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const calculatedTotalPrice = diffDays * vehiculo.valor_dia;
             confirmRental(calculatedTotalPrice);
+            setTotalPrice(calculatedTotalPrice);
 
             const transaction_user_id = useUserStore.getState().user.user_id
 
@@ -91,8 +92,8 @@ export default function VehiculoModal({
                 idusuario: transaction_user_id,
                 fecha_inicio: startDate,
                 fecha_fin: endDate,
-                valor_total: totalPrice,
             })
+
            
         } else {
             console.log("Por favor selecciona ambas fechas.");
@@ -279,7 +280,7 @@ export default function VehiculoModal({
                                 {totalPrice > 0 && (
                                     <div>
                                         <p>Total a pagar: ${totalPrice}</p>
-                                        <GooglePayComponent transactionData={transactionData}/>
+                                        <GooglePayComponent transactionData={transactionData} priceString = {priceString}/>
                                     </div>
                                 )}
                             </div>

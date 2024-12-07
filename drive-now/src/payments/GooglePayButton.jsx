@@ -3,7 +3,7 @@ import GooglePayButton from '@google-pay/button-react';
 import usePaymentStatus from '../store/PaymentStatus';
 import axios from 'axios';
 
-export default function GooglePayComponent({ transactionData }) {
+export default function GooglePayComponent({ transactionData, priceString }) {
     const { setPaymentStatus, paymentData, paymentStatus, isPaymentSuccess} = usePaymentStatus();
     const { id_usuario, id_vehiculo } = transactionData;
 
@@ -24,7 +24,7 @@ export default function GooglePayComponent({ transactionData }) {
              id_vehiculo: transactionData.idvehiculo,
              fecha_inicio: transactionData.fecha_inicio,
              fecha_fin: transactionData.fecha_fin,
-             valor_total: transactionData.valor_total.toString(),
+             valor_total: priceString,
          },)
  
          if(saveRent.status != 200){
@@ -77,7 +77,7 @@ return (
                 transactionInfo: {
                     totalPriceStatus: 'FINAL',
                     totalPriceLabel: 'Total',
-                    totalPrice: transactionData.valor_total.toString(),
+                    totalPrice: priceString,
                     currencyCode: 'COP',
                     countryCode: 'CO',
                 },
