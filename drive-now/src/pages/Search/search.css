@@ -1,0 +1,59 @@
+.vehicle-item {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    
+}
+
+.vehicle-card {
+
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 900px;
+}
+
+
+.search-title {
+    text-align: center;
+    color: #022F40;
+    font-size: 2.5rem;
+    margin-bottom: -20px;
+    margin-top: -20px;
+    font-family: 'Lucida Bright', sans-serif;
+    margin: 27px auto;
+}
+
+
+
+
+
+
+.paginationserch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+    margin: 50px auto;
+}
+
+.paginationserch button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background: #022F40;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.paginationserch button:disabled {
+    background-color: #eee;
+    color: rgb(105, 105, 105);
+    cursor: not-allowed;
+}
+
+.paginationserch span {
+    font-size: 14px;
+}

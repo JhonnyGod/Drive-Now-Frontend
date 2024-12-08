@@ -49,6 +49,13 @@
   color: #ff0101;
 }
 
+                                   
+.vm-vehicle-description-input {
+  height: 300px;
+  width: 500px;
+}
+
+
 .vm-modal-body {
   padding: 2rem;
 }

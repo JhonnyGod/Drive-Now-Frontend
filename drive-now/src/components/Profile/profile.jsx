@@ -2,7 +2,7 @@ import React from 'react';
 import './profile.css';
 import useModalStore from '../../store/useModalStore'
 import useUserStore from '../../store/useUserStore';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const navigator = useNavigate();
@@ -24,8 +24,12 @@ const Profile = () => {
     const handleLogout = () => {
         clearUser();
         setOpenProfile(false);
-        navigator('/login');
-        
+        navigator('/login');  
+    }
+
+
+    const goaboutyou = () => {
+        navigator('/aboutyou');
     }
 
     if (!openProfile) return null;
@@ -42,7 +46,7 @@ const Profile = () => {
                 </div>
                 <ul className="profile-options">
                     <li className="profile-option">
-                        <button className="about-you-btn">
+                        <button className="about-you-btn" onClick={goaboutyou}>
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

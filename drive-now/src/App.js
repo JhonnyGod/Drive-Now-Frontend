@@ -9,6 +9,7 @@ import ResultsPage from './pages/Search/search';
 import HomeEdition from './pages/Homepage/homeedition';
 import About from './pages/Homepage/about';
 import Service from './pages/Homepage/service';
+import Aboutyou from './components/Profile/aboutyou';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/homeedition" element={<HomeEdition/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/service" element={<Service/>}/>
+          <Route path="/aboutyou" element={<Aboutyou/>}/>
 
         </Routes>
     </Router>

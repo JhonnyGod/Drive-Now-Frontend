@@ -199,3 +199,105 @@
     margin-right: 10px;         /* Espacio entre el ícono y el texto */       
     width: 30px;      /* Color del ícono, puedes personalizarlo */
   }
+
+
+
+
+
+
+
+
+
+
+
+  /*apartado visual del abouyou o sobre mi*/
+
+
+  .services-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .about-me {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .avatar-container {
+    margin-bottom: 15px;
+  }
+  
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+  }
+  
+  .profile-info {
+    margin-top: 10px;
+  }
+  
+  .profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  
+  .profile-details {
+    margin: 20px 0;
+    text-align: left;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    background: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-details strong {
+    color: #007bff;
+  }
+  
+  .profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-edit {
+    background: #007bff;
+    color: #fff;
+  }
+  
+  .btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  
