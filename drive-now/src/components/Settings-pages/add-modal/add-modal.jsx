@@ -12,13 +12,13 @@ const AddModal = ({ closeModal }) => {
     const [formData, setFormData] = useState({
         nombre: '',
         matricula: '',
-        tipovehiculo: 'Coche',
+        tipovehiculo: '',
         modelo: '',
         color: '',
         cilindraje: '',
         marca: '',
         capacidad: '',
-        combustible: 'gasolina',
+        combustible: '',
         image_src: null,
     });
 
@@ -188,8 +188,8 @@ const AddModal = ({ closeModal }) => {
                                     id="tipo"
                                     className="form-input"
                                     type="text"
-                                    name="tipo"
-                                    value={formData.tipo}
+                                    name="tipovehiculo"
+                                    value={formData.tipovehiculo}
                                     onChange={handleChange}
                                     defaultValue={formData.tipovehiculo}
                                 >
@@ -264,6 +264,7 @@ const AddModal = ({ closeModal }) => {
                                     value={formData.combustible}
                                     onChange={handleChange}
                                 >
+                                    <option value="" disabled>Tipo de combustible</option>
                                     <option value="gasolina">Gasolina</option>
                                     <option value="diesel">Diesel</option>
                                     <option value="hibrido">Híbrido</option>
