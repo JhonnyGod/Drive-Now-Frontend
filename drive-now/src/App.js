@@ -10,6 +10,7 @@ import HomeEdition from './pages/Homepage/homeedition';
 import About from './pages/Homepage/about';
 import Service from './pages/Homepage/service';
 import Aboutyou from './components/Profile/aboutyou';
+import History from './pages/History/history';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/about" element={<About/>}/>
           <Route path="/service" element={<Service/>}/>
           <Route path="/aboutyou" element={<Aboutyou/>}/>
+          <Route path="/history" element={<History/>}/>
 
         </Routes>
     </Router>
