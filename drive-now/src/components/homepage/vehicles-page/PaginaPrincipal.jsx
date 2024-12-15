@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './styles.css';
+import { FaCar, FaTruck, FaMotorcycle, FaPaintBrush, FaCogs } from 'react-icons/fa';
 import VehiculoModal from './vehicles-modal/modal';
 import useModalStore from '../../../store/useModalStore';
 import Profile from '../../Profile/profile';
 import { useLocation } from 'react-router-dom';
+import './styles.css';
 
 const Modal = ({ vehiculo, onClose }) => {
   return vehiculo ? <VehiculoModal vehiculo={vehiculo} onClose={onClose} /> : null;
@@ -17,7 +18,92 @@ const colorMap = {
   blanco: 'white',
   negro: 'black',
   gris: 'gray',
-  //? Se pueden añadir mas colores, incluso con rgb
+};
+
+const VehicleCard = ({ vehiculo, openModal }) => (
+  <div className="vehicle-card">
+    <img src={vehiculo.image_src} alt={vehiculo.nombre} className="vehicle-image" />
+    <div className="vehicle-info">
+      <h2 className="vehicle-title">{vehiculo.nombre}</h2>
+      <div className="vehicle-features">
+        <div className="feature">
+          <FaCar />
+          <span>{vehiculo.tipovehiculo}</span>
+        </div>
+        <div className="feature">
+          <FaCogs />
+          <span>{vehiculo.marca}</span>
+        </div>
+        <div className="feature">
+          <FaPaintBrush />
+          <span>{vehiculo.color}</span>
+          <span
+            className="color-bubble"
+            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}
+          ></span>
+        </div>
+        <div className="vehicle-price">
+          <span className="vehicle-price-label">Valor de alquiler:</span>
+          <span className="vehicle-price-value">${vehiculo.valor_dia.toFixed(2)}</span>
+        </div>
+      </div>
+      <button className="details-button" onClick={() => openModal(vehiculo)}>
+        Ver detalles
+      </button>
+    </div>
+  </div>
+);
+
+const VehicleSection = ({ title, vehicles, icon, openModal }) => {
+  const sectionRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleScroll = (direction) => {
+    const container = sectionRef.current;
+    const scrollAmount = container.offsetWidth;
+    const maxScrollLeft = container.scrollWidth - container.offsetWidth;
+
+    if (direction === 'left') {
+      if (currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+      } else {
+        setCurrentIndex(Math.floor(maxScrollLeft / scrollAmount));
+      }
+    } else if (direction === 'right') {
+      if (currentIndex < Math.floor(maxScrollLeft / scrollAmount)) {
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        setCurrentIndex(0);
+      }
+    }
+
+    container.scrollTo({
+      left: currentIndex * scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
+  return (
+    <section className="vehicle-section">
+      <h1 className="section-title">
+        {icon}
+        {title}
+      </h1>
+      <div className="vehicles-wrapper">
+        <button className="scroll-button left" onClick={() => handleScroll('left')}>
+          ❮
+        </button>
+        <div className="vehicles-container" ref={sectionRef}>
+          {vehicles.map((vehiculo) => (
+            <VehicleCard key={vehiculo.idvehiculo} vehiculo={vehiculo} openModal={openModal} />
+          ))}
+        </div>
+        <button className="scroll-button right" onClick={() => handleScroll('right')}>
+          ❯
+        </button>
+      </div>
+    </section>
+  );
 };
 
 const PaginaPrincipal = ({ vehiculos }) => {
@@ -27,10 +113,6 @@ const PaginaPrincipal = ({ vehiculos }) => {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
 
-  const carsRef = useRef(null);
-  const camionetasRef = useRef(null);
-  const motosRef = useRef(null);
-
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     if (queryParams.get('paymentSuccess') === 'true') {
@@ -38,21 +120,7 @@ const PaginaPrincipal = ({ vehiculos }) => {
     }
   }, [location]);
 
-  const handleScroll = (direction, type) => {
-    const container = type === 'cars' ? carsRef.current : type === 'camionetas' ? camionetasRef.current : motosRef.current;
-    const scrollAmount = 300;
-
-    if (container) {
-      if (direction === 'left') {
-        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      } else if (direction === 'right') {
-        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      }
-    }
-  };
-
   const openModal = (vehiculo) => {
-    console.log(vehiculo)
     setSelectedVehiculo(vehiculo);
   };
 
@@ -68,126 +136,18 @@ const PaginaPrincipal = ({ vehiculos }) => {
     setOpenProfile(true);
   };
 
+  const carros = vehiculos.filter((vehiculo) => vehiculo.tipovehiculo === 'Coche');
+  const camionetas = vehiculos.filter((vehiculo) => vehiculo.tipovehiculo === 'Camioneta');
+  const motos = vehiculos.filter((vehiculo) => vehiculo.tipovehiculo === 'Moto');
+
   return (
     <div className="page-container">
       <main className="main-content">
         <h2 className="main-title">Nuestros vehículos</h2>
 
-        {/* Sección de carros */}
-        <section className='cars-grid'>
-          <h1 className='cars-section-title'>Carros</h1>
-          <div className="vehicles-wrapper">
-            <button className="scroll-button left" onClick={() => handleScroll('left', 'cars')}>❮</button>
-            <div className="cars-space" ref={carsRef}>
-              {vehiculos.filter(vehiculo => vehiculo.tipovehiculo === "Coche").map((vehiculo) => (
-                <div key={vehiculo.idvehiculo} className="vehicle-item">
-                  <div className="vehicle-card">
-                    <img src={vehiculo.image_src} alt={vehiculo.nombre} className="vehicle-image" />
-                    <div className="vehicle-info">
-                      <h2 className="vehicle-title">{vehiculo.nombre}</h2>
-                      <ul className="vehicle-features">
-                        <li>Tipo: {vehiculo.tipovehiculo}</li>
-                        <li>Marca: {vehiculo.marca}</li>
-                        <li style={{ listStyleType: 'none' }}>
-                          <div className='text-color-card'>Color {vehiculo.color}</div>
-                          <span
-                            className="color-bubble-card"
-                            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
-                          </span>
-
-                        </li>
-                      </ul>
-                      <button
-                        className="details-button"
-                        onClick={() => openModal(vehiculo)}
-                      >
-                        Ver detalles
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="scroll-button right" onClick={() => handleScroll('right', 'cars')}>❯</button>
-          </div>
-        </section>
-
-        {/* Sección de camionetas */}
-        <section className='camioneta-grid'>
-          <h1 className='camioneta-section-title'>Camionetas</h1>
-          <div className="vehicles-wrapper">
-            <button className="scroll-button left" onClick={() => handleScroll('left', 'camionetas')}>❮</button>
-            <div className="camionetas-space" ref={camionetasRef}>
-              {vehiculos.filter(vehiculo => vehiculo.tipovehiculo === "Camioneta").map((vehiculo) => (
-                <div key={vehiculo.idvehiculo} className="vehicle-item">
-                  <div className="vehicle-card">
-                    <img src={vehiculo.image_src} alt={vehiculo.nombre} className="vehicle-image" />
-                    <div className="vehicle-info">
-                      <h2 className="vehicle-title">{vehiculo.nombre}</h2>
-                      <ul className="vehicle-features">
-                        <li>Tipo: {vehiculo.tipovehiculo}</li>
-                        <li>Marca: {vehiculo.marca}</li>
-                        <li style={{ listStyleType: 'none' }}>
-                          <div className='text-color-card'>Color {vehiculo.color}</div>
-                          <span
-                            className="color-bubble-card"
-                            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
-                          </span>
-                        </li>
-                      </ul>
-                      <button
-                        className="details-button"
-                        onClick={() => openModal(vehiculo)}
-                      >
-                        Ver detalles
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="scroll-button right" onClick={() => handleScroll('right', 'camionetas')}>❯</button>
-          </div>
-        </section>
-
-        {/* Sección de motos */}
-        <section className='moto-grid'>
-          <h1 className='moto-section-title'>Motos</h1>
-          <div className="vehicles-wrapper">
-            <button className="scroll-button left" onClick={() => handleScroll('left', 'motos')}>❮</button>
-            <div className="motos-space" ref={motosRef}>
-              {vehiculos.filter(vehiculo => vehiculo.tipovehiculo === "Moto").map((vehiculo) => (
-                <div key={vehiculo.idvehiculo} className="vehicle-item">
-                  <div className="vehicle-card">
-                    <img src={vehiculo.image_src} alt={vehiculo.nombre} className="vehicle-image" />
-                    <div className="vehicle-info">
-                      <h2 className="vehicle-title">{vehiculo.nombre}</h2>
-                      <ul className="vehicle-features">
-                        <li>Tipo: {vehiculo.tipovehiculo}</li>
-                        <li>Marca: {vehiculo.marca}</li>
-                        <li style={{ listStyleType: 'none' }}>
-                          <div className='text-color-card'>Color {vehiculo.color}</div>
-                          <span
-                            className="color-bubble-card"
-                            style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
-                          </span>
-                        </li>
-                      </ul>
-                      <button
-                        className="details-button"
-                        onClick={() => openModal(vehiculo)}
-                      >
-                        Ver detalles
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="scroll-button right" onClick={() => handleScroll('right', 'motos')}>❯</button>
-          </div>
-        </section>
-
+        <VehicleSection title="Carros" vehicles={carros} icon={<FaCar />} openModal={openModal} />
+        <VehicleSection title="Camionetas" vehicles={camionetas} icon={<FaTruck />} openModal={openModal} />
+        <VehicleSection title="Motos" vehicles={motos} icon={<FaMotorcycle />} openModal={openModal} />
       </main>
       <Modal vehiculo={selectedVehiculo} onClose={closeModal} />
       {openProfile && <Profile isOpen={openProfile} onClose={closeProfileModal} />}
@@ -197,3 +157,4 @@ const PaginaPrincipal = ({ vehiculos }) => {
 };
 
 export default PaginaPrincipal;
+

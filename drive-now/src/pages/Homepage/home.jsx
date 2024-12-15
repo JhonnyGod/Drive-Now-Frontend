@@ -21,7 +21,7 @@ const Home = () => {
 
       const vehicledata = vehiclereq.data.vehiculos.vehicles;
       setVehicleData(vehicledata);
-
+      
     } catch (error) {
       console.error('Error al obtener los vehículos:', error);
     }

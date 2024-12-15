@@ -7,156 +7,132 @@ body {
 }
 
 .page-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 4rem;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .main-title {
   text-align: center;
-  color: #022F40;
   font-size: 2.5rem;
-  margin-bottom: -20px;
-  margin-top: -20px;
-  font-family: 'Lucida Bright', sans-serif;
-}
-
-/* Estilo de cada sección de vehículos */
-.vehicle-section {
   margin-bottom: 2rem;
+  color: #333;
 }
 
-.vehicle-section-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: left;
-  margin: 0 0 20px; /* Espacio debajo del título */
-  padding-left: 10px; /* Margen izquierdo */
+.vehicle-section {
+  margin-bottom: 3rem;
 }
 
-/* Estilo para las secciones de vehículos que contienen los vehículos */
-.cars-space, .camionetas-space, .motos-space {
-  display: flex; /* Usamos flex para alinear los items horizontalmente */
-  gap: 20px; /* Espacio entre los vehículos */
-  padding: 10px 0; /* Espaciado interno */
-  overflow-x: auto; /* Permite el desplazamiento horizontal */
-  -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos táctiles */
-  flex-wrap: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-  scroll-snap-type: x mandatory; /* Asegura que el scroll se ajuste a cada elemento */
+.section-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #444;
 }
 
-.vehicle-item {
-  margin-bottom: 3rem; /* Aumenta el espacio debajo de cada tarjeta */
-  flex: 0 0 48%; /* Ajusta el tamaño de las cartas para que quepan dos por fila */
-  scroll-snap-align: start; /* Ajuste para que cada carta se alinee correctamente al hacer scroll */
-  min-width: 320px; /* Asegura un tamaño mínimo para cada carta */
-  box-sizing: border-box; /* Asegura que el padding y margin no afecten el tamaño de los elementos */
+.section-title svg {
+  margin-right: 10px;
+}
+
+.vehicles-wrapper {
+  position: relative;
+}
+
+.vehicles-container {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 10px 0;
 }
 
 .vehicle-card {
-  display: flex;
-  background-color: white;
+  flex: 0 0 calc(50% - 10px);
+  background-color: #fff;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s;
-  height: 100%; /* Asegura que la tarjeta ocupe todo el espacio disponible */
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
 .vehicle-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .vehicle-image {
-  width: 45%; /* Aumenta el tamaño de la imagen dentro de la tarjeta */
-  height: 250px; /* Aumenta la altura de la imagen para que sea más visible */
+  width: 100%;
+  height: 200px;
   object-fit: cover;
 }
 
 .vehicle-info {
-  width: 55%; /* Ajusta el tamaño del contenedor de la información del vehículo */
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
+  padding: 15px;
 }
 
 .vehicle-title {
-  font-size: 1.5rem; /* Aumenta el tamaño del título */
-  margin: 0 0 0.5rem;
-  color: #022F40;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 .vehicle-features {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.9rem;
+  color: #666;
+}
+
+.feature svg {
+  font-size: 1.1rem;
+}
+
+.color-bubble {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 5px;
 }
 
 .details-button {
-  background-color: #022F40;
-  color: white;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 8px 15px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: auto;
+  transition: background-color 0.3s ease;
 }
 
 .details-button:hover {
-  background-color: #3a7bc8;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* Media queries para responsividad */
-@media (max-width: 768px) {
-  .cars-space, .camionetas-space, .motos-space {
-    flex-direction: column; /* En pantallas pequeñas, los vehículos se apilan verticalmente */
-  }
-
-  .vehicle-item {
-    flex: 0 0 100%; /* En pantallas pequeñas, cada vehículo ocupa el 100% del ancho */
-  }
-
-  .vehicle-card {
-    flex-direction: column;
-  }
-
-  .vehicle-image, .vehicle-info {
-    width: 100%;
-  }
+  background-color: #0056b3;
 }
 
 .scroll-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #022F40;
-  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
   border: none;
-  padding: 0.5rem;
+  padding: 10px;
   font-size: 1.5rem;
   cursor: pointer;
   z-index: 10;
-  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .scroll-button.left {
@@ -167,55 +143,67 @@ body {
   right: 0;
 }
 
-.vehicles-wrapper {
-  position: relative;
+@media (min-width: 768px) {
+  .vehicle-card {
+    flex: 0 0 calc(33.333% - 13.333px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .vehicle-card {
+    flex: 0 0 calc(25% - 15px);
+  }
+}
+
+.vehicle-features {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.feature {
+  display: flex;
   align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.cars-space, .camionetas-space, .motos-space {
+.feature svg {
+  font-size: 1.1rem;
+}
+
+.price-label {
+  font-weight: bold;
+  color: #444;
+}
+
+.price-value {
+  color: #007bff;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.vehicle-price {
   display: flex;
-  gap: 20px;
-  padding: 10px 0;
-  overflow: hidden;
-  scroll-behavior: smooth;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 1rem; /* Ajusta el tamaño general */
+  color: #333;
+  font-weight: bold;
 }
 
-
-.pagination {
-  display: flex;
-  justify-content: center; /* Centra el paginado horizontalmente */
-  gap: 20px; /* Espacio entre los botones */
-  margin-top: 20px; /* Añade separación entre la lista de vehículos y el paginado */
-  margin-bottom: 40px; /* Añade un margen inferior para separar el footer */
+.vehicle-price-label {
+  font-size: 0.9rem; /* Reduce el tamaño de la etiqueta */
+  color: #666;
+  font-weight: normal;
 }
 
-.pagination button {
-  padding: 10px 20px;
-  background-color: #022F40;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.pagination button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-.text-color-card {
-  display: block; /* Asegura que el texto ocupe toda la línea */
-  margin-bottom: 5px; /* Puedes ajustar el espacio entre el texto y la burbuja */
-  margin-top: 15px;
-}
-
-.color-bubble-card{
-  display: inline-block;
-  width: 20px; /* Tamaño de la burbuja */
-  height: 20px; /* Tamaño de la burbuja */
-  border-radius: 50%; /* Para que sea una burbuja circular */
-  margin-right: 8px; /* Espacio entre la burbuja y el texto */
-  border: 1px solid #333;
+.vehicle-price-value {
+  font-size: 1.2rem; /* Aumenta el tamaño del valor */
+  color: #007bff; /* Colorea el valor */
+  font-weight: bold;
 }
