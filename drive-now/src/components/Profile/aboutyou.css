@@ -1,11 +1,12 @@
-
-  .services-main-content {
+/* services-main-content */
+.services-main-content {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
   
+  /* services-container */
   .services-container {
     background-color: #ffffff;
     border-radius: 20px;
@@ -19,6 +20,7 @@
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   }
   
+  /* services-header */
   .services-header {
     text-align: center;
     margin-bottom: 40px;
@@ -97,7 +99,6 @@
     opacity: 0;
   }
   
-  
   .profile-info {
     text-align: center;
     padding: 0 20px 20px;
@@ -168,6 +169,96 @@
     gap: 10px;
   }
   
+  /* Estilos para el modo edición */
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;  /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde gris claro */
+    font-size: 14px;
+    background-color: #f9f9f9; /* Fondo más claro */
+    transition: border-color 0.3s, background-color 0.3s; /* Transición suave */
+  }
+  
+  /* Estilos para inputs cuando están enfocados (para mejorar la visibilidad) */
+  input[type="text"]:focus {
+    border-color: #007bff; /* Bordes azules al enfocar */
+    background-color: #fff; /* Fondo blanco cuando está enfocado */
+    outline: none; /* Elimina el borde del navegador */
+  }
+  
+  /* Estilos cuando los campos de texto están en modo edición */
+  .profile-info input,
+  .profile-details input {
+    background-color: #fff;  /* Fondo blanco para inputs */
+    border: 1px solid #ddd;  /* Borde suave */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 12px; /* Un poco más de padding */
+    font-size: 14px;
+    margin-bottom: 10px; /* Separación entre inputs */
+  }
+  
+  /* Estilo de los botones */
+  .btn.btn-edit {
+    background-color: #007bff; /* Fondo azul */
+    color: white; /* Texto blanco */
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn.btn-edit:hover {
+    background-color: #0056b3; /* Color más oscuro cuando se pasa el cursor */
+  }
+  
+  .btn.btn-edit:focus {
+    outline: none; /* Eliminar el borde al hacer foco */
+  }
+  
+  /* Cambios en el avatar en modo edición */
+  .avatar-container input[type="file"] {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  
+  .avatar-container input[type="file"]:hover {
+    border-color: #007bff;
+  }
+  
+  /* Mejorando la presentación de los campos */
+  .profile-info,
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .profile-info h3,
+  .profile-details p {
+    margin: 5px 0;
+  }
+  
+  /* Estilo cuando estamos en modo edición */
+  .services-container .profile-card {
+    background-color: #fafafa;  /* Fondo ligeramente gris */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+    transition: box-shadow 0.3s; /* Transición suave */
+  }
+  
+  .services-container .profile-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más intensa al pasar el ratón */
+  }
+  
   /* Responsive design */
   @media (max-width: 768px) {
     .services-header h2 {
@@ -196,5 +287,4 @@
       padding: 10px 20px;
     }
   }
-  
   

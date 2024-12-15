@@ -1,4 +1,3 @@
-// src/pages/services.jsx
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/Footer/Footer";
@@ -8,7 +7,6 @@ import useModalStore from "../../store/useModalStore";
 import useUserStore from "../../store/useUserStore";
 import axios from "axios";
 import convertImageToWebp from "../../utils/convertwebp";
-
 
 const Services = () => {
 
@@ -21,6 +19,8 @@ const Services = () => {
     email: "",
     profilePic: "https://via.placeholder.com/150",
   });
+
+  const [isEditing, setIsEditing] = useState(false); // Estado para controlar el modo de edición
 
   const user = useUserStore();
   const id_usuario = user.user.user_id;
@@ -64,7 +64,6 @@ const Services = () => {
         throw new Error("Failed to upload image");
       }
 
-
     } catch (error) {
       console.error('Error al convertir o subir imagen:', error);
       alert('Hubo un error al cambiar la foto de perfil.');
@@ -80,11 +79,8 @@ const Services = () => {
       })
 
       if (petition.status === 200) {
-        console.log('Cebolla con pan')
-      }
-
-
-      else {
+        console.log('Foto de perfil actualizada')
+      } else {
         console.log('Error al actualizar la foto de perfil')
         console.log(petition)
       }
@@ -103,33 +99,50 @@ const Services = () => {
     console.log(petition)
 
     if (petition.status === 200) {
+      
       setUserData((prevData) => ({
         ...prevData,
         ...petition.data.user,
         profilePic: petition.data.user.profileImage,
       }));
-    }
-
-    else {
+    } else {
       console.log('Error al obtener la información')
       console.log(petition)
     }
   }
 
-  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
+  const handleEditProfile = () => {
+    setIsEditing(!isEditing);
+  }
 
+  const handleSaveChanges = async () => {
+    try {
+      const { profilePic, profileImage, ...dataToSave } = userData;
+      const petition = await axios.post('http://localhost:3000/usuario/actualizar', {
+        userId: id_usuario,
+        ...dataToSave,
+      });
+
+      if (petition.status === 200) {
+        alert('Cambios guardados');
+        setIsEditing(false);
+      } else {
+        alert('Hubo un error al guardar los cambios');
+      }
+    } catch (error) {
+      console.error('Error al guardar los cambios', error);
+      alert('Hubo un error al guardar los cambios');
+    }
+  }
+
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
   const openProfile = () => {
     setOpenProfile(true);
   }
 
-  const addProfilePic = () => {
-
-  }
   const closeProfileModal = () => {
     setOpenProfile(false);
   }
-
-
 
   return (
     <div>
@@ -155,18 +168,62 @@ const Services = () => {
                 />
               </div>
               <div className="profile-info">
-                <h3 className="profile-name">{userData.username}</h3>
-
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={userData.username}
+                    onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+                  />
+                ) : (
+                  <h3 className="profile-name">{userData.username}</h3>
+                )}
               </div>
               <div className="profile-details">
-                <p><strong>Nombre:</strong> {userData.name}</p>
-                <p><strong>Apellido:</strong> {userData.lastname}</p>
-                <p><strong>Documento:</strong> {userData.document}</p>
-                <p><strong>Teléfono:</strong>{userData.phone}</p>
-                <p><strong>Correo:</strong> {userData.email}</p>
+                {isEditing ? (
+                  <>
+                    <input
+                      type="text"
+                      value={userData.name}
+                      onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={userData.lastname}
+                      onChange={(e) => setUserData({ ...userData, lastname: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={userData.document}
+                      onChange={(e) => setUserData({ ...userData, document: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={userData.phone}
+                      onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={userData.email}
+                      onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p><strong>Nombre:</strong> {userData.name}</p>
+                    <p><strong>Apellido:</strong> {userData.lastname}</p>
+                    <p><strong>Documento:</strong> {userData.document}</p>
+                    <p><strong>Teléfono:</strong>{userData.phone}</p>
+                    <p><strong>Correo:</strong> {userData.email}</p>
+                  </>
+                )}
               </div>
               <div className="profile-actions">
-                <button className="btn btn-edit" onClick={addProfilePic}>✏️ Editar Perfil</button>
+                <button
+                  className="btn btn-edit"
+                  onClick={isEditing ? handleSaveChanges : handleEditProfile}
+                >
+                  {isEditing ? 'Guardar Cambios' : '✏️ Editar Perfil'}
+                </button>
               </div>
             </div>
           </section>
