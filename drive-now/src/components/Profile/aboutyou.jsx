@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/Footer/Footer";
-import "./profile.css"; // Archivo CSS para estilos personalizados
+import "./aboutyou.css"; // Archivo CSS para estilos personalizados
 import Profile from './profile';
 import useModalStore from "../../store/useModalStore";
 import useUserStore from "../../store/useUserStore";
@@ -106,7 +106,7 @@ const Services = () => {
       setUserData((prevData) => ({
         ...prevData,
         ...petition.data.user,
-        profilePic: petition.data.user.profileImage, // Usar profileImage
+        profilePic: petition.data.user.profileImage,
       }));
     }
 
