@@ -20,6 +20,8 @@ const AddModal = ({ closeModal }) => {
         capacidad: '',
         combustible: '',
         image_src: null,
+        descripcion: '',
+        valor_dia: '',
     });
 
 
@@ -41,6 +43,8 @@ const AddModal = ({ closeModal }) => {
             capacidad: formData.capacidad,
             combustible: formData.combustible,
             image_src: null,
+            descripcion: formData.descripcion,
+            valor_dia: formData.valor_dia,
         };
 
         try {
@@ -271,6 +275,30 @@ const AddModal = ({ closeModal }) => {
                                     <option value="hibrido">Híbrido</option>
                                     <option value="electrico">Eléctrico</option>
                                 </select>
+                            </label>
+                            <label htmlFor="descripcion">
+                                Descripción
+                                <textarea
+                                    id="descripcion"
+                                    className="form-input"
+                                    name="descripcion"
+                                    value={formData.descripcion}
+                                    onChange={handleChange}
+                                    placeholder="Añade una descripción del vehículo"
+                                    rows="3"
+                                ></textarea>
+                            </label>
+                            <label htmlFor="valor_dia">
+                                Valor por Día
+                                <input
+                                    id="valor_dia"
+                                    className="form-input"
+                                    type="number"
+                                    name="valor_dia"
+                                    value={formData.valor_dia}
+                                    onChange={handleChange}
+                                    placeholder="Ejemplo: 100.00"
+                                />
                             </label>
                         </div>
                     </div>

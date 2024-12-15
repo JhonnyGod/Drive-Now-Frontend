@@ -60,25 +60,24 @@ const VehicleSection = ({ title, vehicles, icon, openModal }) => {
 
   const handleScroll = (direction) => {
     const container = sectionRef.current;
-    const scrollAmount = container.offsetWidth;
-    const maxScrollLeft = container.scrollWidth - container.offsetWidth;
+    const scrollAmount = container.offsetWidth; // Medimos el ancho del contenedor para hacer scroll proporcional.
+    const totalItems = vehicles.length;
+    const visibleItems = Math.floor(container.offsetWidth / scrollAmount); // Items visibles en la pantalla.
+
+    let newIndex = currentIndex;
 
     if (direction === 'left') {
-      if (currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1);
-      } else {
-        setCurrentIndex(Math.floor(maxScrollLeft / scrollAmount));
-      }
+      // Desplazar hacia la izquierda: retrocedemos, o si estamos en el primer índice, vamos al último
+      newIndex = (newIndex - 1 + totalItems) % totalItems;
     } else if (direction === 'right') {
-      if (currentIndex < Math.floor(maxScrollLeft / scrollAmount)) {
-        setCurrentIndex(currentIndex + 1);
-      } else {
-        setCurrentIndex(0);
-      }
+      // Desplazar hacia la derecha: avanzamos, o si estamos en el último índice, volvemos al primero
+      newIndex = (newIndex + 1) % totalItems;
     }
 
+    setCurrentIndex(newIndex);
+
     container.scrollTo({
-      left: currentIndex * scrollAmount,
+      left: newIndex * scrollAmount,
       behavior: 'smooth',
     });
   };
@@ -157,4 +156,3 @@ const PaginaPrincipal = ({ vehiculos }) => {
 };
 
 export default PaginaPrincipal;
-
