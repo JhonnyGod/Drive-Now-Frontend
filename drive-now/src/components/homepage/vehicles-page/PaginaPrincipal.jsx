@@ -38,7 +38,6 @@ const PaginaPrincipal = ({ vehiculos }) => {
     }
   }, [location]);
 
-
   const handleScroll = (direction, type) => {
     const container = type === 'cars' ? carsRef.current : type === 'camionetas' ? camionetasRef.current : motosRef.current;
     const scrollAmount = 300;

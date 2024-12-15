@@ -17,7 +17,7 @@ export default function VehiculoModal({
     const [payment, setOpenPayment] = useState(false);
     const [dateRange, setDateRange] = useState([null, null]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [editableVehiculo, setEditableVehiculo] = useState(vehiculo); // Estado para los campos editables
+    const [editableVehiculo, setEditableVehiculo] = useState(vehiculo); 
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
     const [priceString, setPriceString] = useState(null);
     const [userSaved, setSavedUser] = useState(null);

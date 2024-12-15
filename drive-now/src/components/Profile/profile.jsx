@@ -2,7 +2,7 @@ import React from 'react';
 import './profile.css';
 import useModalStore from '../../store/useModalStore'
 import useUserStore from '../../store/useUserStore';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const navigator = useNavigate();
@@ -26,7 +26,6 @@ const Profile = () => {
         setOpenProfile(false);
         navigator('/login');  
     }
-
 
     const goaboutyou = () => {
         navigator('/aboutyou');

@@ -2,9 +2,21 @@
 import React from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/Footer/Footer";
+import useModalStore from '../../store/useModalStore'
+import Profile from '../../components/Profile/profile';
 import './homeedition.css';
 
 const About = () => {
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
+
+  const openProfile = () => {
+    setOpenProfile(true);
+  }
+
+  const closeProfileModal = () => {
+    setOpenProfile(false);
+  }
+
   return (
     <div>
       <Header />
@@ -59,6 +71,7 @@ const About = () => {
             </div>
           </div>
         </section>
+        {openProfile && <Profile isOpen={openProfile} onClose={closeProfileModal} />}
       </main>
       <Footer />
     </div>

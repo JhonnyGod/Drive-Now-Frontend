@@ -22,6 +22,7 @@ const AddModal = ({ closeModal }) => {
         image_src: null,
     });
 
+
     const handleAddClose = () => {
         closeModal();
     }

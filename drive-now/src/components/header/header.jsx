@@ -13,7 +13,6 @@ function Header() {
   const [term, setTerm] = React.useState('')
   const inputRef = React.useRef(null)
 
-
   const [searchedData, setSearchedData] = React.useState([])
 
   useEffect(() => {
@@ -63,9 +62,8 @@ function Header() {
     alert("Petición exitosa")
 
     setSearchedData(petition.data.vehicles)
-    navigate('/searchresults', {state: {vehicles: petition.data.vehicles}})
+    navigate('/searchresults', { state: { vehicles: petition.data.vehicles } })
   }
-
 
 
   const navigate = useNavigate();

@@ -2,9 +2,22 @@
 import React from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/Footer/Footer";
+import Profile from '../../components/Profile/profile';
+import useModalStore from '../../store/useModalStore';
+
 import "./homeedition.css";
 
+
 const Services = () => {
+  const setOpenProfile = useModalStore((state) => state.setOpenProfile);
+
+  const openProfile = () => {
+    setOpenProfile(true);
+  }
+
+  const closeProfileModal = () => {
+    setOpenProfile(false);
+  }
   return (
     <div>
       <Header />
@@ -16,7 +29,6 @@ const Services = () => {
               Ofrecemos una experiencia única para que alquilar un vehículo sea cómodo, rápido y emocionante. Conoce lo que nos hace diferentes.
             </p>
           </div>
-
           <div className="services-grid">
             <div className="service-card">
               <div className="service-icon">
@@ -59,6 +71,7 @@ const Services = () => {
             </div>
           </div>
         </section>
+        {openProfile && <Profile isOpen={openProfile} onClose={closeProfileModal} />}
       </main>
       <Footer />
     </div>
