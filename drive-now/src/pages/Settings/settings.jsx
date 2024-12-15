@@ -34,6 +34,10 @@ const Settings = () => {
         navigate('/homeedition');
     }
 
+    const openDevolutionsPage = () => {
+        return
+    }
+
     return (
         <div>
             <div className="header-container">
@@ -60,6 +64,13 @@ const Settings = () => {
                     <div className="delete-description-container">
                         <svg className="delete-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#022F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#022F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#022F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#022F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#022F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                         <p className="delete-description-text">Elimina un vehículo</p>
+                    </div>
+                </div>
+                <div className="devolution-container" onClick={openDevolutionsPage}>
+                    <h2 className="devolution-title">Devoluciones</h2>
+                    <div className="devolution-description-container">
+                    <svg className="devolution-icon" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.9098 12.3488L14.5198 7.32881C14.4298 7.00881 14.6098 6.67881 14.9198 6.57881L19.8798 4.96881" stroke="#022F40" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14.0198 19.7888C17.0198 20.7088 20.2698 18.9288 21.2798 15.8188C22.2898 12.7088 20.6698 9.44882 17.6698 8.53882" stroke="#022F40" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2.4198 12.4988H11.4498" stroke="#022F40" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2.4198 6.62878H11.4498" stroke="#022F40" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2.4198 18.3688H11.4498" stroke="#022F40" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        <p className="add-description-text">Verifica tus devoluciones</p>
                     </div>
                 </div>
                 {openProfile && <Profile isOpen={openProfileModal} onClose={closeProfileModal} />}

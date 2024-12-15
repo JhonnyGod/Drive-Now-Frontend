@@ -13,7 +13,7 @@ const History = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [backModal, setBackModal] = useState(false);
+  const [backModal, setBackModal] = useState({ show: false, rentalId: null });
 
   const setOpenProfile = useModalStore((state) => state.setOpenProfile);
   const openProfile = useModalStore((state) => state.openProfile);
@@ -50,8 +50,8 @@ const History = () => {
     return new Date(dateString).toLocaleDateString('es-ES', options);
   };
 
-  const handleReturnVehicle = async (rentalId) => {
-    setBackModal(true);
+  const handleReturnVehicle = (rentalId) => {
+    setBackModal({ show: true, rentalId: rentalId });
   };
 
   return (
@@ -98,8 +98,11 @@ const History = () => {
                 </div>
               </div>
             ))}
-            {backModal && (
-              <ReturnModal onClose={() => setBackModal(false)} />
+            {backModal.show && (
+              <ReturnModal
+                rentalId={backModal.rentalId} // Se pasa el rentalId al ReturnModal
+                onClose={() => setBackModal({ show: false, rentalId: null })}
+              />
             )}
           </div>
         )}
