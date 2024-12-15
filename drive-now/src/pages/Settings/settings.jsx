@@ -35,7 +35,7 @@ const Settings = () => {
     }
 
     const openDevolutionsPage = () => {
-        return
+        navigate('/devolutions');
     }
 
     return (

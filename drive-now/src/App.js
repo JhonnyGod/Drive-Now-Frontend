@@ -11,6 +11,7 @@ import About from './pages/Homepage/about';
 import Service from './pages/Homepage/service';
 import Aboutyou from './components/Profile/aboutyou';
 import History from './pages/History/history';
+import Devolutions from './components/Settings-pages/devolutions-page/devolutions';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/service" element={<Service/>}/>
           <Route path="/aboutyou" element={<Aboutyou/>}/>
           <Route path="/history" element={<History/>}/>
+          <Route path="/devolutions" element={<Devolutions/>}/>
 
         </Routes>
     </Router>
