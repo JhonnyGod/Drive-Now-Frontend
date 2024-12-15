@@ -5,6 +5,7 @@ import useUserStore from "../../store/useUserStore";
 import useModalStore from "../../store/useModalStore";
 import Profile from "../../components/Profile/profile";
 import "./history.css";
+import ReturnModal from "./ReturnModal/ReturnModal";
 
 const History = () => {
   const user = useUserStore();
@@ -12,6 +13,7 @@ const History = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [backModal, setBackModal] = useState(false);
 
   const setOpenProfile = useModalStore((state) => state.setOpenProfile);
   const openProfile = useModalStore((state) => state.openProfile);
@@ -48,6 +50,10 @@ const History = () => {
     return new Date(dateString).toLocaleDateString('es-ES', options);
   };
 
+  const handleReturnVehicle = async (rentalId) => {
+    setBackModal(true);
+  };
+
   return (
     <div className="history-main-container">
       <Header />
@@ -61,9 +67,9 @@ const History = () => {
           <div className="rental-history">
             {history.map((rental) => (
               <div key={rental.idalquiler} className="rental-card">
-                <img 
-                  src={rental.vehiculo.image_src} 
-                  alt={rental.vehiculo.nombre} 
+                <img
+                  src={rental.vehiculo.image_src}
+                  alt={rental.vehiculo.nombre}
                   className="rental-image"
                 />
                 <div className="rental-details">
@@ -72,14 +78,29 @@ const History = () => {
                   <p>Fecha de inicio: {formatDate(rental.fecha_inicio)}</p>
                   <p>Fecha de fin: {formatDate(rental.fecha_fin)}</p>
                   <p>
-                    Estado: 
-                    <span className={`rental-status ${rental.estado ? 'rental-status-active' : 'rental-status-finished'}`}>
-                      {rental.estado ? 'Activo' : 'Finalizado'}
+                    Estado:
+                    <span
+                      className={`rental-status ${
+                        rental.estado ? "rental-status-active" : "rental-status-finished"
+                      }`}
+                    >
+                      {rental.estado ? "Activo" : "Finalizado"}
                     </span>
                   </p>
+                  {rental.estado && (
+                    <button
+                      className="return-vehicle-button"
+                      onClick={() => handleReturnVehicle(rental.idalquiler)}
+                    >
+                      Devolver vehículo
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
+            {backModal && (
+              <ReturnModal onClose={() => setBackModal(false)} />
+            )}
           </div>
         )}
       </main>
@@ -89,4 +110,3 @@ const History = () => {
 };
 
 export default History;
-
