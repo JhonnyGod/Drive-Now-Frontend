@@ -51,7 +51,7 @@
 
 /* Close Button */
 .close-button-style {
-  position: absolute;
+  position: fixed;
   top: 12px;
   right: 12px;
   width: 28px;
@@ -68,12 +68,13 @@
   transition: all 0.2s ease;
   z-index: 2;
 }
+
 .close-button-style:hover {
   background-color: #e0e0e0;
   color: #333;
 }
 
-                                   
+
 .vm-vehicle-description-input {
   height: 300px;
   width: 500px;
@@ -170,7 +171,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  
+
 }
 
 .vm-rent-button:hover {
@@ -226,37 +227,37 @@
   color: #2c3e50;
   margin-bottom: 12px;
   text-align: center;
+  margin-right: 150px;
 }
 
 /* Modal Content */
 .payment-modal {
   background-color: white;
   border-radius: 16px;
-  padding: 24px;
-  width: 100%;
-  max-width: 460px;
-  max-height: 90vh;
+  width: 1000px;
+  height: 800px;
   position: relative;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease-out;
   overflow-y: auto;
+  border: 2px solid red;  /* Borde temporal para visualizar el tamaño */
 }
+
 /* DatePicker Container */
 .start-date-space {
-  margin: 16px 0;
-  padding: 16px;
   background-color: #056385;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
   box-sizing: border-box;
+  height: 420pxpx;
 }
 
 /* Accept Button */
 .accept-button {
   width: 100%;
   padding: 12px 24px;
-  background-color: #4CAF50;
+  background-color: #022F40;
   color: white;
   border: none;
   border-radius: 8px;
@@ -269,7 +270,7 @@
 }
 
 .accept-button:hover {
-  background-color: #45a049;
+  background-color: #022F40;
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
 }
@@ -277,10 +278,13 @@
 /* Payment Summary Section */
 /* Payment Summary Section */
 .payment-summary {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #e1e1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
 }
+
 .accept-button:active {
   transform: translateY(0);
   box-shadow: none;
@@ -343,6 +347,7 @@
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
@@ -366,38 +371,58 @@
 }
 
 .text-color {
-  display: block; /* Asegura que el texto ocupe toda la línea */
-  margin-bottom: 5px; /* Puedes ajustar el espacio entre el texto y la burbuja */
+  display: block;
+  /* Asegura que el texto ocupe toda la línea */
+  margin-bottom: 5px;
+  /* Puedes ajustar el espacio entre el texto y la burbuja */
   margin-top: 35px;
 }
 
 .color-bubble {
   display: inline-block;
-  width: 20px; /* Tamaño de la burbuja */
-  height: 20px; /* Tamaño de la burbuja */
-  border-radius: 50%; /* Para que sea una burbuja circular */
-  margin-right: 8px; /* Espacio entre la burbuja y el texto */
+  width: 20px;
+  /* Tamaño de la burbuja */
+  height: 20px;
+  /* Tamaño de la burbuja */
+  border-radius: 50%;
+  /* Para que sea una burbuja circular */
+  margin-right: 8px;
+  /* Espacio entre la burbuja y el texto */
   border: 1px solid #333;
 }
 
 
-.price-label{
+.price-label {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   color: #022F40;
-  
+  margin-right: 50px;
+
 }
 
-.price-amount{
+.price-amount {
   font-size: 1.2rem;
   color: #022F40;
   margin-bottom: 1rem;
 }
 
+.gpayButton {
+  position: absolute;  /* Esto lo coloca en el centro exacto */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* Ajuste para centrar completamente */
+}
+
+
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
@@ -405,6 +430,7 @@
     transform: translateY(10px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -414,10 +440,10 @@
 /* Responsive Styles */
 @media (max-width: 1366px) {
   .payment-modal {
-    max-width: 420px;
+    max-width: 600px;
     padding: 20px;
   }
-  
+
   .start-date-space {
     padding: 14px;
   }
@@ -428,7 +454,7 @@
     max-width: 100%;
     margin: 10px;
   }
-  
+
   .payment-title {
     font-size: 18px;
     margin-bottom: 16px;
@@ -439,11 +465,11 @@
   .payment-modal {
     max-height: 85vh;
   }
-  
+
   .start-date-space {
     margin: 12px 0;
   }
-  
+
   .payment-title {
     margin-bottom: 12px;
   }

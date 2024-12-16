@@ -323,7 +323,7 @@ export default function VehiculoModal({
                                 {totalPrice > 0 && (
                                     <div className="payment-summary">
                                         <p className="payment-total">Total a pagar: ${totalPrice}</p>
-                                        <GooglePayComponent transactionData={transactionData} priceString={priceString} />
+                                        <GooglePayComponent className = 'gpayButton 'transactionData={transactionData} priceString={priceString} />
                                     </div>
                                 )}
                             </div>
