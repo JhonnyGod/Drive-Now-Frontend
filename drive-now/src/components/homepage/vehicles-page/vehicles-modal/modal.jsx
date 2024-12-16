@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import useUserStore from '../../../../store/useUserStore';
-import { json, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import StyledDatePicker from './DatePicker/Datepicker';
 import GooglePayComponent from '../../../../payments/GooglePayButton';
 import usePaymentStatus from '../../../../store/PaymentStatus';
+import axios from 'axios'; // Importar Axios para las solicitudes HTTP
 
 export default function VehiculoModal({
     vehiculo,
     onClose,
-    isEditMode = false,
+    isEditMode = false, // Esto será controlado por la ruta
     onEditSave = () => { },
 }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,25 +18,13 @@ export default function VehiculoModal({
     const [payment, setOpenPayment] = useState(false);
     const [dateRange, setDateRange] = useState([null, null]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [editableVehiculo, setEditableVehiculo] = useState(vehiculo);
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
     const [priceString, setPriceString] = useState(null);
-    const [userSaved, setSavedUser] = useState(null);
     const [transactionData, setTransactionData] = useState(null);
-    const [formData, setFormData] = useState({
-        nombre: '',
-        matricula: '',
-        tipovehiculo: 'Coche',
-        modelo: '',
-        color: '',
-        cilindraje: '',
-        marca: '',
-        capacidad: '',
-        combustible: 'gasolina',
-        image_src: null,
-    });
 
+    // Estado para los datos del vehículo
     const [editableFormData, setEditableFormData] = useState({
+        idvehiculo: vehiculo.idvehiculo,
         nombre: vehiculo.nombre,
         matricula: vehiculo.matricula,
         tipovehiculo: vehiculo.tipovehiculo,
@@ -47,7 +36,8 @@ export default function VehiculoModal({
         combustible: vehiculo.combustible,
         image_src: vehiculo.image_src,
         descripcion: vehiculo.descripcion,
-    })
+        valor_dia: vehiculo.valor_dia,
+    });
 
     const colorMap = {
         rojo: 'red',
@@ -60,6 +50,10 @@ export default function VehiculoModal({
     };
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Determinamos si estamos en modo edición según la ruta actual
+    const isInEditMode = location.pathname === '/homeedition';
 
     useEffect(() => {
         setIsOpen(true);
@@ -101,14 +95,14 @@ export default function VehiculoModal({
             confirmRental(calculatedTotalPrice);
             setTotalPrice(calculatedTotalPrice);
 
-            const transaction_user_id = useUserStore.getState().user.user_id
+            const transaction_user_id = useUserStore.getState().user.user_id;
 
             setTransactionData({
                 idvehiculo: vehiculo.idvehiculo,
                 idusuario: transaction_user_id,
                 fecha_inicio: startDate,
                 fecha_fin: endDate,
-            })
+            });
         } else {
             console.log("Por favor selecciona ambas fechas.");
         }
@@ -123,34 +117,50 @@ export default function VehiculoModal({
         const { name, value, files } = e.target;
 
         if (e.target.type === 'file') {
-
             setEditableFormData({
                 ...editableFormData,
                 [name]: files[0],
             });
         } else {
-
             setEditableFormData({
                 ...editableFormData,
                 [name]: value,
             });
         }
     };
-    const handleSave = () => {
-        onEditSave(editableVehiculo);
-        handleClose();
+
+    // Función para guardar los cambios en el backend
+    const handleSave = async () => {
+        try {
+            // Realizamos la solicitud POST al backend para actualizar la información del vehículo
+            const response = await axios.post('http://localhost:3000/vehiculos/editarvehiculo', editableFormData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.data.ok) {
+                alert('Vehículo actualizado con éxito');
+                onEditSave(editableFormData);  // Pasamos los datos actualizados al padre
+                handleClose();  // Cerramos el modal
+            } else {
+                alert('Error al actualizar el vehículo: ' + response.data.message);
+            }
+        } catch (error) {
+            alert('Error al guardar los cambios: ' + error.message);
+        }
     };
 
     return (
         paymentStatus === 'SUCCESS' ? null : (
-            <div className={`vm-modal-overlay ${isOpen ? 'vm-open' : ''}`}>
-                <div className={`vm-modal-content ${isOpen ? 'vm-open' : ''}`}>
-                    <button className="vm-modal-close" onClick={handleClose}>&times;</button>
+            <div className={`vm-modal-overlay ${isOpen ? 'vm-open' : ''}`} onClick={handleClose}>
+                <div className={`vm-modal-content ${isOpen ? 'vm-open' : ''}`} onClick={(e) => e.stopPropagation()}>
+                    <button className="vm-modal-close" onClick={handleClose}>×</button>
                     {payment ? null : (
                         <div className="vm-modal-body">
                             <div className="vm-vehicle-details">
                                 <div className="vm-vehicle-image-container">
-                                    {isEditMode ? (
+                                    {isInEditMode ? (  // Aquí utilizamos la variable isInEditMode
                                         <>
                                             <input
                                                 type="file"
@@ -175,13 +185,11 @@ export default function VehiculoModal({
                                             className="vm-vehicle-image"
                                         />
                                     )}
-
-
                                 </div>
 
                                 <div className="vm-vehicle-info">
                                     <h2 className="vm-vehicle-title">
-                                        {isEditMode ? (
+                                        {isInEditMode ? (  // Aquí también controlamos si está en modo edición
                                             <input
                                                 type="text"
                                                 name="nombre"
@@ -198,7 +206,7 @@ export default function VehiculoModal({
                                     <div className="vm-vehicle-features">
                                         <div className="vm-feature">
                                             <span className="vm-feature-icon">🚗</span>
-                                            {isEditMode ? (
+                                            {isInEditMode ? (
                                                 <input
                                                     type="text"
                                                     name="tipovehiculo"
@@ -213,7 +221,7 @@ export default function VehiculoModal({
 
                                         <div className="vm-feature">
                                             <span className="vm-feature-icon">🏷️</span>
-                                            {isEditMode ? (
+                                            {isInEditMode ? (
                                                 <input
                                                     type="text"
                                                     name="marca"
@@ -228,7 +236,7 @@ export default function VehiculoModal({
 
                                         <div className="vm-feature">
                                             <span className="vm-feature-icon">🎨</span>
-                                            {isEditMode ? (
+                                            {isInEditMode ? (
                                                 <input
                                                     type="text"
                                                     name="color"
@@ -241,16 +249,14 @@ export default function VehiculoModal({
                                                     <div className='text-color'>Color {vehiculo.color}</div>
                                                     <span
                                                         className="color-bubble"
-                                                        style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }}>
-                                                    </span>
-
+                                                        style={{ backgroundColor: colorMap[vehiculo.color.toLowerCase()] || 'gray' }} />
                                                 </li>
                                             )}
                                         </div>
 
                                         <div className="vm-feature">
                                             <span className="vm-feature-icon">📅</span>
-                                            {isEditMode ? (
+                                            {isInEditMode ? (
                                                 <input
                                                     type="text"
                                                     name="modelo"
@@ -262,10 +268,56 @@ export default function VehiculoModal({
                                                 <span>Modelo: {vehiculo.modelo}</span>
                                             )}
                                         </div>
+
+                                        <div className="vm-feature">
+                                            <span className="vm-feature-icon">🔧</span>
+                                            {isInEditMode ? (
+                                                <input
+                                                    type="text"
+                                                    name="cilindraje"
+                                                    value={editableFormData.cilindraje}
+                                                    onChange={handleChange}
+                                                    placeholder="Cilindraje"
+                                                />
+                                            ) : (
+                                                <span>Cilindraje: {vehiculo.cilindraje}</span>
+                                            )}
+                                        </div>
+
+                                        <div className="vm-feature">
+                                            <span className="vm-feature-icon">🏋️</span>
+                                            {isInEditMode ? (
+                                                <input
+                                                    type="text"
+                                                    name="capacidad"
+                                                    value={editableFormData.capacidad}
+                                                    onChange={handleChange}
+                                                    placeholder="Capacidad"
+                                                />
+                                            ) : (
+                                                <span>Capacidad: {vehiculo.capacidad}</span>
+                                            )}
+                                        </div>
+
+                                        <div className="vm-feature">
+                                            <span className="vm-feature-icon">⛽</span>
+                                            {isInEditMode ? (
+                                                <input
+                                                    type="text"
+                                                    name="combustible"
+                                                    value={editableFormData.combustible}
+                                                    onChange={handleChange}
+                                                    placeholder="Combustible"
+                                                />
+                                            ) : (
+                                                <span>Combustible: {vehiculo.combustible}</span>
+                                            )}
+                                        </div>
+
                                     </div>
                                     <div className="vm-vehicle-full-description">
                                         <h3>Descripción</h3>
-                                        {isEditMode ? (
+                                        {isInEditMode ? (
                                             <textarea
                                                 name="descripcion"
                                                 value={editableFormData.descripcion}
@@ -277,11 +329,22 @@ export default function VehiculoModal({
                                             <p>{vehiculo.descripcion}</p>
                                         )}
                                     </div>
-                                    <div className='price-container'>
-                                        <h1 className='price-label'>Precio</h1>
-                                        <p className='price-amount'>${vehiculo.valor_dia} USD</p>
-                                    </div>
-                                    {isEditMode ? (
+                                    {isInEditMode ? (
+                                        // Modo edición: el precio es editable
+                                        <input
+                                            type="number"
+                                            name="valor_dia"
+                                            value={editableFormData.valor_dia}
+                                            onChange={handleChange}
+                                            className="price-input"
+                                            placeholder="Valor por día"
+                                        />
+                                    ) : (
+                                        // Modo no edición: el precio es solo texto
+                                        <p>{vehiculo.valor_dia} USD</p>
+                                    )}
+
+                                    {isInEditMode ? (
                                         <button className="save-button" onClick={handleSave}>
                                             Guardar Cambios
                                         </button>
@@ -297,39 +360,8 @@ export default function VehiculoModal({
                             </div>
                         </div>
                     )}
-                    {payment && (
-                        <div className="payment-body">
-                            <div className="payment-modal">
-                                {/* Botón de cerrar del modal de pago */}
-                                <button className="close-button-style" onClick={() => setOpenPayment(false)}>
-                                    ×
-                                </button>
-
-                                <h1 className="payment-title">
-                                    Selecciona tu fecha de inicio y finalización de alquiler
-                                </h1>
-
-                                <div className="start-date-space">
-                                    <StyledDatePicker
-                                        dateRange={dateRange}
-                                        setDateRange={setDateRange}
-                                    />
-                                </div>
-                                <button className="accept-button" onClick={handleRentPetition}>
-                                    Aceptar
-                                </button>
-
-                                {totalPrice > 0 && (
-                                    <div className="payment-summary">
-                                        <p className="payment-total">Total a pagar: ${totalPrice}</p>
-                                        <GooglePayComponent transactionData={transactionData} priceString={priceString} />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
+                </div >
+            </div >
         )
     );
 }
