@@ -8,15 +8,12 @@ export default function GooglePayComponent({ transactionData, priceString }) {
     const { id_usuario, id_vehiculo } = transactionData;
 
     console.log("Lo que recibe", transactionData)
-
-
     const handlePaymentSuccess = () => {
         isPaymentSuccess();
         if (isPaymentSuccess) {
             finishRent();
         }
     };
-
     const finishRent = async () => {
        try {
         const saveRent = await axios.post('http://localhost:3000/renta/alquilarvehiculo', {

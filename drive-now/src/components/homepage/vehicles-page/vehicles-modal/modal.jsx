@@ -17,13 +17,11 @@ export default function VehiculoModal({
     const [payment, setOpenPayment] = useState(false);
     const [dateRange, setDateRange] = useState([null, null]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [editableVehiculo, setEditableVehiculo] = useState(vehiculo); 
+    const [editableVehiculo, setEditableVehiculo] = useState(vehiculo);
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
     const [priceString, setPriceString] = useState(null);
     const [userSaved, setSavedUser] = useState(null);
-
     const [transactionData, setTransactionData] = useState(null);
-
     const [formData, setFormData] = useState({
         nombre: '',
         matricula: '',
@@ -301,20 +299,30 @@ export default function VehiculoModal({
                     )}
                     {payment && (
                         <div className="payment-body">
-                            <div className="start-date-space">
-                                <h1 className="start-date-title">
+                            <div className="payment-modal">
+                                {/* Botón de cerrar del modal de pago */}
+                                <button className="close-button-style" onClick={() => setOpenPayment(false)}>
+                                    ×
+                                </button>
+
+                                <h1 className="payment-title">
                                     Selecciona tu fecha de inicio y finalización de alquiler
                                 </h1>
-                                <StyledDatePicker
-                                    dateRange={dateRange}
-                                    setDateRange={setDateRange}
-                                />
-                                <button className="aceptar-button" onClick={handleRentPetition}>
+
+                                <div className="start-date-space">
+                                    <StyledDatePicker
+                                        dateRange={dateRange}
+                                        setDateRange={setDateRange}
+                                    />
+                                </div>
+
+                                <button className="accept-button" onClick={handleRentPetition}>
                                     Aceptar
                                 </button>
+
                                 {totalPrice > 0 && (
-                                    <div>
-                                        <p>Total a pagar: ${totalPrice}</p>
+                                    <div className="payment-summary">
+                                        <p className="payment-total">Total a pagar: ${totalPrice}</p>
                                         <GooglePayComponent transactionData={transactionData} priceString={priceString} />
                                     </div>
                                 )}

@@ -37,7 +37,6 @@ const Settings = () => {
     const openDevolutionsPage = () => {
         navigate('/devolutions');
     }
-
     return (
         <div>
             <div className="header-container">
