@@ -13,7 +13,8 @@ const History = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [backModal, setBackModal] = useState({ show: false, rentalId: null });
+  const [backModal, setBackModal] = useState(false);
+  const [currentRentalId, setCurrentRentalId] = useState(null);  // Estado para almacenar rentalId actual
 
   const setOpenProfile = useModalStore((state) => state.setOpenProfile);
   const openProfile = useModalStore((state) => state.openProfile);
@@ -51,7 +52,8 @@ const History = () => {
   };
 
   const handleReturnVehicle = (rentalId) => {
-    setBackModal({ show: true, rentalId: rentalId });
+    setCurrentRentalId(rentalId);  // Guarda el rentalId cuando se hace clic
+    setBackModal(true);  // Muestra el modal
   };
 
   return (
@@ -90,7 +92,7 @@ const History = () => {
                   {rental.estado && (
                     <button
                       className="return-vehicle-button"
-                      onClick={() => handleReturnVehicle(rental.idalquiler)}
+                      onClick={() => handleReturnVehicle(rental.idalquiler)} // Pasa el id al hacer clic
                     >
                       Devolver vehículo
                     </button>
@@ -98,11 +100,8 @@ const History = () => {
                 </div>
               </div>
             ))}
-            {backModal.show && (
-              <ReturnModal
-                rentalId={backModal.rentalId} // Se pasa el rentalId al ReturnModal
-                onClose={() => setBackModal({ show: false, rentalId: null })}
-              />
+            {backModal && (
+              <ReturnModal rentalId={currentRentalId} onClose={() => setBackModal(false)} />
             )}
           </div>
         )}

@@ -38,13 +38,13 @@ const Devolutions = () => {
                 alert('Error al aceptar la devolución');
             }
         alert('Devolución aceptada');
+        navigator('/devolutions');
         } catch (error) {
             console.error('Error al aceptar la devolución', error);
             alert('Error al aceptar la devolución');
         }
-        navigator('/devolutions');
+        
     }
-
     return (
         <div>
             <Header />

@@ -14,6 +14,14 @@ const ReturnModal = ({ rentalId, onClose }) => {  // Se recibe rentalId como pro
         e.preventDefault();
         sendDevolutionPetition();
         console.log("Rental ID: ", rentalId); 
+
+        console.log({
+            rentalId: rentalId,
+            goodCondition: goodCondition,
+            earlyReturn: earlyReturn,
+            earlyReturnReason: earlyReturnReason,
+            rating: rating,
+        })
         setShowConfirmation(true);
     };
 
@@ -27,6 +35,7 @@ const ReturnModal = ({ rentalId, onClose }) => {  // Se recibe rentalId como pro
     });
 
     
+
 };
 
     return (
