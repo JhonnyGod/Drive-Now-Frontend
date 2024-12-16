@@ -315,7 +315,6 @@ export default function VehiculoModal({
                                         setDateRange={setDateRange}
                                     />
                                 </div>
-
                                 <button className="accept-button" onClick={handleRentPetition}>
                                     Aceptar
                                 </button>
@@ -323,7 +322,7 @@ export default function VehiculoModal({
                                 {totalPrice > 0 && (
                                     <div className="payment-summary">
                                         <p className="payment-total">Total a pagar: ${totalPrice}</p>
-                                        <GooglePayComponent className = 'gpayButton 'transactionData={transactionData} priceString={priceString} />
+                                        <GooglePayComponent transactionData={transactionData} priceString={priceString} />
                                     </div>
                                 )}
                             </div>
