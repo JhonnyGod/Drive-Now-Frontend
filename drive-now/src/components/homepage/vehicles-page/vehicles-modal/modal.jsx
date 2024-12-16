@@ -63,7 +63,7 @@ export default function VehiculoModal({
         if (paymentStatus === 'SUCCESS') {
             setOpenPayment(false);
             setIsOpen(false);
-            navigate('/home?paymentSuccess=true');
+            navigate('/');
             alert('Pago exitoso!');
             setTimeout(() => {
                 setPaymentStatus(null);
@@ -77,7 +77,7 @@ export default function VehiculoModal({
     };
 
     const handleRent = () => {
-        setOpenPayment(true);
+        setOpenPayment(true)
     };
 
     const confirmRental = (calculatedTotalPrice) => {
@@ -161,13 +161,12 @@ export default function VehiculoModal({
             if (deletePetition.status === 200) {
                 alert('Vehículo eliminado con éxito');
                 onClose();
-                navigate('/');
             }
 
         } catch (error) {
-                alert('Error al eliminar el vehículo');
-                console.log('Error al eliminar el vehículo:', error);
-            }
+
+            console.log('Error al eliminar el vehículo:', error);
+        }
     }
 
     return (
@@ -375,32 +374,63 @@ export default function VehiculoModal({
                                             {hasSession() ? 'Alquilar' : 'Logearse'}
                                         </button>
                                     )}
-
-                                    {isInEditMode ? (
-                                        <button className="delete-vehicle" onClick={handleDelete}>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                className="feather feather-trash"
-                                            >
-                                                <polyline points="3 6 5 6 21 6"></polyline>
-                                                <path d="M19 6L5 6 5 19a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
-                                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                                            </svg>
-                                            Eliminar vehículo
-                                        </button>
-                                    ) : null}
                                 </div>
                             </div>
                         </div>
                     )}
-                </div >
+                    {payment && (
+                        <div className="payment-body">
+                            <div className="payment-modal">
+                                {/* Botón de cerrar del modal de pago */}
+                                <button className="close-button-style" onClick={() => setOpenPayment(false)}>
+                                    ×
+                                </button>
+
+                                <h1 className="payment-title">
+                                    Selecciona tu fecha de inicio y finalización de alquiler
+                                </h1>
+
+                                <div className="start-date-space">
+                                    <StyledDatePicker
+                                        dateRange={dateRange}
+                                        setDateRange={setDateRange}
+                                    />
+                                </div>
+
+                                <button className="accept-button" onClick={handleRentPetition}>
+                                    Aceptar
+                                </button>
+
+                                {totalPrice > 0 && (
+                                    <div className="payment-summary">
+                                        <p className="payment-total">Total a pagar: ${totalPrice}</p>
+                                        <GooglePayComponent className='gpayButton ' transactionData={transactionData} priceString={priceString} />
+                                    </div>
+                                )}
+                                {isInEditMode ? (
+                                    <button className="delete-vehicle" onClick={handleDelete}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            className="feather feather-trash"
+                                        >
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6L5 6 5 19a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                        Eliminar vehículo
+                                    </button>
+                                ) : null}
+                            </div>
+                        </div>
+                    )}
+            </div >
             </div >
         )
     );
