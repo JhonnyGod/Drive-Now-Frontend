@@ -396,7 +396,6 @@ export default function VehiculoModal({
                                         setDateRange={setDateRange}
                                     />
                                 </div>
-
                                 <button className="accept-button" onClick={handleRentPetition}>
                                     Aceptar
                                 </button>

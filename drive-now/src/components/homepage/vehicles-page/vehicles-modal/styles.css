@@ -240,7 +240,6 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease-out;
   overflow-y: auto;
-  border: 2px solid red;  /* Borde temporal para visualizar el tamaño */
 }
 
 /* DatePicker Container */
