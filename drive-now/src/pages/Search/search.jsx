@@ -26,7 +26,7 @@ const ResultsPage = () => {
 
     // Estado y configuración de la paginación.
     const [currentPage, setCurrentPage] = useState(1);
-    const vehiclesPerPage = 2; // Número de vehículos por página.
+    const vehiclesPerPage = 10; // Número de vehículos por página.
 
     // Calcular índices de paginación.
     const indexOfLastVehicle = currentPage * vehiclesPerPage;

@@ -58,26 +58,29 @@ const VehicleSection = ({ title, vehicles, icon, openModal }) => {
   const sectionRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleScroll = (direction) => {
+  const handleScroll = (direction, steps = 5) => {
     const container = sectionRef.current;
-    const scrollAmount = container.offsetWidth; // Medimos el ancho del contenedor para hacer scroll proporcional.
+    const cardWidth = container.scrollWidth / vehicles.length; // Ancho de una tarjeta
     const totalItems = vehicles.length;
-    const visibleItems = Math.floor(container.offsetWidth / scrollAmount); // Items visibles en la pantalla.
-
+    const visibleItems = Math.floor(container.offsetWidth / cardWidth); // Tarjetas visibles en pantalla
+  
     let newIndex = currentIndex;
-
+  
     if (direction === 'left') {
-      // Desplazar hacia la izquierda: retrocedemos, o si estamos en el primer índice, vamos al último
-      newIndex = (newIndex - 1 + totalItems) % totalItems;
+      // Desplazar hacia la izquierda
+      newIndex = (newIndex - steps + totalItems) % totalItems;
     } else if (direction === 'right') {
-      // Desplazar hacia la derecha: avanzamos, o si estamos en el último índice, volvemos al primero
-      newIndex = (newIndex + 1) % totalItems;
+      // Desplazar hacia la derecha
+      newIndex = (newIndex + steps) % totalItems;
     }
-
+  
     setCurrentIndex(newIndex);
-
+  
+    // Calcular el desplazamiento total
+    const totalScroll = newIndex * cardWidth;
+  
     container.scrollTo({
-      left: newIndex * scrollAmount,
+      left: totalScroll, // Mueve al índice correcto directamente
       behavior: 'smooth',
     });
   };

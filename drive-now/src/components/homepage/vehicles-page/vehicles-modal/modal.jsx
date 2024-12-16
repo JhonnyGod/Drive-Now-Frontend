@@ -151,6 +151,25 @@ export default function VehiculoModal({
         }
     };
 
+    const handleDelete = async () => {
+
+        try {
+            const deletePetition = await axios.post('http://localhost:3000/vehiculos/eliminarvehiculo', {
+                idvehiculo: editableFormData.idvehiculo,
+            });
+
+            if (deletePetition.status === 200) {
+                alert('Vehículo eliminado con éxito');
+                onClose();
+                navigate('/');
+            }
+
+        } catch (error) {
+                alert('Error al eliminar el vehículo');
+                console.log('Error al eliminar el vehículo:', error);
+            }
+    }
+
     return (
         paymentStatus === 'SUCCESS' ? null : (
             <div className={`vm-modal-overlay ${isOpen ? 'vm-open' : ''}`} onClick={handleClose}>
@@ -160,7 +179,7 @@ export default function VehiculoModal({
                         <div className="vm-modal-body">
                             <div className="vm-vehicle-details">
                                 <div className="vm-vehicle-image-container">
-                                    {isInEditMode ? (  // Aquí utilizamos la variable isInEditMode
+                                    {isInEditMode ? (
                                         <>
                                             <input
                                                 type="file"
@@ -356,6 +375,27 @@ export default function VehiculoModal({
                                             {hasSession() ? 'Alquilar' : 'Logearse'}
                                         </button>
                                     )}
+
+                                    {isInEditMode ? (
+                                        <button className="delete-vehicle" onClick={handleDelete}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                className="feather feather-trash"
+                                            >
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6L5 6 5 19a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg>
+                                            Eliminar vehículo
+                                        </button>
+                                    ) : null}
                                 </div>
                             </div>
                         </div>
