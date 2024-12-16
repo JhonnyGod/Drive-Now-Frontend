@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Header from "../../header/header";
 import './devolutions.css';
+import { useNavigate } from 'react-router-dom';
 
 const Devolutions = () => {
+    const navigator = useNavigate();
     const [processes, setProcesses] = useState([]);
 
     useEffect(() => {
@@ -23,8 +25,25 @@ const Devolutions = () => {
     }, []);
 
     const handleAcceptDevolution = (id) => {
-        console.log(`Devolución aceptada para el alquiler ID: ${id}`);
+        finishDevolution(id);
     };
+
+    const finishDevolution = async (id) => {
+        console.log(id);
+        try {
+            const petition = await axios.post('http://localhost:3000/vehiculos/aceptardevolucion', {
+                idalquiler: id
+            });
+            if (petition.status !== 200) {
+                alert('Error al aceptar la devolución');
+            }
+        alert('Devolución aceptada');
+        } catch (error) {
+            console.error('Error al aceptar la devolución', error);
+            alert('Error al aceptar la devolución');
+        }
+        navigator('/devolutions');
+    }
 
     return (
         <div>
