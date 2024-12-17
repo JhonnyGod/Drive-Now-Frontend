@@ -27,7 +27,6 @@ export default function GooglePayComponent({ transactionData, priceString }) {
          if(saveRent.status != 200){
              alert('Algo salió mal mientras se realizaba la renta. Intenta nuevamente.');
          }
-         alert('Renta realizada con éxito');
        } catch (error) {
            console.error('Error al realizar la renta:', error);
            alert('Algo salió mal mientras se realizaba la renta. Intenta nuevamente.');

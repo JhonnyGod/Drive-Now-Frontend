@@ -6,7 +6,6 @@ import StyledDatePicker from './DatePicker/Datepicker';
 import GooglePayComponent from '../../../../payments/GooglePayButton';
 import usePaymentStatus from '../../../../store/PaymentStatus';
 import axios from 'axios'; // Importar Axios para las solicitudes HTTP
-
 export default function VehiculoModal({
     vehiculo,
     onClose,
@@ -21,6 +20,8 @@ export default function VehiculoModal({
     const { paymentStatus, setPaymentStatus } = usePaymentStatus();
     const [priceString, setPriceString] = useState(null);
     const [transactionData, setTransactionData] = useState(null);
+    const [rentNotification, setRentNotification] = useState(false);
+    const [isRentNotificationSent, setIsRentNotificationSent] = useState(false);
 
     // Estado para los datos del vehículo
     const [editableFormData, setEditableFormData] = useState({
@@ -52,7 +53,6 @@ export default function VehiculoModal({
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Determinamos si estamos en modo edición según la ruta actual
     const isInEditMode = location.pathname === '/homeedition';
 
     useEffect(() => {
@@ -60,17 +60,22 @@ export default function VehiculoModal({
     }, []);
 
     useEffect(() => {
-        if (paymentStatus === 'SUCCESS') {
+        if (paymentStatus === 'SUCCESS' && !isRentNotificationSent) { // Solo ejecuta si no se ha enviado aún
+            setIsRentNotificationSent(true); // Marca como enviado para evitar repeticiones
             setOpenPayment(false);
             setIsOpen(false);
-            navigate('/');
-            alert('Pago exitoso!');
+            setRentNotification(true);
+    
+            navigate('/', {
+                state: { rentNotification: true } // Enviar el estado solo una vez
+            });
+    
             setTimeout(() => {
                 setPaymentStatus(null);
                 onClose();
             }, 300);
         }
-    }, [paymentStatus, navigate, onClose, setPaymentStatus]);
+    }, [paymentStatus, navigate, onClose, setPaymentStatus, isRentNotificationSent]);
 
     const handleLogin = () => {
         navigate('/login');
@@ -129,7 +134,6 @@ export default function VehiculoModal({
         }
     };
 
-    // Función para guardar los cambios en el backend
     const handleSave = async () => {
         try {
             // Realizamos la solicitud POST al backend para actualizar la información del vehículo
